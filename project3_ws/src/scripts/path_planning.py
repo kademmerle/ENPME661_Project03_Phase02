@@ -490,5 +490,8 @@ print("selection of dt relative to RPM and grid size is important")
 (solution_path, cost_to_come, parent, cost_matrix, explored_path, V, goal_state_reached
 ) = a_star(start, goal, map_img, cost_matrix, obstacles, r, dt, control_inputs)
 
-# %%
+
 plot_cost_matrix(cost_matrix, start, goal, title="Cost Matrix Heatmap")
+
+
+# %%
