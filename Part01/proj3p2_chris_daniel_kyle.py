@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Mar 23 16:43:50 2025
-
-@author: kyle
-"""
 
 #############################
 # Dependencies
@@ -23,7 +18,7 @@ from collections import deque
 ###########################
 
 # Screen dimensions
-rows, cols = (615,250)
+rows, cols = (540,300)
 
 # Define Lists
 OL = []
@@ -106,34 +101,39 @@ def round_and_get_v_index(node):
 
    return (x, y, theta), x_v_idx, y_v_idx, theta_v_idx
 
-def get_xy(node, move_theta, r):
+def get_xy(node, dx, dy, d_theta):
     
-    theta = node[2] + move_theta
-    x     = node[0] + r * np.cos(np.deg2rad(theta))
-    y     = node[1] + r * np.sin(np.deg2rad(theta))
+    theta = node[2] + d_theta
+    x     = node[0] + dx
+    y     = node[1] + dy
 
     return (x, y, theta)
 
-def move_theta_0(node, r):
-    theta =  0
-    return get_xy(node, theta, r), r
+# def move_theta_0(node, r):
+#     theta =  0
+#     return get_xy(node, theta, r), r
 
+# def move_diag_up_30(node, r):
+#     theta = 30
+#     return get_xy(node, theta, r), r
 
-def move_diag_up_30(node, r):
-    theta = 30
-    return get_xy(node, theta, r), r
+# def move_diag_up_60(node, r):
+#     theta = 60
+#     return get_xy(node, theta, r), r
 
-def move_diag_up_60(node, r):
-    theta = 60
-    return get_xy(node, theta, r), r
+# def move_diag_down_30(node, r):
+#     theta = -30
+#     return get_xy(node, theta, r), r
 
-def move_diag_down_30(node, r):
-    theta = -30
-    return get_xy(node, theta, r), r
+# def move_diag_down_60(node, r):
+#     theta = -60
+#     return get_xy(node, theta, r), r
 
-def move_diag_down_60(node, r):
-    theta = -60
-    return get_xy(node, theta, r), r
+def move_set(node, u_l, u_r, r, L, dt):
+    dx = (r/2)*(u_r + u_l) * np.cos(np.deg2rad(node[2]))*dt
+    dy = (r/2)*(u_r + u_l) * np.sin(np.deg2rad(node[2]))*dt
+    d_theta = (r/L) * (u_r - u_l) * dt
+    return get_xy(node, dx, dy, d_theta), dt
 
 
 # Define the object space for all letters/numbers in the maze
@@ -142,46 +142,26 @@ def move_diag_down_60(node, r):
 # Returns: True if in Object Space, False if not
 def InObjectSpace(x, y):
         
-    # Define Object space for E
-    if (((45<=x<=60) and (65<=y<=200)) or \
-    ((60<=x<=84) and ((65<=y<=90) or (120<=y<=145) or (175<=y<=200)))):
+    # Define Object 1
+    if ((99<=x<=109) and (99<=y<=299)):
         return True
     
-    # Define Object Space for N
-    elif (((99<=x<=114) and (65<=y<=200)) or \
-    ((y-2.92*x+228.75 <= 0) and (y-2.92*x+272.5 >= 0) and (114<=x<=147) and (65<=y<=200)) or \
-    ((147<=x<=162) and (65<=y<=200))):
+    # Define Object 2
+    elif ((209<=x<=219) and (0<=y<=199)):
         return True
     
-    # Define Object Space for P
-    elif (((177<=x<=192) and (65<=y<=200)) or ((((x-198)**2 + (y-99)**2 - 1225)<0)) and 192<=x<=235):
+    # Define Object 3
+    elif (((319<=x<=329) and (0<=y<=99)) or \
+          ((319<=x<=329) and (199<=y<=299))):
         return True
     
-    # Define Object Space for M
-    elif((((250<=x<=265) or (342<=x<=357)) and (65<=y<=200)) or \
-        ((y-3.04*x+700.87<=0) and (y-3.04*x+746.52>=0) and (266<=x<=340) and (65<=y<=200)) or \
-        ((y+3.04*x-1146.87<=0) and (y+3.04*x-1100.52>=0) and (267<=x<=341) and (65<=y<=200))):
+    # Define Object 4
+    elif((429<=x<=439) and (99<=y<=299)):
         return True
-    
-    # Define Object Space for 6
-    elif(((((x-410)**2+(y-160)**2 - 1444)<=0)and(((x-410)**2+(y-160)**2 - 100)>=0)) or \
-        ((372<=x<=390) and (65<=y<=165)) or \
-        ((387<=x<=410) and (65<=y<=75))):
-        return True
-    
-    # Define Object Space for 6
-    elif (((((x-501)**2+(y-160)**2 - 1444)<=0)and(((x-501)**2+(y-160)**2 - 100)>=0)) or \
-          ((463<=x<=481) and (65<=y<=165)) or \
-          ((478<=x<=501) and (65<=y<=75))):
-        return True
-    
-    # Define Object Space for 1
-    elif((554<=x<=569) and (65<=y<=200)):
-        return True
-    
+
     # Define Object Space for walls
-    elif((x==0 and 0<=y<=249) or (x==614 and (0<=y<=249)) or \
-        ((0<=x<=614) and y==0) or ((0<=x<=614) and y==249)):
+    elif((x==0 and 0<=y<=299) or (x==539 and (0<=y<=299)) or \
+         ((0<=x<=539) and y==0) or ((0<=x<=539) and y==299)):
         return True
 
     # Default case, non-object space    
@@ -238,7 +218,7 @@ def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
         for y in range(0,cols):
             in_obj = InObjectSpace(x,y)
             if (in_obj):
-                pxarray[x,y] = pygame.Color(pallet["white"])
+                pxarray[x,y] = pygame.Color(pallet["black"])
             else:
                 if(((InObjectSpace(x+buff_mod,y)) or\
                    (InObjectSpace(x-buff_mod,y)) or\
@@ -247,24 +227,24 @@ def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
                    (InObjectSpace(x+buff_mod,y+buff_mod)) or\
                    (InObjectSpace(x-buff_mod,y-buff_mod)) or\
                    (InObjectSpace(x+buff_mod,y-buff_mod)) or\
-                   (InObjectSpace(x-buff_mod,y+buff_mod))) and ((buff_mod<x<(613-buff_mod) and (buff_mod<y<(248-buff_mod))))):
+                   (InObjectSpace(x-buff_mod,y+buff_mod))) and ((buff_mod<x<(538-buff_mod) and (buff_mod<y<(298-buff_mod))))):
                     pxarray[x,y] = pygame.Color(pallet["green"])
-                elif(0<x<=buff_mod or (614-buff_mod)<=x<614 or 0<y<=buff_mod or (248-buff_mod)<=y<249):
+                elif(0<y<=buff_mod or (298-buff_mod)<=y<299):
                      pxarray[x,y] = pygame.Color(pallet["green"])
                 else:
-                    pxarray[x,y] = pygame.Color(pallet["black"])
+                    pxarray[x,y] = pygame.Color(pallet["white"])
 
 def FillCostMatrix(C2C, pxarray, pallet, thresh):
     for x in range(0, int(rows/thresh)):
         for y in range(0, int(cols/thresh)):
-            if((pxarray[int(math.floor(x*thresh)), int(math.floor(y*thresh))] == screen.map_rgb(pallet["white"])) or \
+            if((pxarray[int(math.floor(x*thresh)), int(math.floor(y*thresh))] == screen.map_rgb(pallet["black"])) or \
                (pxarray[int(math.floor(x*thresh)), int(math.floor(y*thresh))] == screen.map_rgb(pallet["green"]))):
                 C2C[x,y] = -1
             else:
                 C2C[x,y] = np.inf
                 
 #%%                    
-def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step):
+def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, rpm1, rpm2, r, L):
 
     solution_path = []
     
@@ -293,11 +273,14 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step):
             solution_path = GeneratePath(fixed_node, parent, start_state)
             return True, solution_path
         else:
-            actions = [move_diag_up_60(fixed_node, step),
-                       move_diag_up_30(fixed_node, step),
-                       move_theta_0(fixed_node, step),
-                       move_diag_down_30(fixed_node, step),
-                       move_diag_down_60(fixed_node, step)
+            actions = [move_set(fixed_node, 0.0, rpm1, r, L, step),
+                       move_set(fixed_node, rpm1, 0.0, r, L, step),
+                       move_set(fixed_node, rpm1, rpm1, r, L, step),
+                       move_set(fixed_node, 0.0, rpm2, r, L, step),
+                       move_set(fixed_node, rpm2, 0.0, r, L, step), 
+                       move_set(fixed_node, rpm2, rpm2, r, L, step), 
+                       move_set(fixed_node, rpm1, rpm2, r, L, step),
+                       move_set(fixed_node, rpm2, rpm1, r, L, step)
                        ]
             
             # Walk through each child node created by action set and determine if it has been visited or not
@@ -307,7 +290,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step):
                 
                 # Check if node is in obstacle space or buffer zone
                 try:
-                    if((pxarray[int(child_node_fixed[0]), int(child_node_fixed[1])] == screen.map_rgb(pallet["white"])) or \
+                    if((pxarray[int(child_node_fixed[0]), int(child_node_fixed[1])] == screen.map_rgb(pallet["black"])) or \
                        (pxarray[int(child_node_fixed[0]), int(child_node_fixed[1])] == screen.map_rgb(pallet["green"]))): continue
                 except IndexError:
                     continue  # Attempted move was outside bounds of the map
@@ -365,7 +348,7 @@ def GetUserInput():
     print("---------------------------------------------------------------------------\n")
     while unanswered:
         start_x = float(input("Enter the starting x-coordinate: "))
-        start_y = 249-float(input("Enter the starting y-coordinate: "))
+        start_y = 299-float(input("Enter the starting y-coordinate: "))
         start_theta = float(input("Enter the starting orientation (0-360 degrees): "))
         
         # Check to see if start point falls in obstacle space, reprompt for new
@@ -375,7 +358,7 @@ def GetUserInput():
             continue
         
         goal_x = float(input("Enter the goal x-coordinate: "))
-        goal_y = 249-float(input("Enter the goal y-coordinate: "))
+        goal_y = 299-float(input("Enter the goal y-coordinate: "))
         
         # Check to see if start point falls in obstacle space, reprompt for new
         # coordinates if it does
@@ -388,24 +371,19 @@ def GetUserInput():
             print("Sorry, that step size is not valid!")
             continue
         
-        radius = int(input("Please enter a radius for Robbie the Robot greater than 0: "))
-        if(radius < 0):
-            print("Sorry, that radius is not valid!")
-            continue
-        
         start_node = [0.0, (start_x, start_y, start_theta)]
         goal = (goal_x,goal_y)
      
         unanswered = False
 
-    return start_node, goal, step_size, radius
+    return start_node, goal, step_size
 
 # Collect input from user:
 # start_node: starting coordinates and orientation with total cost (float)
 # goal_node:  desired end coordinates as tuple (float)
 # step:       step size/movement length in mm (int)
 # rradius:    size of robot radius in mm (int)
-start_node, goal_node, step, rradius = GetUserInput()
+#start_node, goal_node, step, rradius = GetUserInput()
 
 # Draw board with objects and buffer zone
 # rows:      size x-axis (named at one point, and forgot to change)
@@ -414,7 +392,17 @@ start_node, goal_node, step, rradius = GetUserInput()
 # C2C:       obsolete, starting costs set in FillCostMatrix()
 # clearance: turn clearance for robot in mm 
 # rradius:   robot radius in mm
-DrawBoard(rows, cols, pxarray, pallet, C2C, clearance, rradius)
+
+clearance = 0
+start_node = [0.0, (0.0, 149.0, 0.0)]
+goal_node = (539.0, 149.0)
+step = 0.01
+rpm1 = 50.0
+rpm2 = 100.0
+r = 3.3
+L = 22
+
+DrawBoard(rows, cols, pxarray, pallet, C2C, clearance, L)
 
 # Update the screen
 pygame.display.update()
@@ -433,7 +421,7 @@ while running:
     FillCostMatrix(C2C, pxarray, pallet, thresh)
     
     # Start A_Star algorithm solver, returns game state of either SUCCESS (True) or FAILURE (false)
-    alg_state, solution = A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step)
+    alg_state, solution = A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, rpm1, rpm2, r, L)
     
     if alg_state == False:
         print("Unable to find solution")
