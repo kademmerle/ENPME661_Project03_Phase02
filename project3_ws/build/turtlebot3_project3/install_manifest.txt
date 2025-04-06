@@ -29,6 +29,8 @@
 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//worlds/empty_world.world
 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/include//turtlebot3_project3/turtlebot3_drive.hpp
 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/lib/turtlebot3_project3/teleop.py
+/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/lib/turtlebot3_project3/odom_subscriber.py
+/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/lib/turtlebot3_project3/controller.py
 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/ament_index/resource_index/package_run_dependencies/turtlebot3_project3
 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/ament_index/resource_index/parent_prefix_path/turtlebot3_project3
 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/environment/ament_prefix_path.sh

@@ -72,7 +72,11 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_project3" TYPE PROGRAM FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/scripts/teleop.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_project3" TYPE PROGRAM FILES
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/scripts/teleop.py"
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/scripts/odom_subscriber.py"
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/scripts/controller.py"
+    )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
