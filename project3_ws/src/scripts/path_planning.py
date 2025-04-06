@@ -439,16 +439,15 @@ def plot_cost_matrix(cost_matrix, start_state, goal_state,  title="Cost Matrix H
 
 
 # %% Run some test points (only one time step plotted so won't be curved)
-RPM1 = 5
-RPM2 = 10
+RPM1 = 5  # RPM
+RPM2 = 10 # RPM
 control_inputs = get_robot_inputs(RPM1, RPM2)
-x = 0
-y = 0
-theta = 0
-dt = 10
+x     = 0 # cm
+y     = 0 # cm
+theta = 0 # cm
+dt    = 10 # seconds
 new_positions = get_next_moves((x, y, theta), control_inputs=control_inputs, dt=dt)
 plot_next_moves(x, y, theta, new_positions)
-parent = {(x, y, theta): None}
 
 for i in range(10):
     for new_position, cost in new_positions:
@@ -458,34 +457,38 @@ for i in range(10):
 
 
 # %% Setup for A* Search
-RPM1, RPM2         = 5, 10
+RPM1, RPM2         = 5, 10 # RPM
 map_img, obstacles = create_map()
 cost_matrix        = create_cost_matrix(map_img)
 control_inputs     = get_robot_inputs(RPM1, RPM2)
 
-start = (0, 150, 0)
-goal  = (539, 150, 0)
-r           = 1 # Block size for A* Search
-dt          = 10
+start = (0,   150, 0) # cm
+goal  = (539, 150, 0) # cm
+r     = 1 # Block size for A* Search, not currently used, dt is
+dt    = 10 # seconds
 
-first_moves= get_next_moves(start, dt=dt, control_inputs=control_inputs)
+first_moves = get_next_moves(start, dt=dt, control_inputs=control_inputs)
+min_dist, max_dist, max_theta = 0, 0, 0
 
-move, cost = first_moves[0]
+for move in first_moves:
+    curr_move, curr_cost = move
 
-dx = move[0] - start[0]
-dy = move[1] - start[1]
-dtheta = move[2] - start[2]
-dist = euclidean_distance(move, start)
-print(f"Inputs resulting in {dist} cm movement per {dt} seconds")
+    dx        = curr_move[0] - start[0]
+    dy        = curr_move[1] - start[1]
+    dtheta    = curr_move[2] - start[2]
+    dist      = euclidean_distance(curr_move, start)
+    min_dist  = min(min_dist, dist)
+    max_dist  = max(max_dist, dist)
+    max_theta = max(max_theta, dtheta)
+print(f"Inputs result in Max {max_dist} cm movement per {dt} seconds")
+print(f"Inputs result in Min {min_dist} cm movement per {dt} seconds")
+print(f"Inputs result in Max {round(max_theta*180/math.pi,1)} degrees rotation per {dt} seconds")
+print("selection of dt relative to RPM and grid size is important")
 
 
 # %% Run A* Search
-
-
 (solution_path, cost_to_come, parent, cost_matrix, explored_path, V, goal_state_reached
 ) = a_star(start, goal, map_img, cost_matrix, obstacles, r, dt, control_inputs)
-
-
 
 # %%
 plot_cost_matrix(cost_matrix, start, goal, title="Cost Matrix Heatmap")
