@@ -81,29 +81,7 @@ def plot_next_moves(x, y, theta, new_positions):
     plt.grid()
     plt.show()
 
-# %%
-RPM1 = 50
-RPM2 = 100
-control_inputs = get_robot_inputs(RPM1, RPM2)
-x = 0
-y = 0
-theta = 0
-dt = 10
-new_positions = get_next_moves((x, y, theta), control_inputs=control_inputs, dt=dt)
-plot_next_moves(x, y, theta, new_positions)
-parent = {(x, y, theta): None}
 
-for i in range(10):
-    for new_position, cost in new_positions:
-    
-
-        new_positions = get_next_moves(new_position, control_inputs=control_inputs, dt=dt)
-    
-
-
-
-
-# %%
 def create_cost_matrix(map_img):
     # Create cost matrix with obstacles as -1 and free space as infinity
     # We use [y, x] indexing to match openCV's (row, col) convention
@@ -201,7 +179,7 @@ def draw(map_img, robot_radius):
 
 def create_map():
     # Create a map of the world
-    buffer = 1.5 # cm add'l buffer beyond the robot radius
+    buffer = 2 # cm add'l buffer beyond the robot radius
     map_width, map_height = 540, 300 # cm
     robot_radius          = 22 + buffer # cm
 
@@ -211,8 +189,6 @@ def create_map():
             
             
     return map_img_with_clearance, obstacles
-
-
 
 
 def round_and_get_v_index(node):
@@ -461,7 +437,27 @@ def plot_cost_matrix(cost_matrix, start_state, goal_state,  title="Cost Matrix H
     )
     plt.show()
 
-# %%
+
+# %% Run some test points (only one time step plotted so won't be curved)
+RPM1 = 5
+RPM2 = 10
+control_inputs = get_robot_inputs(RPM1, RPM2)
+x = 0
+y = 0
+theta = 0
+dt = 10
+new_positions = get_next_moves((x, y, theta), control_inputs=control_inputs, dt=dt)
+plot_next_moves(x, y, theta, new_positions)
+parent = {(x, y, theta): None}
+
+for i in range(10):
+    for new_position, cost in new_positions:
+        new_positions = get_next_moves(new_position, control_inputs=control_inputs, dt=dt)
+    
+
+
+
+# %% Setup for A* Search
 RPM1, RPM2         = 5, 10
 map_img, obstacles = create_map()
 cost_matrix        = create_cost_matrix(map_img)
@@ -482,9 +478,10 @@ dtheta = move[2] - start[2]
 dist = euclidean_distance(move, start)
 print(f"Inputs resulting in {dist} cm movement per {dt} seconds")
 
-# %%
 
-# Run A* Algorithm
+# %% Run A* Search
+
+
 (solution_path, cost_to_come, parent, cost_matrix, explored_path, V, goal_state_reached
 ) = a_star(start, goal, map_img, cost_matrix, obstacles, r, dt, control_inputs)
 
