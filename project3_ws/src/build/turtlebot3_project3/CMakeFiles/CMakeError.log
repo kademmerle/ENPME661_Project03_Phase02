@@ -1,21 +1,21 @@
 Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
 Change Dir: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_0251d/fast && /usr/bin/make -f CMakeFiles/cmTC_0251d.dir/build.make CMakeFiles/cmTC_0251d.dir/build
+Run Build Command(s):/usr/bin/make cmTC_0a76d/fast && /usr/bin/make -f CMakeFiles/cmTC_0a76d.dir/build.make CMakeFiles/cmTC_0a76d.dir/build
 make[1]: Entering directory '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_0251d.dir/src.c.o
-/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_0251d.dir/src.c.o   -c /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_0251d
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0251d.dir/link.txt --verbose=1
-/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    CMakeFiles/cmTC_0251d.dir/src.c.o  -o cmTC_0251d 
-/usr/bin/ld: CMakeFiles/cmTC_0251d.dir/src.c.o: in function `main':
+Building C object CMakeFiles/cmTC_0a76d.dir/src.c.o
+/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_0a76d.dir/src.c.o   -c /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_0a76d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0a76d.dir/link.txt --verbose=1
+/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    CMakeFiles/cmTC_0a76d.dir/src.c.o  -o cmTC_0a76d 
+/usr/bin/ld: CMakeFiles/cmTC_0a76d.dir/src.c.o: in function `main':
 src.c:(.text+0x46): undefined reference to `pthread_create'
 /usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
 /usr/bin/ld: src.c:(.text+0x63): undefined reference to `pthread_join'
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_0251d.dir/build.make:87: cmTC_0251d] Error 1
+make[1]: *** [CMakeFiles/cmTC_0a76d.dir/build.make:87: cmTC_0a76d] Error 1
 make[1]: Leaving directory '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_0251d/fast] Error 2
+make: *** [Makefile:121: cmTC_0a76d/fast] Error 2
 
 
 Source file was:
@@ -41,18 +41,18 @@ int main(void)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_b13a0/fast && /usr/bin/make -f CMakeFiles/cmTC_b13a0.dir/build.make CMakeFiles/cmTC_b13a0.dir/build
+Run Build Command(s):/usr/bin/make cmTC_fc4fb/fast && /usr/bin/make -f CMakeFiles/cmTC_fc4fb.dir/build.make CMakeFiles/cmTC_fc4fb.dir/build
 make[1]: Entering directory '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_b13a0.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_b13a0.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
-Linking C executable cmTC_b13a0
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b13a0.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_b13a0.dir/CheckFunctionExists.c.o  -o cmTC_b13a0  -lpthreads 
+Building C object CMakeFiles/cmTC_fc4fb.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_fc4fb.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_fc4fb
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fc4fb.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_fc4fb.dir/CheckFunctionExists.c.o  -o cmTC_fc4fb  -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_b13a0.dir/build.make:87: cmTC_b13a0] Error 1
+make[1]: *** [CMakeFiles/cmTC_fc4fb.dir/build.make:87: cmTC_fc4fb] Error 1
 make[1]: Leaving directory '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_b13a0/fast] Error 2
+make: *** [Makefile:121: cmTC_fc4fb/fast] Error 2
 
 
 
