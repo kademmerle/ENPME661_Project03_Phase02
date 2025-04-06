@@ -468,7 +468,7 @@ r     = 1 # Block size for A* Search, not currently used, dt is
 dt    = 10 # seconds
 
 first_moves = get_next_moves(start, dt=dt, control_inputs=control_inputs)
-min_dist, max_dist, max_theta = 0, 0, 0
+min_dist, max_dist, max_theta = np.inf, 0, 0
 
 for move in first_moves:
     curr_move, curr_cost = move
