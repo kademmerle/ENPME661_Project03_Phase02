@@ -43,7 +43,7 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3
+CMAKE_SOURCE_DIR = /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3
@@ -58,17 +58,17 @@ include CMakeFiles/turtlebot3_drive.dir/progress.make
 include CMakeFiles/turtlebot3_drive.dir/flags.make
 
 CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o: CMakeFiles/turtlebot3_drive.dir/flags.make
-CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/src/turtlebot3_drive.cpp
+CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/src/turtlebot3_drive.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o -c /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/src/turtlebot3_drive.cpp
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o -c /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/src/turtlebot3_drive.cpp
 
 CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/src/turtlebot3_drive.cpp > CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/src/turtlebot3_drive.cpp > CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.i
 
 CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/src/turtlebot3_drive.cpp -o CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/src/turtlebot3_drive.cpp -o CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.s
 
 # Object files for target turtlebot3_drive
 turtlebot3_drive_OBJECTS = \
@@ -158,6 +158,6 @@ CMakeFiles/turtlebot3_drive.dir/clean:
 .PHONY : CMakeFiles/turtlebot3_drive.dir/clean
 
 CMakeFiles/turtlebot3_drive.dir/depend:
-	cd /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/CMakeFiles/turtlebot3_drive.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3 /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/CMakeFiles/turtlebot3_drive.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/turtlebot3_drive.dir/depend
 

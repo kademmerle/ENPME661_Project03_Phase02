@@ -1,4 +1,4 @@
-# Install script for directory: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3
+# Install script for directory: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -59,23 +59,24 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_project3/" TYPE DIRECTORY FILES
-    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/launch"
-    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/models"
-    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/rviz"
-    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/urdf"
-    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/worlds"
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/launch"
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/models"
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/rviz"
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/urdf"
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/worlds"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/" TYPE DIRECTORY FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/include/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/" TYPE DIRECTORY FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/include/")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_project3" TYPE PROGRAM FILES
-    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/scripts/teleop.py"
-    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/scripts/odom_subscriber.py"
-    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/scripts/controller.py"
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/scripts/teleop.py"
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/scripts/path_planning.py"
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/scripts/controller.py"
+    "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/scripts/odom_subscriber.py"
     )
 endif()
 
@@ -143,7 +144,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_project3" TYPE FILE FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_project3" TYPE FILE FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/package.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

@@ -1,5 +1,5 @@
 # CMake generated Testfile for 
-# Source directory: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/turtlebot3_project3
+# Source directory: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src
 # Build directory: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3
 # 
 # This file includes the relevant testing commands required for 

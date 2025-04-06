@@ -1,0 +1,139 @@
+[0.009s] Invoking command in '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3 -- -j16 -l16
+[0.030s] -- Found ament_cmake: 1.1.6 (/opt/ros/galactic/share/ament_cmake/cmake)
+[0.048s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[0.115s] -- Found DART: /usr/include (Required is at least version "6.6") found components: dart 
+[0.136s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so;-lpthread (found version "3.6.1") 
+[0.137s] -- Looking for ignition-math6 -- found version 6.15.1
+[0.139s] -- Searching for dependencies of ignition-math6
+[0.140s] -- Looking for OGRE...
+[0.144s] -- Found Ogre Ghadamon (1.9.0)
+[0.144s] -- Found OGRE: optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so
+[0.149s] -- Looking for OGRE_Paging...
+[0.150s] -- Found OGRE_Paging: optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so
+[0.150s] -- Looking for OGRE_Terrain...
+[0.150s] -- Found OGRE_Terrain: optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so
+[0.150s] -- Looking for OGRE_Property...
+[0.150s] -- Found OGRE_Property: optimized;/usr/lib/x86_64-linux-gnu/libOgreProperty.so;debug;/usr/lib/x86_64-linux-gnu/libOgreProperty.so
+[0.150s] -- Looking for OGRE_RTShaderSystem...
+[0.150s] -- Found OGRE_RTShaderSystem: optimized;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so;debug;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so
+[0.150s] -- Looking for OGRE_Volume...
+[0.150s] -- Found OGRE_Volume: optimized;/usr/lib/x86_64-linux-gnu/libOgreVolume.so;debug;/usr/lib/x86_64-linux-gnu/libOgreVolume.so
+[0.150s] -- Looking for OGRE_Overlay...
+[0.150s] -- Found OGRE_Overlay: optimized;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so;debug;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so
+[0.228s] -- Looking for ignition-math6 -- found version 6.15.1
+[0.228s] -- Looking for ignition-transport8 -- found version 8.5.0
+[0.228s] -- Searching for dependencies of ignition-transport8
+[0.249s] -- Config-file not installed for ZeroMQ -- checking for pkg-config
+[0.252s] -- Checking for module 'libzmq >= 4'
+[0.265s] --   Found libzmq , version 4.3.2
+[0.309s] -- Checking for module 'uuid'
+[0.322s] --   Found uuid, version 2.34.0
+[0.362s] -- Looking for ignition-msgs5 -- found version 5.11.0
+[0.363s] -- Searching for dependencies of ignition-msgs5
+[0.381s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so;-lpthread (found suitable version "3.6.1", minimum required is "3") 
+[0.381s] -- Looking for ignition-math6 -- found version 6.15.1
+[0.384s] -- Checking for module 'tinyxml2'
+[0.398s] --   Found tinyxml2, version 6.2.0
+[0.437s] -- Looking for ignition-msgs5 -- found version 5.11.0
+[0.437s] -- Looking for ignition-common3 -- found version 3.17.0
+[0.437s] -- Searching for dependencies of ignition-common3
+[0.437s] -- Looking for dlfcn.h - found
+[0.438s] -- Looking for libdl - found
+[0.446s] -- Searching for <ignition-common3> component [graphics]
+[0.446s] -- Looking for ignition-common3-graphics -- found version 3.17.0
+[0.446s] -- Searching for dependencies of ignition-common3-graphics
+[0.446s] -- Looking for ignition-math6 -- found version 6.15.1
+[0.447s] -- Looking for ignition-fuel_tools4 -- found version 4.9.1
+[0.447s] -- Searching for dependencies of ignition-fuel_tools4
+[0.468s] -- Checking for module 'jsoncpp'
+[0.483s] --   Found jsoncpp, version 1.7.4
+[0.527s] -- Checking for module 'libzip'
+[0.542s] --   Found libzip, version 1.5.1
+[0.575s] -- Looking for ignition-common3 -- found version 3.17.0
+[0.576s] -- Looking for ignition-math6 -- found version 6.15.1
+[0.576s] -- Looking for ignition-msgs5 -- found version 5.11.0
+[0.577s] -- Found gazebo_ros_pkgs: 3.5.2 (/opt/ros/galactic/share/gazebo_ros_pkgs/cmake)
+[0.578s] -- Found geometry_msgs: 2.2.4 (/opt/ros/galactic/share/geometry_msgs/cmake)
+[0.587s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.589s] -- Found rosidl_adapter: 2.2.3 (/opt/ros/galactic/share/rosidl_adapter/cmake)
+[0.663s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.705s] -- Found nav_msgs: 2.2.4 (/opt/ros/galactic/share/nav_msgs/cmake)
+[0.742s] -- Found rclcpp: 9.2.2 (/opt/ros/galactic/share/rclcpp/cmake)
+[0.763s] -- Found rmw_implementation_cmake: 3.3.1 (/opt/ros/galactic/share/rmw_implementation_cmake/cmake)
+[0.764s] -- Found rmw_cyclonedds_cpp: 0.22.6 (/opt/ros/galactic/share/rmw_cyclonedds_cpp/cmake)
+[0.773s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[0.842s] -- Found sensor_msgs: 2.2.4 (/opt/ros/galactic/share/sensor_msgs/cmake)
+[0.881s] -- Found tf2: 0.17.5 (/opt/ros/galactic/share/tf2/cmake)
+[0.924s] -- Configuring done
+[0.930s] -- Generating done
+[0.933s] -- Build files have been written to: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3
+[0.972s] [100%] Built target turtlebot3_drive
+[0.981s] Invoked command in '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3 -- -j16 -l16
+[0.990s] Invoking command in '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3
+[0.998s] -- Install configuration: ""
+[0.998s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/lib/turtlebot3_project3/turtlebot3_drive
+[0.999s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//launch
+[0.999s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//launch/spawn_turtlebot3.launch.py
+[0.999s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//launch/competition_world.launch.py
+[0.999s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//launch/empty_world.launch.py
+[0.999s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//launch/robot_state_publisher.launch.py
+[0.999s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models
+[0.999s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common
+[0.999s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes
+[0.999s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/waffle_base.dae
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/burger_base.dae
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/lds.dae
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/waffle_pi_base.dae
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/r200.dae
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/tire.dae
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/model.config
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/project3
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/meshes
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/meshes/project3-world.STL
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/meshes/project3.STL
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/model.sdf
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/model.config
+[1.000s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model-1_4.sdf
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model.sdf
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model.config
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model-1_4.sdf
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/meshes
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/meshes/wall.dae
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/meshes/hexagon.dae
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model.sdf
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model.config
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//rviz
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//rviz/tb3_gazebo.rviz
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//urdf
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//urdf/common_properties.urdf
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//urdf/turtlebot3_waffle.urdf
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//worlds
+[1.001s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//worlds/competition_world.world
+[1.002s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3//worlds/empty_world.world
+[1.002s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/include/
+[1.002s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/include//turtlebot3_project3
+[1.002s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/include//turtlebot3_project3/turtlebot3_drive.hpp
+[1.002s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/lib/turtlebot3_project3/teleop.py
+[1.002s] -- Installing: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/lib/turtlebot3_project3/path_planning.py
+[1.002s] -- Installing: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/lib/turtlebot3_project3/controller.py
+[1.002s] -- Installing: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/lib/turtlebot3_project3/odom_subscriber.py
+[1.003s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/ament_index/resource_index/package_run_dependencies/turtlebot3_project3
+[1.003s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/ament_index/resource_index/parent_prefix_path/turtlebot3_project3
+[1.003s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/environment/ament_prefix_path.sh
+[1.003s] -- Installing: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/environment/ament_prefix_path.dsv
+[1.003s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/environment/path.sh
+[1.003s] -- Installing: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/environment/path.dsv
+[1.003s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.bash
+[1.004s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.sh
+[1.004s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.zsh
+[1.004s] -- Installing: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.dsv
+[1.004s] -- Installing: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/package.dsv
+[1.004s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/ament_index/resource_index/packages/turtlebot3_project3
+[1.004s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/cmake/ament_cmake_export_include_directories-extras.cmake
+[1.004s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/cmake/ament_cmake_export_dependencies-extras.cmake
+[1.005s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/cmake/turtlebot3_project3Config.cmake
+[1.005s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/cmake/turtlebot3_project3Config-version.cmake
+[1.005s] -- Up-to-date: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/share/turtlebot3_project3/package.xml
+[1.005s] Invoked command in '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3
