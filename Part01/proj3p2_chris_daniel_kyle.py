@@ -95,7 +95,7 @@ def round_and_get_v_index(node):
    
    x           = round(node[0] * 2, 1) / 2
    y           = round(node[1] * 2, 1) / 2
-   theta       = node[2]
+   theta       = np.rad2deg(node[2])
    x_v_idx     = int(x * 2)
    y_v_idx     = int(y * 2)
 
@@ -116,7 +116,7 @@ def move_set(node, u_l, u_r, dt):
     
     dx = (r/2)*(u_r + u_l) * np.cos(np.deg2rad(node[2]))*dt
     dy = (r/2)*(u_r + u_l) * np.sin(np.deg2rad(node[2]))*dt
-    d_theta = (r/L) * (u_r - u_l) * dt
+    d_theta = np.rad2deg((r/L) * (u_r - u_l) * dt)
     return get_xy(node, dx, dy, d_theta), dt
 
 
@@ -384,7 +384,7 @@ def GetUserInput():
 # rradius:   robot radius in mm
 
 clearance = 0
-start_node = [0.0, (0.0, 149.0, 0.0)]
+start_node = [0.0, (0.0, 149.0, 0)]
 goal_node = (539.0, 149.0)
 step = 0.01
 RPM1 = 50.0
