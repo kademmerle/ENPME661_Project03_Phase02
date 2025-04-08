@@ -5,6 +5,7 @@
 # Dependencies
 #############################
 import pygame
+import pygame.gfxdraw
 import time
 import copy
 import math
@@ -29,7 +30,7 @@ thresh = 0.5
 clearance = 5
 parent = {}
 costsum = {}
-V = np.zeros((int(rows/thresh), int(cols/thresh), 12))
+V = np.zeros((int(rows/thresh), int(cols/thresh)))
 C2C = np.zeros((int(rows/thresh), int(cols/thresh)))
 
 # Define colors
@@ -97,9 +98,9 @@ def round_and_get_v_index(node):
    theta       = node[2]
    x_v_idx     = int(x * 2)
    y_v_idx     = int(y * 2)
-   theta_v_idx = get_theta_index(theta)
 
-   return (x, y, theta), x_v_idx, y_v_idx, theta_v_idx
+
+   return (x, y, theta), x_v_idx, y_v_idx
 
 def get_xy(node, dx, dy, d_theta):
     
@@ -109,27 +110,10 @@ def get_xy(node, dx, dy, d_theta):
 
     return (x, y, theta)
 
-# def move_theta_0(node, r):
-#     theta =  0
-#     return get_xy(node, theta, r), r
-
-# def move_diag_up_30(node, r):
-#     theta = 30
-#     return get_xy(node, theta, r), r
-
-# def move_diag_up_60(node, r):
-#     theta = 60
-#     return get_xy(node, theta, r), r
-
-# def move_diag_down_30(node, r):
-#     theta = -30
-#     return get_xy(node, theta, r), r
-
-# def move_diag_down_60(node, r):
-#     theta = -60
-#     return get_xy(node, theta, r), r
-
-def move_set(node, u_l, u_r, r, L, dt):
+def move_set(node, u_l, u_r, dt):
+    r = 3.3
+    L = 22
+    
     dx = (r/2)*(u_r + u_l) * np.cos(np.deg2rad(node[2]))*dt
     dy = (r/2)*(u_r + u_l) * np.sin(np.deg2rad(node[2]))*dt
     d_theta = (r/L) * (u_r - u_l) * dt
@@ -213,21 +197,26 @@ def euclidean_distance(node, goal_state):
 #
 # Outputs: none
 def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
-    buff_mod = clear+r
+    buff_mod = clear + r
     for x in range(0,rows):
         for y in range(0,cols):
             in_obj = InObjectSpace(x,y)
             if (in_obj):
                 pxarray[x,y] = pygame.Color(pallet["black"])
             else:
-                if(((InObjectSpace(x+buff_mod,y)) or\
-                   (InObjectSpace(x-buff_mod,y)) or\
+                if(((InObjectSpace(x+(buff_mod*0.5),y+buff_mod)) or\
+                   (InObjectSpace(x-(buff_mod*0.5),y+buff_mod)) or\
+                   (InObjectSpace(x+(buff_mod*0.5),y-buff_mod)) or\
+                   (InObjectSpace(x-(buff_mod*0.5),y-buff_mod)) or\
                    (InObjectSpace(x,y+buff_mod)) or\
                    (InObjectSpace(x,y-buff_mod)) or\
                    (InObjectSpace(x+buff_mod,y+buff_mod)) or\
-                   (InObjectSpace(x-buff_mod,y-buff_mod)) or\
-                   (InObjectSpace(x+buff_mod,y-buff_mod)) or\
-                   (InObjectSpace(x-buff_mod,y+buff_mod))) and ((buff_mod<x<(538-buff_mod) and (buff_mod<y<(298-buff_mod))))):
+                   (InObjectSpace(x-buff_mod,y+buff_mod)) or \
+                   (InObjectSpace(x+buff_mod,y-buff_mod) and (y < 149)) or \
+                   (InObjectSpace(x-buff_mod,y-buff_mod) and (y < 149)) or \
+                   (InObjectSpace(x+buff_mod,y-buff_mod) and ((209-buff_mod)<=x<=(219+buff_mod))) or \
+                   (InObjectSpace(x-buff_mod,y-buff_mod) and ((209-buff_mod)<=x<=(219+buff_mod)))) and \
+                   ((buff_mod<x<(538-buff_mod) and (buff_mod<y<(298-buff_mod))))):
                     pxarray[x,y] = pygame.Color(pallet["green"])
                 elif(0<y<=buff_mod or (298-buff_mod)<=y<299):
                      pxarray[x,y] = pygame.Color(pallet["green"])
@@ -244,12 +233,12 @@ def FillCostMatrix(C2C, pxarray, pallet, thresh):
                 C2C[x,y] = np.inf
                 
 #%%                    
-def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, rpm1, rpm2, r, L):
+def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2):
 
     solution_path = []
     
-    start_state, x_v_idx, y_v_idx, theta_v_idx = round_and_get_v_index(start_node[1])
-    start_cost_state = (x_v_idx, y_v_idx, theta_v_idx)
+    start_state, x_v_idx, y_v_idx = round_and_get_v_index(start_node[1])
+    start_cost_state = (x_v_idx, y_v_idx)
     C2C[x_v_idx, y_v_idx] = 0.0
     costsum[start_cost_state] = 0.0 + euclidean_distance(start_node[1], goal_node)
 
@@ -259,10 +248,10 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, rpm1, rpm2,
         node = heapq.heappop(OL)
         
         # Take popped node and center it, along with finding the index values for the V matrix
-        fixed_node, x_v_idx, y_v_idx, theta_v_idx = round_and_get_v_index(node[1])
+        fixed_node, x_v_idx, y_v_idx = round_and_get_v_index(node[1])
         
         # Add popped node to the closed list
-        V[x_v_idx, y_v_idx, theta_v_idx] = 1
+        V[x_v_idx, y_v_idx] = 1
         pxarray[int(round(fixed_node[0])),int(round(fixed_node[1]))] = pygame.Color(pallet["blue"])
         pygame.display.update()
         
@@ -273,20 +262,21 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, rpm1, rpm2,
             solution_path = GeneratePath(fixed_node, parent, start_state)
             return True, solution_path
         else:
-            actions = [move_set(fixed_node, 0.0, rpm1, r, L, step),
-                       move_set(fixed_node, rpm1, 0.0, r, L, step),
-                       move_set(fixed_node, rpm1, rpm1, r, L, step),
-                       move_set(fixed_node, 0.0, rpm2, r, L, step),
-                       move_set(fixed_node, rpm2, 0.0, r, L, step), 
-                       move_set(fixed_node, rpm2, rpm2, r, L, step), 
-                       move_set(fixed_node, rpm1, rpm2, r, L, step),
-                       move_set(fixed_node, rpm2, rpm1, r, L, step)
-                       ]
+            actions = [[0.0,  RPM1],
+                       [RPM1,  0.0],
+                       [RPM1, RPM1],
+                       [0.0,  RPM2],
+                       [RPM2,  0.0],
+                       [RPM2, RPM2],
+                       [RPM1, RPM2],
+                       [RPM2, RPM1]]
             
             # Walk through each child node created by action set and determine if it has been visited or not
-            for child_node, child_cost in actions:
-                child_node_fixed, child_x_v_idx, child_y_v_idx, child_theta_v_idx = round_and_get_v_index(child_node)
-                child_cost_node = (child_x_v_idx, child_y_v_idx, child_theta_v_idx)
+            for action in actions:
+                child = move_set(fixed_node, action[0], action[1], step)
+                
+                child_node_fixed, child_x_v_idx, child_y_v_idx = round_and_get_v_index(child[0])
+                child_cost_node = (child_x_v_idx, child_y_v_idx)
                 
                 # Check if node is in obstacle space or buffer zone
                 try:
@@ -397,12 +387,16 @@ clearance = 0
 start_node = [0.0, (0.0, 149.0, 0.0)]
 goal_node = (539.0, 149.0)
 step = 0.01
-rpm1 = 50.0
-rpm2 = 100.0
+RPM1 = 50.0
+RPM2 = 100.0
 r = 3.3
 L = 22
 
 DrawBoard(rows, cols, pxarray, pallet, C2C, clearance, L)
+
+# Draw Curve
+#pygame.gfxdraw.arc(screen, 25, 149, 100, 0, 10, pygame.Color(pallet["red"]))
+
 
 # Update the screen
 pygame.display.update()
@@ -421,7 +415,7 @@ while running:
     FillCostMatrix(C2C, pxarray, pallet, thresh)
     
     # Start A_Star algorithm solver, returns game state of either SUCCESS (True) or FAILURE (false)
-    alg_state, solution = A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, rpm1, rpm2, r, L)
+    alg_state, solution = A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
     
     if alg_state == False:
         print("Unable to find solution")
