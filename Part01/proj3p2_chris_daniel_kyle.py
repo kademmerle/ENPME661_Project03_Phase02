@@ -72,6 +72,16 @@ def CheckClosedList(coords, closed_list):
     except KeyError:
         return False
 
+
+"""
+Need to sort out method for establishing designated V indices for theta values
+Since potential delta-thetas are based on the RPM provided by the user, it is difficult 
+to establish a pre-determined factor of 360 to work with.
+
+Option 1: Formulate the theta index look-up dict at time of user entry based on a general rounded angle
+
+Option 2: Pre-determine the desired factor and round the calculated orientation to the closest value in the dict 
+"""
 def get_theta_index(theta):
     theta = theta % 360
     look_up_dict = {
@@ -95,30 +105,49 @@ def round_and_get_v_index(node):
    
    x           = round(node[0] * 2, 1) / 2
    y           = round(node[1] * 2, 1) / 2
-   theta       = np.rad2deg(node[2])
+   theta       = node[2]
    x_v_idx     = int(x * 2)
    y_v_idx     = int(y * 2)
 
 
    return (x, y, theta), x_v_idx, y_v_idx
 
-def get_xy(node, dx, dy, d_theta):
-    
-    theta = node[2] + d_theta
-    x     = node[0] + dx
-    y     = node[1] + dy
-
-    return (x, y, theta)
-
-def move_set(node, u_l, u_r, dt):
+"""
+Utilizes function that was provided in Cost.py of the Proj 3 Phase 2 files. 
+Variable names have been adjusted slightly, but general mechanics remain the same.
+"""
+def move_set(node, u_l, u_r):
+    t = 0
     r = 3.3
     L = 22
+    cost = 0
+    dt = 0.1
     
-    dx = (r/2)*(u_r + u_l) * np.cos(np.deg2rad(node[2]))*dt
-    dy = (r/2)*(u_r + u_l) * np.sin(np.deg2rad(node[2]))*dt
-    d_theta = np.rad2deg((r/L) * (u_r - u_l) * dt)
-    return get_xy(node, dx, dy, d_theta), dt
+    x_new = node[0]
+    y_new = node[1]
+    theta_new = 3.14 * node[2] / 180
+    print("Theta Start in rad: ", theta_new)
+    
+    while t < 1:
+        t = t+dt
+        x_new += (r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
+        y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
+        theta_new += (r/L) * (u_r - u_l) * dt
+        cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
+    
+    theta_new = 180 * theta_new / 3.14
 
+    print("Theta Adjusted in deg: ", theta_new)
+    
+    return (x_new, y_new, theta_new), cost
+
+def ValidMove(node):
+    if((node[0] < 0) or (node[0] >= 540)):
+        return False
+    elif((node[1] < 0) or (node[1] >= 300)):
+        return False
+    else:
+        return True
 
 # Define the object space for all letters/numbers in the maze
 # Also used for determining if a set of (x,y) coordinates is present in 
@@ -273,9 +302,11 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
             
             # Walk through each child node created by action set and determine if it has been visited or not
             for action in actions:
-                child = move_set(fixed_node, action[0], action[1], step)
+                child_node, child_cost = move_set(fixed_node, action[0], action[1])
                 
-                child_node_fixed, child_x_v_idx, child_y_v_idx = round_and_get_v_index(child[0])
+                if not ValidMove(child_node): continue
+                
+                child_node_fixed, child_x_v_idx, child_y_v_idx = round_and_get_v_index(child_node)
                 child_cost_node = (child_x_v_idx, child_y_v_idx)
                 
                 # Check if node is in obstacle space or buffer zone
@@ -292,7 +323,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
                     # If child is not in open list, create new child node
                     if(C2C[child_x_v_idx, child_y_v_idx]  == np.inf):
                        cost2go = euclidean_distance(child_node_fixed, goal_node)  # Calculate Cost to Go using heuristic equation Euclidean Distance
-                       cost2come = C2C[x_v_idx, y_v_idx] + step  # Calculate Cost to Come using parent Cost to Come and step size
+                       cost2come = C2C[x_v_idx, y_v_idx] + child_cost  # Calculate Cost to Come using parent Cost to Come and step size
                        parent[child_node_fixed] = fixed_node     # Add child node to parent dictionary 
                        
                        C2C[child_x_v_idx, child_y_v_idx] = cost2come   # Update cost matrix with newly calculate Cost to Come
@@ -303,7 +334,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
                 # Child was in visited list, see if new path is most optimal
                 else:
                     cost2go = euclidean_distance(child_node_fixed, goal_node)
-                    cost2come = C2C[x_v_idx, y_v_idx] + step
+                    cost2come = C2C[x_v_idx, y_v_idx] + child_cost
                     
                     # Compare previously saved total cost estimate to newly calculated
                     # If new cost is lower than old cost, update in cost matrix and reassign parent 
