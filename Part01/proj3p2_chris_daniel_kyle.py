@@ -30,7 +30,7 @@ thresh = 0.5
 clearance = 5
 parent = {}
 costsum = {}
-V = np.zeros((int(rows/thresh), int(cols/thresh)))
+V = np.zeros((int(rows/thresh), int(cols/thresh), 12))
 C2C = np.zeros((int(rows/thresh), int(cols/thresh)))
 
 # Define colors
@@ -83,7 +83,14 @@ Option 1: Formulate the theta index look-up dict at time of user entry based on 
 Option 2: Pre-determine the desired factor and round the calculated orientation to the closest value in the dict 
 """
 def get_theta_index(theta):
-    theta = theta % 360
+    temp_theta = theta % 360
+    diff = temp_theta % 30
+    
+    if(diff >= 15):
+        theta = temp_theta + (30 - diff)
+    else:
+        theta = temp_theta - diff
+    
     look_up_dict = {
         0:   0,
         30:  1,
@@ -96,7 +103,8 @@ def get_theta_index(theta):
         240: 8,
         270: 9,
         300: 10,
-        330: 11
+        330: 11,
+        360: 0
     }
     return look_up_dict[theta]
 
@@ -108,9 +116,9 @@ def round_and_get_v_index(node):
    theta       = node[2]
    x_v_idx     = int(x * 2)
    y_v_idx     = int(y * 2)
+   theta_v_idx = get_theta_index(theta)
 
-
-   return (x, y, theta), x_v_idx, y_v_idx
+   return (x, y, theta), x_v_idx, y_v_idx, theta_v_idx
 
 """
 Utilizes function that was provided in Cost.py of the Proj 3 Phase 2 files. 
@@ -135,7 +143,7 @@ def move_set(node, u_l, u_r):
         theta_new += (r/L) * (u_r - u_l) * dt
         cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
     
-    theta_new = 180 * theta_new / 3.14
+    theta_new = int(180 * theta_new / 3.14)
 
     print("Theta Adjusted in deg: ", theta_new)
     
@@ -266,8 +274,8 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
 
     solution_path = []
     
-    start_state, x_v_idx, y_v_idx = round_and_get_v_index(start_node[1])
-    start_cost_state = (x_v_idx, y_v_idx)
+    start_state, x_v_idx, y_v_idx, theta_v_idx = round_and_get_v_index(start_node[1])
+    start_cost_state = (x_v_idx, y_v_idx, theta_v_idx)
     C2C[x_v_idx, y_v_idx] = 0.0
     costsum[start_cost_state] = 0.0 + euclidean_distance(start_node[1], goal_node)
 
@@ -277,10 +285,10 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
         node = heapq.heappop(OL)
         
         # Take popped node and center it, along with finding the index values for the V matrix
-        fixed_node, x_v_idx, y_v_idx = round_and_get_v_index(node[1])
+        fixed_node, x_v_idx, y_v_idx, theta_v_idx = round_and_get_v_index(node[1])
         
         # Add popped node to the closed list
-        V[x_v_idx, y_v_idx] = 1
+        V[x_v_idx, y_v_idx, theta_v_idx] = 1
         pxarray[int(round(fixed_node[0])),int(round(fixed_node[1]))] = pygame.Color(pallet["blue"])
         pygame.display.update()
         
@@ -306,8 +314,8 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
                 
                 if not ValidMove(child_node): continue
                 
-                child_node_fixed, child_x_v_idx, child_y_v_idx = round_and_get_v_index(child_node)
-                child_cost_node = (child_x_v_idx, child_y_v_idx)
+                child_node_fixed, child_x_v_idx, child_y_v_idx, child_theta_v_idx = round_and_get_v_index(child_node)
+                child_cost_node = (child_x_v_idx, child_y_v_idx, child_theta_v_idx)
                 
                 # Check if node is in obstacle space or buffer zone
                 try:
@@ -418,8 +426,8 @@ clearance = 0
 start_node = [0.0, (0.0, 149.0, 0)]
 goal_node = (539.0, 149.0)
 step = 0.01
-RPM1 = 50.0
-RPM2 = 100.0
+RPM1 = 5.0
+RPM2 = 10.0
 r = 3.3
 L = 22
 
@@ -471,7 +479,7 @@ pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(goal_node[0]), goal
 
 # Draw solution path
 for item in solution:
-    pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(round(item[0])), int(round(item[1]))), radius=1.0, width=0)
+    pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(round(item[0])), int(round(item[1]))), radius=3.0, width=0)
     pygame.display.update()
     
 # Freeze screen on completed maze screen until user quits the game
