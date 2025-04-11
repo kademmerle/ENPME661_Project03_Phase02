@@ -124,7 +124,40 @@ def round_and_get_v_index(node):
 Utilizes function that was provided in Cost.py of the Proj 3 Phase 2 files. 
 Variable names have been adjusted slightly, but general mechanics remain the same.
 """
+def reverse_move(node,movement):
+    t = 0
+    r = 3.3
+    L = 28.7
+    cost = 0
+    dt = -0.1
+    x_new = node[0]
+    y_new = node[1]
+    u_l = movement[0]
+    u_r = movement[1]
+    theta_new = 3.14 * node[2] / 180
+    print("reverse Theta Start in rad: ", theta_new)
+    xy_list = [(x_new,y_new)]
+    
+    while t > -1:
+        t = t+dt
+        x_new += (r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
+        y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
+        theta_new += (r/L) * (u_r - u_l) * dt
+        cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
+        xy_list.append((round(x_new),round(y_new)))
+    theta_new = int(180 * theta_new / 3.14)
+   
 
+    #print(x_list[0])
+    
+    return xy_list
+def ValidMove(node):
+    if((node[0] < 0) or (node[0] >= 540)):
+        return False
+    elif((node[1] < 0) or (node[1] >= 300)):
+        return False
+    else:
+        return True
 
 
 def move_set(node, u_l, u_r):
@@ -219,20 +252,7 @@ def euclidean_distance(node, goal_state):
 
     return math.sqrt((goal_state[0] - node[0])**2 + (goal_state[1] - node[1])**2)
 
-def circle_search_function(h,k,buff_mod):
-    circle_set = set()
-    for x in range(h-buff_mod,h+buff_mod):
-        for y in range(k-buff_mod,k+buff_mod):
-            if ((x-h)**2) + ((y-k)**2) <= buff_mod**2:
-                circle_set.add((x,y))
-    
-    for item in circle_set:
-        c_x, c_y = item
-        c_in_obj = InObjectSpace(c_x, c_y)
-        if (c_in_obj):
-            return True
 
-    return False
 
 # Draw the initial game board, colors depict:
 # White: In object space
@@ -257,7 +277,7 @@ def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
         for y in range(0,cols):
             in_obj = InObjectSpace(x,y)
             if (in_obj):
-                pygame.draw.circle(screen,pygame.Color(pallet["green"]),(x,y),buff_mod,2)
+                pygame.draw.circle(screen,pygame.Color(pallet["green"]),(x,y),buff_mod,0)
   
             elif(0<y<=buff_mod or (298-buff_mod)<=y<299):
                     pxarray[x,y] = pygame.Color(pallet["green"])
@@ -272,6 +292,7 @@ def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
             if InObjectSpace(x,y):
                 pxarray[x,y] = pygame.Color(pallet["black"])
 
+
 def FillCostMatrix(C2C, pxarray, pallet, thresh):
     for x in range(0, int(rows/thresh)):
         for y in range(0, int(cols/thresh)):
@@ -282,6 +303,7 @@ def FillCostMatrix(C2C, pxarray, pallet, thresh):
                 C2C[x,y] = np.inf
                 
 #%%                    
+#CL_for_plot = []
 def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2):
 
     solution_path = []
@@ -295,13 +317,19 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
     
     while OL:
         node = heapq.heappop(OL)
-        print(node)
+        #print(node)
         # Take popped node and center it, along with finding the index values for the V matrix
         fixed_node, x_v_idx, y_v_idx, theta_v_idx = round_and_get_v_index(node[1])
         
         # Add popped node to the closed list
         V[x_v_idx, y_v_idx, theta_v_idx] = 1
-        pxarray[int(round(fixed_node[0])),int(round(fixed_node[1]))] = pygame.Color(pallet["blue"])
+        arc_end = node[1]
+        arc_speeds = node[2]
+        arc_xy = reverse_move(arc_end,arc_speeds)
+        for i in range(0,len(arc_xy)):
+            pygame.draw.lines(screen,pygame.Color(pallet["blue"]),False,arc_xy,1)
+            #pxarray[round(arc_x[i]),round(arc_y[i])] = pygame.Color(pallet["blue"])
+        #pxarray[int(round(fixed_node[0])),int(round(fixed_node[1]))] = pygame.Color(pallet["blue"])
         pygame.display.update()
         
         # Check if popped node is within the goal tolerance region
@@ -348,7 +376,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
                        
                        C2C[child_x_v_idx, child_y_v_idx] = cost2come   # Update cost matrix with newly calculate Cost to Come
                        costsum[child_cost_node] = cost2come + cost2go  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
-                       child = [costsum[child_cost_node], child_node_fixed]  # Create new child node --> [total cost, (x, y, theta)]... Total cost is used as priority determinant in heapq
+                       child = [costsum[child_cost_node], child_node_fixed,(action[0],action[1])]  # Create new child node --> [total cost, (x, y, theta)]... Total cost is used as priority determinant in heapq
                        heapq.heappush(OL, child)   # push child node to heapq
                        
                 # Child was in visited list, see if new path is most optimal
@@ -412,7 +440,7 @@ def GetUserInput():
             print("Sorry, that step size is not valid!")
             continue
         
-        start_node = [0.0, (start_x, start_y, start_theta)]
+        start_node = [0.0, (start_x, start_y, start_theta)(0,0)]
         goal = (goal_x,goal_y)
      
         unanswered = False
@@ -435,8 +463,8 @@ def GetUserInput():
 # rradius:   robot radius in mm
 
 clearance = 0
-start_node = [0.0, (0.0, 149.0, 0)]
-goal_node = (539.0, 149.0)
+start_node = [0.0, (50, 200, 0),(0,0)]
+goal_node = (50, 100)
 step = 0.01
 RPM1 = 5.0
 RPM2 = 10.0
@@ -490,9 +518,16 @@ pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(start_node[1][0]), 
 pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(goal_node[0]), goal_node[1]), radius=5.0, width=1) # Goal node
 
 # Draw solution path
+# for item in solution:
+#     pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(round(item[0])), int(round(item[1]))), radius=3.0, width=0)
+#     pygame.display.update()
+final_path_drawing = []
 for item in solution:
-    pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(round(item[0])), int(round(item[1]))), radius=3.0, width=0)
-    pygame.display.update()
+    xy = (int(round(item[0])),int(round(item[1])))
+    final_path_drawing.append(xy)
+
+pygame.draw.lines(screen,pygame.Color(pallet["red"]),False,final_path_drawing,2)
+pygame.display.update()
     
 # Freeze screen on completed maze screen until user quits the game
 # (press close X on pygame screen)
