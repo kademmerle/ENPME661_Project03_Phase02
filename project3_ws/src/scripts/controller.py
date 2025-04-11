@@ -35,7 +35,9 @@ class Controller(Node):
             for row in reader:
                 x_str, y_str = row
                 x = float(x_str) / 100
-                y = (float(y_str) -149) /100
+                y = (float(y_str) + 149) /100 /2
+                if y > 1.3:
+                    y = 1.3
                 self.waypoints.append((x, y))
         # self.waypoints = [
         #     (0.7, 0.8),
