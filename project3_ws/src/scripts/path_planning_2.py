@@ -15,6 +15,7 @@ import heapq
 import numpy as np
 from queue import PriorityQueue
 from collections import deque
+import csv
 
 ###########################
 # Global Variables
@@ -436,8 +437,8 @@ RPM1 = 5.0
 RPM2 = 10.0
 r = 3.3
 L = 22
-t_curve = .8 # seconds to run curve
-goal_weight = 5 # For weighted a_star set > 1, for unweighted set = 1
+t_curve = 0.5 # seconds to run curve
+goal_weight = 3 # For weighted a_star set > 1, for unweighted set = 1
 
 DrawBoard(rows, cols, pxarray, pallet, C2C, clearance, L)
 
@@ -480,6 +481,16 @@ while running:
 runtime = end_time - start_time
 
 print("Time required to solve maze: ", runtime, " seconds")
+
+with open("waypoints.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    for item in solution:
+        x = item[0]
+        y = item[1]
+        writer.writerow([x, y])
+
+        
+
 
 # Draw start and goal points; start point will be filled, goal point will be hollow
 pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(start_node[1][0]), start_node[1][1]), radius=5.0, width=0) # Start node    

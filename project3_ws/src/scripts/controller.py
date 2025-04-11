@@ -3,15 +3,21 @@
 import math
 import rclpy
 from rclpy.node import Node
+import csv
+import os
 
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
-
+from ament_index_python.packages import get_package_share_directory
 
 
 class Controller(Node):
     def __init__(self):
-        super().__init__('path_follower')
+        super().__init__('Controller')
+        pkg_share = get_package_share_directory('turtlebot3_project3')
+        csv_path = os.path.join(pkg_share, 'scripts', 'waypoints.csv')
+        self.waypoints = []
+
 
         # ---------- ROS Interfaces ----------
         self.odom_sub = self.create_subscription(
@@ -24,19 +30,26 @@ class Controller(Node):
 
         # ---------- Parameters ----------
         # List of waypoints (x, y), in meters
-        self.waypoints = [
-            (0.7, 0.8),
-            (1.6, 0.8),
-            (1.6, -0.72),
-            (2.7, -0.72),
-            (2.7, 0.0),
-            (3.7, 0.0),
-            (3.7, 0.8),
-            (5.0, 0.8),
-            (5.0, .3),
-            (5.5, .3),
+        with open(csv_path, 'r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                x_str, y_str = row
+                x = float(x_str)
+                y = float(y_str)
+                self.waypoints.append((x, y))
+        # self.waypoints = [
+        #     (0.7, 0.8),
+        #     (1.6, 0.8),
+        #     (1.6, -0.72),
+        #     (2.7, -0.72),
+        #     (2.7, 0.0),
+        #     (3.7, 0.0),
+        #     (3.7, 0.8),
+        #     (5.0, 0.8),
+        #     (5.0, .3),
+        #     (5.5, .3),
 
-        ]
+        # ]
         self.current_waypoint_idx = 0
         self.distance_threshold = 0.1  # If within this move to the next waypoint
         
@@ -63,7 +76,7 @@ class Controller(Node):
         self.y   = 0.0
         self.yaw = 0.0
 
-        self.get_logger().info("PathFollower node started.")
+        self.get_logger().info("Controller node started.")
 
     def odom_callback(self, msg):
         """

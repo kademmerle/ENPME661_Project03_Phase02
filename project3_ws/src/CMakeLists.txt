@@ -80,6 +80,12 @@ install(PROGRAMS
   DESTINATION lib/${PROJECT_NAME}
 )
 
+install(
+  DIRECTORY scripts/
+  DESTINATION share/${PROJECT_NAME}/scripts
+  FILES_MATCHING PATTERN "*.csv"
+)
+
 ################################################################################
 # Macro for ament package
 ################################################################################
