@@ -37,7 +37,7 @@ def get_robot_inputs(RPM1, RPM2):
 
     return control_inputs
 
-def get_next_moves(current_pose, dt=0.1, control_inputs=None):
+def get_next_moves_FORREMOVE(current_pose, dt=0.1, control_inputs=None):
     # Get the next moves based on the robot's current position and action control inputs
     x, y, theta = current_pose
     robot_radius        = 22 /  1000 # m
@@ -65,6 +65,38 @@ def get_next_moves(current_pose, dt=0.1, control_inputs=None):
         new_positions.append([(x_new, y_new, theta_new), cost])
     return new_positions
 
+
+def get_next_moves(node, t_curve=2, control_inputs=None):
+    t    = 0
+    r    = 3.3   # cm
+    L    = 28.7  # cm
+    cost = 0
+    dt   = 0.1
+    
+    new_positions = []
+    
+
+    # print("Theta Start in deg: ", node[2])
+    
+    for control_input in control_inputs:
+        u_l, u_r = control_input # Left and Right wheel velocities in rad/s
+        theta_new = 3.14 * node[2] / 180
+        x_new = node[0]
+        y_new = node[1]    
+        t    = 0
+        while t < t_curve:
+            t = t+dt
+            x_new += (r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
+            y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
+            theta_new += (r/L) * (u_r - u_l) * dt
+            cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
+        
+        theta_new = int(180 * theta_new / 3.14)
+        new_positions.append([(x_new, y_new, theta_new), cost])
+
+        # print("Theta Adjusted in deg: ", theta_new)
+    
+    return new_positions
 
 def plot_next_moves(x, y, theta, new_positions):
     # Plot the next moves
@@ -197,16 +229,15 @@ def round_and_get_v_index(node):
     """
     x           = round(node[0] * 2) / 2
     y           = round(node[1] * 2) / 2
-    theta_deg   = theta * 180 / math.pi
-    theta_deg_rounded = round(theta_deg / 3) * 3 # round to nearest 3 degrees
-    theta_v_idx = theta_deg_rounded % 360 # round to nearest degree
-    theta       = round(theta_v_idx * math.pi / 180, 2) # round to nearest degree
  
     x_v_idx     = int(x * 2)
     y_v_idx     = int(y * 2)
-   
+    
+    theta_deg         = node[2]
+    theta_deg_rounded = round(theta_deg / 10) * 10 # round to nearest 10 degrees
+    theta_v_idx       = int(theta_deg_rounded % 360) // 10
 
-    return (x, y, theta), x_v_idx, y_v_idx, theta_v_idx
+    return (x, y, theta_deg), x_v_idx, y_v_idx, theta_v_idx
 
 
 def check_if_visited(V, curr_node_v, stepsize):
@@ -276,7 +307,7 @@ def generate_path(parent, goal_state):
     path.reverse()
     return path
 
-def a_star(start_state, goal_state, map_img, cost_matrix, obstacles, r=1, dt=0.1, control_inputs=None):
+def a_star(start_state, goal_state, map_img, cost_matrix, obstacles, r=1, t_curve=1.0, control_inputs=None):
     """
     Perform A* Search to find shortest path from start state to goal state based on provided map
     and an 8-connected grid.
@@ -329,7 +360,7 @@ def a_star(start_state, goal_state, map_img, cost_matrix, obstacles, r=1, dt=0.1
     V             = np.zeros(                                   # Visited Nodes
                         (int(map_img.shape[0] / thresh),
                          int(map_img.shape[1] / thresh),
-                         120)
+                         36)
                     ) 
 
 
@@ -365,7 +396,7 @@ def a_star(start_state, goal_state, map_img, cost_matrix, obstacles, r=1, dt=0.1
         # else:                                     # Only add node to explored path if it is visited and expanded
         #     explored_path.append(curr_node)       # If we've found a lower cost for the node, then we have already explored it
 
-        possible_moves = get_next_moves(curr_node, dt, control_inputs) # Get possible moves from current node
+        possible_moves = get_next_moves(curr_node, t_curve, control_inputs) # Get possible moves from current node
 
         for next_node, next_cost in possible_moves:   # For each move, check if it is valid and not an obstacle
             next_node_round, next_x_v_idx, next_y_v_idx, next_theta_v_idx = round_and_get_v_index(next_node)
@@ -445,8 +476,8 @@ control_inputs = get_robot_inputs(RPM1, RPM2)
 x     = 0 # cm
 y     = 0 # cm
 theta = 0 # cm
-dt    = 10 # seconds
-new_positions = get_next_moves((x, y, theta), control_inputs=control_inputs, dt=dt)
+t_curve    = 2 # seconds
+new_positions = get_next_moves((x, y, theta), control_inputs=control_inputs, t_curve=t_curve)
 plot_next_moves(x, y, theta, new_positions)
 
 for i in range(10):
@@ -465,9 +496,9 @@ control_inputs     = get_robot_inputs(RPM1, RPM2)
 start = (0,   150, 0) # cm
 goal  = (539, 150, 0) # cm
 r     = 1 # Block size for A* Search, not currently used, dt is
-dt    = 10 # seconds
+t_curve    = 1 # seconds
 
-first_moves = get_next_moves(start, dt=dt, control_inputs=control_inputs)
+first_moves = get_next_moves(start, t_curve=t_curve, control_inputs=control_inputs)
 min_dist, max_dist, max_theta = np.inf, 0, 0
 
 for move in first_moves:
@@ -480,15 +511,15 @@ for move in first_moves:
     min_dist  = min(min_dist, dist)
     max_dist  = max(max_dist, dist)
     max_theta = max(max_theta, dtheta)
-print(f"Inputs result in Max {max_dist} cm movement per {dt} seconds")
-print(f"Inputs result in Min {min_dist} cm movement per {dt} seconds")
-print(f"Inputs result in Max {round(max_theta*180/math.pi,1)} degrees rotation per {dt} seconds")
+print(f"Inputs result in Max {max_dist} cm movement per {t_curve} seconds")
+print(f"Inputs result in Min {min_dist} cm movement per {t_curve} seconds")
+print(f"Inputs result in Max {round(max_theta,1)} degrees rotation per {t_curve} seconds")
 print("selection of dt relative to RPM and grid size is important")
 
 
 # %% Run A* Search
 (solution_path, cost_to_come, parent, cost_matrix, explored_path, V, goal_state_reached
-) = a_star(start, goal, map_img, cost_matrix, obstacles, r, dt, control_inputs)
+) = a_star(start, goal, map_img, cost_matrix, obstacles, r, t_curve, control_inputs)
 
 
 plot_cost_matrix(cost_matrix, start, goal, title="Cost Matrix Heatmap")

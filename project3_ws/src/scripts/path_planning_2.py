@@ -17,33 +17,7 @@ from queue import PriorityQueue
 from collections import deque
 import csv
 
-###########################
-# Global Variables
-###########################
 
-# Screen dimensions
-rows, cols = (540,300)
-
-# Define Lists
-OL = []
-CL = {}
-index_ctr = 0
-solution  = []
-thresh    = 0.5
-clearance = 5
-parent    = {}
-costsum   = {}
-theta_bins = 36
-V         = np.zeros((int(rows/thresh), int(cols/thresh), theta_bins))
-C2C       = np.zeros((int(rows/thresh), int(cols/thresh)))
-
-# Define colors
-pallet = {"white":(255, 255, 255), 
-          "black":(0, 0, 0), 
-          "green":(4,217,13), 
-          "blue":(61,119,245), 
-          "red":(242,35,24)
-          }
 
 
 # Check if x_prime is in the Open List
@@ -117,13 +91,13 @@ def round_and_get_v_index(node):
    
     x           = round(node[0] * 2, 1) / 2
     y           = round(node[1] * 2, 1) / 2
-    theta_deg       = node[2]
+    theta_deg   = node[2]
 
     x_v_idx     = int(x * 2)
     y_v_idx     = int(y * 2)
 
     theta_deg_rounded = round(theta_deg / 10) * 10 # round to nearest 10 degrees
-    theta_v_idx = int(theta_deg_rounded % 360) // 10
+    theta_v_idx       = int(theta_deg_rounded % 360) // 10
 
     return (x, y, theta_deg_rounded), x_v_idx, y_v_idx, theta_v_idx
 
@@ -132,16 +106,18 @@ Utilizes function that was provided in Cost.py of the Proj 3 Phase 2 files.
 Variable names have been adjusted slightly, but general mechanics remain the same.
 """
 def move_set(node, u_l, u_r, t_curve=2):
-    t = 0
-    r = 3.3
-    L = 22
+    t    = 0
+    r    = 3.3
+    L    = 28.7
     cost = 0
-    dt = 0.1
+    dt   = 0.1
     
     x_new = node[0]
     y_new = node[1]
     # print("Theta Start in deg: ", node[2])
-    theta_new = 3.14 * node[2] / 180    
+    theta_new = 3.14 * node[2] / 180
+    u_l = u_l*2*math.pi/60
+    u_r = u_r*2*math.pi/60    
     while t < t_curve:
         t = t+dt
         x_new += (r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
@@ -174,7 +150,7 @@ def InObjectSpace(x, y):
         return True
     
     # Define Object 2
-    elif ((209<=x<=219) and (0<=y<=199)):
+    elif ((209<=x<=219) and (0<=y<=199)): 
         return True
     
     # Define Object 3
@@ -187,8 +163,7 @@ def InObjectSpace(x, y):
         return True
 
     # Define Object Space for walls
-    elif((x==0 and 0<=y<=299) or (x==539 and (0<=y<=299)) or \
-         ((0<=x<=539) and y==0) or ((0<=x<=539) and y==299)):
+    elif( ( (0<=x<=539) and y==0) or ((0<=x<=539) and y==299) ): # x==0 and 0<=y<=299) or (x==539 and (0<=y<=299)) or \
         return True
 
     # Default case, non-object space    
@@ -245,26 +220,22 @@ def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
         for y in range(0,cols):
             in_obj = InObjectSpace(x,y)
             if (in_obj):
-                pxarray[x,y] = pygame.Color(pallet["black"])
-            else:
-                if(((InObjectSpace(x+(buff_mod*0.5),y+buff_mod)) or\
-                   (InObjectSpace(x-(buff_mod*0.5),y+buff_mod)) or\
-                   (InObjectSpace(x+(buff_mod*0.5),y-buff_mod)) or\
-                   (InObjectSpace(x-(buff_mod*0.5),y-buff_mod)) or\
-                   (InObjectSpace(x,y+buff_mod)) or\
-                   (InObjectSpace(x,y-buff_mod)) or\
-                   (InObjectSpace(x+buff_mod,y+buff_mod)) or\
-                   (InObjectSpace(x-buff_mod,y+buff_mod)) or \
-                   (InObjectSpace(x+buff_mod,y-buff_mod) and (y < 149)) or \
-                   (InObjectSpace(x-buff_mod,y-buff_mod) and (y < 149)) or \
-                   (InObjectSpace(x+buff_mod,y-buff_mod) and ((209-buff_mod)<=x<=(219+buff_mod))) or \
-                   (InObjectSpace(x-buff_mod,y-buff_mod) and ((209-buff_mod)<=x<=(219+buff_mod)))) and \
-                   ((buff_mod<x<(538-buff_mod) and (buff_mod<y<(298-buff_mod))))):
+                pygame.draw.circle(screen,pygame.Color(pallet["green"]),(x,y),buff_mod,0)
+  
+            elif(0<y<=buff_mod or (298-buff_mod)<=y<299):
                     pxarray[x,y] = pygame.Color(pallet["green"])
-                elif(0<y<=buff_mod or (298-buff_mod)<=y<299):
-                     pxarray[x,y] = pygame.Color(pallet["green"])
-                else:
-                    pxarray[x,y] = pygame.Color(pallet["white"])
+
+    for x in range(0,rows):
+        for y in range(0,cols):
+            if pxarray[x,y] == 0:
+                pxarray[x,y] = pygame.Color(pallet["white"])
+
+    for x in range(0,rows):
+        for y in range(0,cols):
+            if InObjectSpace(x,y):
+                pxarray[x,y] = pygame.Color(pallet["black"])
+
+
 
 def FillCostMatrix(C2C, pxarray, pallet, thresh):
     for x in range(0, int(rows/thresh)):
@@ -359,18 +330,23 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2,
                         costsum[child_cost_node] = cost2come + goal_weight*cost2go
     return False, solution_path
 
-#%%
-# Initialize pygame
-pygame.init()
-
-# Define screen size
-window_size = (rows, cols)
-screen = pygame.display.set_mode(window_size)
-pxarray = pygame.PixelArray(screen)
-
 #################################################
 # Prompt User for starting and goal states
 def GetUserInput():
+    # Collect input from user:
+    # start_node: starting coordinates and orientation with total cost (float)
+    # goal_node:  desired end coordinates as tuple (float)
+    # step:       step size/movement length in mm (int)
+    # rradius:    size of robot radius in mm (int)
+    #start_node, goal_node, step, rradius = GetUserInput()
+
+    # Draw board with objects and buffer zone
+    # rows:      size x-axis (named at one point, and forgot to change)
+    # cols:      size y-axis
+    # pallet:    color library with RGB values for drawing on pixel array
+    # C2C:       obsolete, starting costs set in FillCostMatrix()
+    # clearance: turn clearance for robot in mm 
+    # rradius:   robot radius in mm
     
     unanswered = True
     
@@ -383,8 +359,8 @@ def GetUserInput():
     print("And he understands location using X and Y coordinates. So can you help?")
     print("---------------------------------------------------------------------------\n")
     while unanswered:
-        start_x = float(input("Enter the starting x-coordinate: "))
-        start_y = 299-float(input("Enter the starting y-coordinate: "))
+        start_x     = float(input("Enter the starting x-coordinate: "))
+        start_y     = 299-float(input("Enter the starting y-coordinate: "))
         start_theta = float(input("Enter the starting orientation (0-360 degrees): "))
         
         # Check to see if start point falls in obstacle space, reprompt for new
@@ -414,30 +390,50 @@ def GetUserInput():
 
     return start_node, goal, step_size
 
-# Collect input from user:
-# start_node: starting coordinates and orientation with total cost (float)
-# goal_node:  desired end coordinates as tuple (float)
-# step:       step size/movement length in mm (int)
-# rradius:    size of robot radius in mm (int)
-#start_node, goal_node, step, rradius = GetUserInput()
+#%%
+# Initialize pygame
 
-# Draw board with objects and buffer zone
-# rows:      size x-axis (named at one point, and forgot to change)
-# cols:      size y-axis
-# pallet:    color library with RGB values for drawing on pixel array
-# C2C:       obsolete, starting costs set in FillCostMatrix()
-# clearance: turn clearance for robot in mm 
-# rradius:   robot radius in mm
+# Screen dimensions
+rows, cols = (540, 300)
 
-clearance = 0
+# Define Lists
+OL = []
+CL = {}
+index_ctr = 0
+solution  = []
+thresh    = 0.5
+clearance = 6
+parent    = {}
+costsum   = {}
+theta_bins = 36
+V         = np.zeros((int(rows/thresh), int(cols/thresh), theta_bins))
+C2C       = np.zeros((int(rows/thresh), int(cols/thresh)))
+
+# Define colors
+pallet = {"white":(255,  255, 255), 
+          "black":(0,      0,   0), 
+          "green":(4,    217,  13), 
+          "blue": (61,   119, 245), 
+          "red":  (242,   35,  24)
+          }
+pygame.init()
+
+# Define screen size
+clearance  = 12
+window_size = (rows+clearance, cols)
+screen = pygame.display.set_mode(window_size)
+pxarray = pygame.PixelArray(screen)
+
+
+clearance  = 15
 start_node = [0.0, (0.0, 149.0, 0)]
-goal_node = (539.0, 149.0)
+goal_node  = (530.0, 149.0)
 step = 0.01
-RPM1 = 5.0
-RPM2 = 10.0
-r = 3.3
-L = 22
-t_curve = 0.5 # seconds to run curve
+RPM1 = 50.0
+RPM2 = 100.0
+r    = 3.3
+L    = 28.7
+t_curve = 1 # seconds to run curve
 goal_weight = 3 # For weighted a_star set > 1, for unweighted set = 1
 
 DrawBoard(rows, cols, pxarray, pallet, C2C, clearance, L)
@@ -481,16 +477,14 @@ while running:
 runtime = end_time - start_time
 
 print("Time required to solve maze: ", runtime, " seconds")
-
+center_y = 149
 with open("waypoints.csv", "w", newline="") as file:
     writer = csv.writer(file)
+    writer.writerow([RPM1, RPM2])
     for item in solution:
         x = item[0]
-        y = item[1]
+        y = center_y - item[1]
         writer.writerow([x, y])
-
-        
-
 
 # Draw start and goal points; start point will be filled, goal point will be hollow
 pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(start_node[1][0]), start_node[1][1]), radius=5.0, width=0) # Start node    
@@ -513,4 +507,17 @@ while running:
             pygame.quit()
 
 
+
 # %%
+smoothed_solution = solution.deepcopy()
+
+for i in range(len(solution)-1):
+    curr_point = solution[i]
+    dist = 0
+    next_point = solution[i+1]
+    # Calculate the distance between the current point and the next point
+    y_dist = next_point[1] - curr_point[1]
+    x_dist = next_point[0] - curr_point[0]
+    dist = math.sqrt((x_dist)**2 + (y_dist)**2)
+    if dist < 5:
+

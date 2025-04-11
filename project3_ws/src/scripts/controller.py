@@ -30,15 +30,31 @@ class Controller(Node):
 
         # ---------- Parameters ----------
         # List of waypoints (x, y), in meters
+        r = 0.033
         with open(csv_path, 'r') as file:
             reader = csv.reader(file)
+            w_l, w_r = next(reader)
+            w_l = float(w_l) * 2 * math.pi / 60 
+            w_r = float(w_r) * 2 * math.pi / 60
+            v_l = w_l*r
+            v_r = w_r*r
             for row in reader:
                 x_str, y_str = row
                 x = float(x_str) / 100
-                y = (float(y_str) + 149) /100 /2
-                if y > 1.3:
-                    y = 1.3
+                y = (float(y_str) ) /100 
+                if y > 1.15:
+                    y = 1.15
                 self.waypoints.append((x, y))
+                max_linear_velocity = (float(v_l) + float(v_r)) / 4 # (manual damen)
+                self.max_angular_velocity = max(
+                    ((float(w_r) - float(w_l)) / 2),
+                    ((float(w_l) - float(w_r)) / 2),
+                    float(w_l),
+                    float(w_r)
+                ) / 2
+                self.get_logger().info(f"Max linear velocity: {max_linear_velocity}")
+                self.get_logger().info(f"Max angular velocity: {self.max_angular_velocity}")
+
         # self.waypoints = [
         #     (0.7, 0.8),
         #     (1.6, 0.8),
@@ -53,7 +69,7 @@ class Controller(Node):
 
         # ]
         self.current_waypoint_idx = 0
-        self.distance_threshold = 0.03  # If within this move to the next waypoint
+        self.distance_threshold = 0.05  # If within this move to the next waypoint
         
         # Base PID gains (we adapt Kp based on distance to path)
         self.base_kp = 1.0
@@ -66,7 +82,7 @@ class Controller(Node):
         self.prev_error     = 0.1
 
         # we'll just control angular.z to turn toward waypoint. For linear velocity, we use constant.
-        self.forward_speed = 0.2  # m/s
+        self.forward_speed = max_linear_velocity  # m/s
 
         # Timer for control loop
         self.control_rate = 10.0  # Hz
@@ -145,8 +161,11 @@ class Controller(Node):
         # Constuct and publish the command message
         cmd_msg = Twist()
         cmd_msg.linear.x = self.forward_speed
-        cmd_msg.angular.z = control_angular
 
+        # Limit angular velocity to max_angular_velocity
+        if abs(control_angular) > abs(self.max_angular_velocity):
+            control_angular = math.copysign(self.max_angular_velocity, control_angular)
+        cmd_msg.angular.z = control_angular
         self.cmd_pub.publish(cmd_msg)
 
         # Store current error for next iteration
