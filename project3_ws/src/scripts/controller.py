@@ -30,26 +30,26 @@ class Controller(Node):
 
         # ---------- Parameters ----------
         # List of waypoints (x, y), in meters
-        # with open(csv_path, 'r') as file:
-        #     reader = csv.reader(file)
-        #     for row in reader:
-        #         x_str, y_str = row
-        #         x = float(x_str) / 100
-        #         y = (float(y_str) -149) /100
-        #         self.waypoints.append((x, y))
-        self.waypoints = [
-            (0.7, 0.8),
-            (1.6, 0.8),
-            (1.6, -0.72),
-            (2.7, -0.72),
-            (2.7, 0.0),
-            (3.7, 0.0),
-            (3.7, 0.8),
-            (5.0, 0.8),
-            (5.0, .3),
-            (5.5, .3),
+        with open(csv_path, 'r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                x_str, y_str = row
+                x = float(x_str) / 100
+                y = (float(y_str) -149) /100
+                self.waypoints.append((x, y))
+        # self.waypoints = [
+        #     (0.7, 0.8),
+        #     (1.6, 0.8),
+        #     (1.6, -0.72),
+        #     (2.7, -0.72),
+        #     (2.7, 0.0),
+        #     (3.7, 0.0),
+        #     (3.7, 0.8),
+        #     (5.0, 0.8),
+        #     (5.0, .3),
+        #     (5.5, .3),
 
-        ]
+        # ]
         self.current_waypoint_idx = 0
         self.distance_threshold = 0.03  # If within this move to the next waypoint
         
