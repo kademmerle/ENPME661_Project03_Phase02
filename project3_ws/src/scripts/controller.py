@@ -30,30 +30,32 @@ class Controller(Node):
 
         # ---------- Parameters ----------
         # List of waypoints (x, y), in meters
-        r = 0.033
+        r = 0.033 # wheel radius in meters
+
         with open(csv_path, 'r') as file:
             reader = csv.reader(file)
             w_l, w_r = next(reader)
-            w_l = float(w_l) * 2 * math.pi / 60 
-            w_r = float(w_r) * 2 * math.pi / 60
+            w_l = float(w_l) * 2 * math.pi / 60 # Convert to rad/s
+            w_r = float(w_r) * 2 * math.pi / 60 # Convert to rad/s
             v_l = w_l*r
             v_r = w_r*r
             for row in reader:
                 x_str, y_str = row
-                x = float(x_str) / 100
-                y = (float(y_str) ) /100 
-                if y > 1.15:
-                    y = 1.15
+                x = float(x_str) / 100 # Convert from cm to m
+                y = float(y_str) / 100 # Convert from cm to m
+
                 self.waypoints.append((x, y))
-                max_linear_velocity = (float(v_l) + float(v_r)) / 4 # (manual damen)
-                self.max_angular_velocity = max(
-                    ((float(w_r) - float(w_l)) / 2),
-                    ((float(w_l) - float(w_r)) / 2),
-                    float(w_l),
-                    float(w_r)
-                ) / 2
-                self.get_logger().info(f"Max linear velocity: {max_linear_velocity}")
-                self.get_logger().info(f"Max angular velocity: {self.max_angular_velocity}")
+
+
+        max_linear_velocity = (float(v_l) + float(v_r)) / 4 # (manual dampen)
+        self.max_angular_velocity = max(
+            ((float(w_r) - float(w_l)) / 2),
+            ((float(w_l) - float(w_r)) / 2),
+            float(w_l),
+            float(w_r)
+        ) / 2
+        self.get_logger().info(f"Max linear velocity: {max_linear_velocity}")
+        self.get_logger().info(f"Max angular velocity: {self.max_angular_velocity}")
 
         # self.waypoints = [
         #     (0.7, 0.8),

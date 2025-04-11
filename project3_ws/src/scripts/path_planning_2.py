@@ -16,7 +16,7 @@ import numpy as np
 from queue import PriorityQueue
 from collections import deque
 import csv
-
+import matplotlib.pyplot as plt
 
 
 
@@ -509,15 +509,25 @@ while running:
 
 
 # %%
-smoothed_solution = solution.deepcopy()
+smoothed_solution = solution.copy()
+X, Y = [], []  
 
-for i in range(len(solution)-1):
+for i in range(len(solution)):
     curr_point = solution[i]
-    dist = 0
-    next_point = solution[i+1]
-    # Calculate the distance between the current point and the next point
-    y_dist = next_point[1] - curr_point[1]
-    x_dist = next_point[0] - curr_point[0]
-    dist = math.sqrt((x_dist)**2 + (y_dist)**2)
-    if dist < 5:
+    x, y = curr_point[0], curr_point[1]
+    X.append(x)
+    Y.append(y)
 
+degree = 7  # polynomial degree
+coeffs = np.polyfit(X, Y, deg=degree)
+poly_func = np.poly1d(coeffs)  # This creates a callable polynomial function
+x_fit = np.linspace(min(X), max(X), 200)
+y_fit = poly_func(x_fit)
+
+fig = plt.figure()
+plt.plot(X, Y, 'ro-')
+plt.plot(x_fit, y_fit, color='blue', label=f'Polynomial Deg {degree}')
+plt.show()
+
+
+# %%
