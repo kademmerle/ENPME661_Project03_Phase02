@@ -274,7 +274,7 @@ def FillCostMatrix(C2C, pxarray, pallet, thresh):
             else:
                 C2C[x,y] = np.inf
                                  
-def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2, t_curve):
+def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2, t_curve, goal_weight):
 
     solution_path = []
     
@@ -282,6 +282,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2,
     start_cost_state = (x_v_idx, y_v_idx, theta_v_idx)
     C2C[x_v_idx, y_v_idx] = 0.0
     costsum[start_cost_state] = 0.0 + euclidean_distance(start_node[1], goal_node)
+    
 
     heapq.heappush(OL, start_node)
     
@@ -340,7 +341,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2,
                        parent[child_node_fixed] = fixed_node     # Add child node to parent dictionary 
                        
                        C2C[child_x_v_idx, child_y_v_idx] = cost2come   # Update cost matrix with newly calculate Cost to Come
-                       costsum[child_cost_node] = cost2come + cost2go  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
+                       costsum[child_cost_node] = cost2come + goal_weight*cost2go  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
                        child = [costsum[child_cost_node], child_node_fixed]  # Create new child node --> [total cost, (x, y, theta)]... Total cost is used as priority determinant in heapq
                        heapq.heappush(OL, child)   # push child node to heapq
                        
@@ -354,7 +355,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2,
                     if(costsum[child_cost_node] > (cost2come + cost2go)):  
                         parent[child_node_fixed] = fixed_node
                         C2C[child_x_v_idx, child_y_v_idx] = cost2come
-                        costsum[child_cost_node] = cost2come + cost2go
+                        costsum[child_cost_node] = cost2come + goal_weight*cost2go
     return False, solution_path
 
 #%%
@@ -435,7 +436,8 @@ RPM1 = 5.0
 RPM2 = 10.0
 r = 3.3
 L = 22
-t_curve = 1.5 # seconds to run curve
+t_curve = .8 # seconds to run curve
+goal_weight = 5 # For weighted a_star set > 1, for unweighted set = 1
 
 DrawBoard(rows, cols, pxarray, pallet, C2C, clearance, L)
 
@@ -460,7 +462,7 @@ while running:
     FillCostMatrix(C2C, pxarray, pallet, thresh)
     
     # Start A_Star algorithm solver, returns game state of either SUCCESS (True) or FAILURE (false)
-    alg_state, solution = A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2, t_curve)
+    alg_state, solution = A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2, t_curve, goal_weight)
     
     if alg_state == False:
         print("Unable to find solution")
