@@ -30,7 +30,7 @@ thresh = 0.5
 clearance = 5
 parent = {}
 costsum = {}
-V = np.zeros((int(rows/thresh), int(cols/thresh), 12))
+V = np.zeros((int(rows/thresh), int(cols/thresh), 36))
 C2C = np.zeros((int(rows/thresh), int(cols/thresh)))
 
 # Define colors
@@ -84,26 +84,50 @@ Option 2: Pre-determine the desired factor and round the calculated orientation 
 """
 def get_theta_index(theta):
     temp_theta = theta % 360
-    diff = temp_theta % 30
+    diff = temp_theta % 10
     
-    if(diff >= 15):
-        theta = temp_theta + (30 - diff)
+    if(diff >= 5):
+        theta = temp_theta + (10 - diff)
     else:
         theta = temp_theta - diff
     
     look_up_dict = {
         0:   0,
-        30:  1,
-        60:  2,
-        90:  3,
-        120: 4,
-        150: 5,
-        180: 6,
-        210: 7,
-        240: 8,
-        270: 9,
-        300: 10,
-        330: 11,
+        10:  1,
+        20:  2,
+        30:  3,
+        40:  4,
+        50:  5,
+        60:  6,
+        70:  7,
+        80:  8,
+        90:  9,
+        100: 10,
+        110: 11,
+        120: 12,
+        130: 13,
+        140: 14,
+        150: 15,
+        160: 16,
+        170: 17,
+        180: 18,
+        190: 19,
+        200: 20,
+        210: 21,
+        220: 22,
+        230: 23,
+        240: 24,
+        250: 25,
+        260: 26,
+        270: 27,
+        280: 28,
+        290: 29,
+        300: 30,
+        310: 31,
+        320: 32,
+        330: 33,
+        340: 34,
+        350: 35,
         360: 0
     }
     return look_up_dict[theta]
@@ -113,12 +137,15 @@ def round_and_get_v_index(node):
    
    x           = round(node[0] * 2, 1) / 2
    y           = round(node[1] * 2, 1) / 2
-   theta       = node[2]
+   theta_deg   = node[2]
+
    x_v_idx     = int(x * 2)
    y_v_idx     = int(y * 2)
-   theta_v_idx = get_theta_index(theta)
 
-   return (x, y, theta), x_v_idx, y_v_idx, theta_v_idx
+   theta_deg_rounded = round(theta_deg / 10) * 10 # round to nearest 10 degrees
+   theta_v_idx       = int(theta_deg_rounded % 360) // 10
+
+   return (x, y, theta_deg_rounded), x_v_idx, y_v_idx, theta_v_idx
 
 """
 Utilizes function that was provided in Cost.py of the Proj 3 Phase 2 files. 
@@ -127,9 +154,9 @@ Variable names have been adjusted slightly, but general mechanics remain the sam
 def move_set(node, u_l, u_r):
     t = 0
     r = 3.3
-    L = 22
+    L = 28.7
     cost = 0
-    dt = 0.1
+    dt = 0.2
     
     x_new = node[0]
     y_new = node[1]
@@ -157,18 +184,47 @@ def ValidMove(node):
     else:
         return True
 
+def reverse_move(node,movement):
+    t = 0
+    r = 3.3
+    L = 28.7
+    cost = 0
+    dt = -0.1
+    x_new = node[0]
+    y_new = node[1]
+    u_l = movement[0]
+    u_r = movement[1]
+    theta_new = 3.14 * node[2] / 180
+    print("reverse Theta Start in rad: ", theta_new)
+    xy_list = [(x_new,y_new)]
+    
+    while t > -1:
+        t = t+dt
+        x_new += (r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
+        y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
+        theta_new += (r/L) * (u_r - u_l) * dt
+        cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
+        xy_list.append((round(x_new),round(y_new)))
+    theta_new = int(180 * theta_new / 3.14)
+   
+
+    #print(x_list[0])
+    
+    return xy_list
+
 # Define the object space for all letters/numbers in the maze
 # Also used for determining if a set of (x,y) coordinates is present in 
 # the action space
 # Returns: True if in Object Space, False if not
 def InObjectSpace(x, y):
         
+        
     # Define Object 1
     if ((99<=x<=109) and (99<=y<=299)):
         return True
     
     # Define Object 2
-    elif ((209<=x<=219) and (0<=y<=199)):
+    elif ((209<=x<=219) and (0<=y<=199)): 
         return True
     
     # Define Object 3
@@ -181,13 +237,13 @@ def InObjectSpace(x, y):
         return True
 
     # Define Object Space for walls
-    elif((x==0 and 0<=y<=299) or (x==539 and (0<=y<=299)) or \
-         ((0<=x<=539) and y==0) or ((0<=x<=539) and y==299)):
+    elif( ( (0<=x<=539) and y==0) or ((0<=x<=539) and y==299) ): # x==0 and 0<=y<=299) or (x==539 and (0<=y<=299)) or \
         return True
 
     # Default case, non-object space    
     else:
         return False
+
 
 # Backtrace the solution path from the goal state to the initial state
 # Add all nodes to the "solution" queue
@@ -233,32 +289,28 @@ def euclidean_distance(node, goal_state):
 #    r:       robot raidus in mm
 #
 # Outputs: none
+
 def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
     buff_mod = clear + r
     for x in range(0,rows):
         for y in range(0,cols):
             in_obj = InObjectSpace(x,y)
             if (in_obj):
-                pxarray[x,y] = pygame.Color(pallet["black"])
-            else:
-                if(((InObjectSpace(x+(buff_mod*0.5),y+buff_mod)) or\
-                   (InObjectSpace(x-(buff_mod*0.5),y+buff_mod)) or\
-                   (InObjectSpace(x+(buff_mod*0.5),y-buff_mod)) or\
-                   (InObjectSpace(x-(buff_mod*0.5),y-buff_mod)) or\
-                   (InObjectSpace(x,y+buff_mod)) or\
-                   (InObjectSpace(x,y-buff_mod)) or\
-                   (InObjectSpace(x+buff_mod,y+buff_mod)) or\
-                   (InObjectSpace(x-buff_mod,y+buff_mod)) or \
-                   (InObjectSpace(x+buff_mod,y-buff_mod) and (y < 149)) or \
-                   (InObjectSpace(x-buff_mod,y-buff_mod) and (y < 149)) or \
-                   (InObjectSpace(x+buff_mod,y-buff_mod) and ((209-buff_mod)<=x<=(219+buff_mod))) or \
-                   (InObjectSpace(x-buff_mod,y-buff_mod) and ((209-buff_mod)<=x<=(219+buff_mod)))) and \
-                   ((buff_mod<x<(538-buff_mod) and (buff_mod<y<(298-buff_mod))))):
+                pygame.draw.circle(screen,pygame.Color(pallet["green"]),(x,y),buff_mod,0)
+  
+            elif(0<y<=buff_mod or (298-buff_mod)<=y<299):
                     pxarray[x,y] = pygame.Color(pallet["green"])
-                elif(0<y<=buff_mod or (298-buff_mod)<=y<299):
-                     pxarray[x,y] = pygame.Color(pallet["green"])
-                else:
-                    pxarray[x,y] = pygame.Color(pallet["white"])
+
+    for x in range(0,rows):
+        for y in range(0,cols):
+            if pxarray[x,y] == 0:
+                pxarray[x,y] = pygame.Color(pallet["white"])
+
+    for x in range(0,rows):
+        for y in range(0,cols):
+            if InObjectSpace(x,y):
+                pxarray[x,y] = pygame.Color(pallet["black"])
+
 
 def FillCostMatrix(C2C, pxarray, pallet, thresh):
     for x in range(0, int(rows/thresh)):
@@ -289,7 +341,13 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
         
         # Add popped node to the closed list
         V[x_v_idx, y_v_idx, theta_v_idx] = 1
-        pxarray[int(round(fixed_node[0])),int(round(fixed_node[1]))] = pygame.Color(pallet["blue"])
+        arc_end = node[1]
+        arc_speeds = node[2]
+        arc_xy = reverse_move(arc_end,arc_speeds)
+        for i in range(0,len(arc_xy)):
+            pygame.draw.lines(screen,pygame.Color(pallet["blue"]),False,arc_xy,1)
+            #pxarray[round(arc_x[i]),round(arc_y[i])] = pygame.Color(pallet["blue"])
+        #pxarray[int(round(fixed_node[0])),int(round(fixed_node[1]))] = pygame.Color(pallet["blue"])
         pygame.display.update()
         
         # Check if popped node is within the goal tolerance region
@@ -336,7 +394,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
                        
                        C2C[child_x_v_idx, child_y_v_idx] = cost2come   # Update cost matrix with newly calculate Cost to Come
                        costsum[child_cost_node] = cost2come + cost2go  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
-                       child = [costsum[child_cost_node], child_node_fixed]  # Create new child node --> [total cost, (x, y, theta)]... Total cost is used as priority determinant in heapq
+                       child = [costsum[child_cost_node], child_node_fixed, (action[0],action[1])]  # Create new child node --> [total cost, (x, y, theta)]... Total cost is used as priority determinant in heapq
                        heapq.heappush(OL, child)   # push child node to heapq
                        
                 # Child was in visited list, see if new path is most optimal
@@ -423,7 +481,7 @@ def GetUserInput():
 # rradius:   robot radius in mm
 
 clearance = 0
-start_node = [0.0, (0.0, 149.0, 0)]
+start_node = [0.0, (0.0, 150.0, 0), (0,0)]
 goal_node = (539.0, 149.0)
 step = 0.01
 RPM1 = 5.0
