@@ -71,7 +71,60 @@ def InObjectSpace(x, y):
         return False
     
 #def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
+def reverse_move(node,movement):
+    t = 0
+    r = 3.3
+    L = 28.7
+    cost = 0
+    dt = -0.1
+    x_new = node[0]
+    y_new = node[1]
+    u_l = movement[0]
+    u_r = movement[1]
+    theta_new = 3.14 * node[2] / 180
+    print("reverse Theta Start in rad: ", theta_new)
+    xy_list = [(x_new,y_new)]
+    
+    while t > -1:
+        t = t+dt
+        x_new += (r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
+        y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
+        theta_new += (r/L) * (u_r - u_l) * dt
+        cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
+        xy_list.append((round(x_new),round(y_new)))
+        
+    theta_new = int(180 * theta_new / 3.14)
+   
 
+    #print(x_list[0])
+    
+    return xy_list
+
+def forward_node(node,movement):
+    t = 0
+    r = 3.3
+    L = 28.7
+    cost = 0
+    dt = 0.1
+    x_new = node[0]
+    y_new = node[1]
+    u_l = movement[0]
+    u_r = movement[1]
+    theta_new = 3.14 * node[2] / 180
+    print("reverse Theta Start in rad: ", theta_new)
+    xy_list = [(x_new,y_new)]
+    
+    while t < 1:
+        t = t+dt
+        x_new += (r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
+        y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
+        theta_new += (r/L) * (u_r - u_l) * dt
+        cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
+        xy_list.append((round(x_new),round(y_new)))
+        
+    theta_new = int(180 * theta_new / 3.14)
+    
+    return xy_list
 
 buff_mod = clearance+robot_radius
 for x in range(1,rows-1):
@@ -99,21 +152,9 @@ for x in range(0,rows):
         if screen.get_at((x,y)) != pygame.Color(pallet["white"]):
             buffer_set.add((x,y))
 
-line_list = []
+forward_list = forward_node((50,50,0),(5,10))
 
-for i in range(10,200,10):
-    line_sublist = []
-    for n in range(0,150):
-        line_sublist.append((n,i))
-    line_list.append(line_sublist)
-
-for i in range(0,len(line_list)):
-    line_sublist = line_list[i]
-    for item in line_sublist:
-        x,y = item
-        if screen.get_at((x,y)) == pygame.Color(pallet["white"]):
-
-            pxarray[x,y] = pygame.Color(pallet["blue"])
+pygame.draw.lines(screen,pygame.Color(pallet["blue"]),False,forward_list,1)
 
 pygame.display.update()
 running = True

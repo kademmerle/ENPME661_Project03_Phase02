@@ -141,9 +141,10 @@ def reverse_move(node,movement):
     
     while t > -1:
         t = t+dt
+        theta_new += (r/L) * (u_r - u_l) * dt
         x_new += (r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
         y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
-        theta_new += (r/L) * (u_r - u_l) * dt
+        
         cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
         xy_list.append((round(x_new),round(y_new)))
         
@@ -180,17 +181,17 @@ def move_set(node, u_l, u_r):
         y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
         theta_new += (r/L) * (u_r - u_l) * dt
         cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
-        # bcux = int(math.ceil(x_new))
-        # bcuy = int(math.ceil(y_new))
-        # if bcux <0 or bcuy < 0:
-        #     return None
-        # bcdx = int(x_new)
-        # bcdy = int(y_new)
-        # if bcdx < 0 or bcdy < 0:
-        #     return None
-        # if (bcux,bcuy) in buffer_set or (bcdx,bcdy) in buffer_set:
-        #     print("in buffer set")
-        #     return None
+        bcux = int(math.ceil(x_new))
+        bcuy = int(math.ceil(y_new))
+        if bcux <0 or bcuy < 0:
+            return None
+        bcdx = int(x_new)
+        bcdy = int(y_new)
+        if bcdx < 0 or bcdy < 0:
+            return None
+        if (bcux,bcuy) in buffer_set or (bcdx,bcdy) in buffer_set:
+            print("in buffer set")
+            return None
         #green: (4, 217, 13, 255) black: (0, 0, 0, 255)
 
     
@@ -198,10 +199,6 @@ def move_set(node, u_l, u_r):
 
     print("Theta Adjusted in deg: ", theta_new)
 
-    reverse_xy_list = reverse_move((x_new,y_new,theta_new),(u_l,u_r))
-    for item in reverse_xy_list:
-        if item in buffer_set:
-            return None
     
     return (x_new, y_new, theta_new), cost
 
