@@ -18,7 +18,7 @@ screen = pygame.display.set_mode(window_size)
 screen2 = pygame.display.set_mode(window_size)
 pxarray = pygame.PixelArray(screen)
 bxarray = pygame.PixelArray(screen)
-
+buffer_set = set()
 
 # Define Lists
 OL = []
@@ -74,52 +74,47 @@ def InObjectSpace(x, y):
 
 
 buff_mod = clearance+robot_radius
-for x in range(0,rows):
+for x in range(1,rows-1):
     for y in range(0,cols):
         in_obj = InObjectSpace(x,y)
         if (in_obj):
-            pxarray[x,y] = pygame.Color(pallet["white"])
-            pygame.draw.circle(screen2,pygame.Color(pallet["green"]),(x,y),buff_mod,2)
-        # else:
-        #     if circle_search_function(x,y,buff_mod):
-        #         pxarray[x,y] = pygame.Color(pallet["green"])
-            # circle_set = set()
-            # circle_touching = False
-            # for x_circle in range(x-buff_mod,x+buff_mod):
-            #     for y_circle in range(y-buff_mod,y+buff_mod):
-            #         if ((x_circle-x)**2)+((y_circle-y)**2) == buff_mod**2:
-            #             circle_set.add((x,y))
-            
-            # for circle_point in circle_set:
-            #     c_x,c_y = circle_point
-            #     if (InObjectSpace(c_x,c_y)):
-            #         circle_touching = True
-            
-            # if circle_touching:
-            #     pxarray[x,y] = pygame.Color(pallet["green"])
+            pygame.draw.circle(screen,pygame.Color(pallet["green"]),(x,y),buff_mod,0)
 
-                        
-            
-            # if(((InObjectSpace(x+(buff_mod*0.5),y+buff_mod)) or\
-            #     (InObjectSpace(x-(buff_mod*0.5),y+buff_mod)) or\
-            #     (InObjectSpace(x+(buff_mod*0.5),y-buff_mod)) or\
-            #     (InObjectSpace(x-(buff_mod*0.5),y-buff_mod)) or\
-            #     (InObjectSpace(x,y+buff_mod)) or\
-            #     (InObjectSpace(x,y-buff_mod)) or\
-            #     (InObjectSpace(x+buff_mod,y+buff_mod)) or\
-            #     (InObjectSpace(x-buff_mod,y+buff_mod)) or \
-            #     (InObjectSpace(x+buff_mod,y-buff_mod) and (y < 149)) or \
-            #     (InObjectSpace(x-buff_mod,y-buff_mod) and (y < 149)) or \
-            #     (InObjectSpace(x+buff_mod,y-buff_mod) and ((209-buff_mod)<=x<=(219+buff_mod))) or \
-            #     (InObjectSpace(x-buff_mod,y-buff_mod) and ((209-buff_mod)<=x<=(219+buff_mod)))) and \
-            #     ((buff_mod<x<(538-buff_mod) and (buff_mod<y<(298-buff_mod))))):
-            #     pxarray[x,y] = pygame.Color(pallet["green"])
-        # elif(0<y<=buff_mod or (298-buff_mod)<=y<299):
-        #         pxarray[x,y] = pygame.Color(pallet["green"])
-        # else:
-        #     pxarray[x,y] = pygame.Color(pallet["white"])
-            #bx
-print(pxarray[50,50])
+        elif(0<y<=buff_mod or (298-buff_mod)<=y<299):
+                pxarray[x,y] = pygame.Color(pallet["green"])
+
+for x in range(0,rows):
+    for y in range(0,cols):
+        if screen.get_at((x,y)) == pygame.Color(pallet["black"]):
+
+            pxarray[x,y] = pygame.Color(pallet["white"])
+
+for x in range(0,rows):
+    for y in range(0,cols):
+        if InObjectSpace(x,y):
+            pxarray[x,y] = pygame.Color(pallet["black"])
+
+for x in range(0,rows):
+    for y in range(0,cols):
+        if screen.get_at((x,y)) != pygame.Color(pallet["white"]):
+            buffer_set.add((x,y))
+
+line_list = []
+
+for i in range(10,200,10):
+    line_sublist = []
+    for n in range(0,150):
+        line_sublist.append((n,i))
+    line_list.append(line_sublist)
+
+for i in range(0,len(line_list)):
+    line_sublist = line_list[i]
+    for item in line_sublist:
+        x,y = item
+        if screen.get_at((x,y)) == pygame.Color(pallet["white"]):
+
+            pxarray[x,y] = pygame.Color(pallet["blue"])
+
 pygame.display.update()
 running = True
 while running:
