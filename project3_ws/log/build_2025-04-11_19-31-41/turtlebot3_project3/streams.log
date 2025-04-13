@@ -1,0 +1,24 @@
+[0.005s] Invoking command in '/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3': CMAKE_PREFIX_PATH=/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3
+[0.015s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.105s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.142s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.163s] [31mCMake Error at CMakeLists.txt:23 (find_package):
+[0.163s]   By not providing "Findgazebo.cmake" in CMAKE_MODULE_PATH this project has
+[0.163s]   asked CMake to find a package configuration file provided by "gazebo", but
+[0.163s]   CMake did not find one.
+[0.164s] 
+[0.164s]   Could not find a package configuration file provided by "gazebo" with any
+[0.164s]   of the following names:
+[0.164s] 
+[0.164s]     gazeboConfig.cmake
+[0.164s]     gazebo-config.cmake
+[0.164s] 
+[0.164s]   Add the installation prefix of "gazebo" to CMAKE_PREFIX_PATH or set
+[0.164s]   "gazebo_DIR" to a directory containing one of the above files.  If "gazebo"
+[0.164s]   provides a separate development package or SDK, be sure it has been
+[0.164s]   installed.
+[0.164s] 
+[0.164s] [0m
+[0.164s] -- Configuring incomplete, errors occurred!
+[0.164s] See also "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/CMakeFiles/CMakeOutput.log".
+[0.165s] Invoked command in '/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3

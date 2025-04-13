@@ -1,8 +1,8 @@
-# Install script for directory: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src
+# Install script for directory: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3")
+  set(CMAKE_INSTALL_PREFIX "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -37,12 +37,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_project3/scripts" TYPE DIRECTORY FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/scripts/" FILES_MATCHING REGEX "/[^/]*\\.csv$")
+  include("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_project3/scripts" TYPE DIRECTORY FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src/scripts/" FILES_MATCHING REGEX "/[^/]*\\.csv$")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -53,5 +58,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

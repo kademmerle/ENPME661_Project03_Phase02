@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-eb9538ace95cbfa09f28.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10.2"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "turtlebot3_project3",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "turtlebot3_drive::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-turtlebot3_drive-d9a74f86bebced12e5e6.json",
+					"name" : "turtlebot3_drive",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "turtlebot3_project3_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-turtlebot3_project3_uninstall-7c107b908f9fdcc90c31.json",
+					"name" : "turtlebot3_project3_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-3e085d126dd6de45f40b.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3",
+		"source" : "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

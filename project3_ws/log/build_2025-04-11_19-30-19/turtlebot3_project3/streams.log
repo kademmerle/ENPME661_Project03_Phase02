@@ -1,0 +1,33 @@
+[0.004s] Invoking command in '/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3': CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3
+[0.100s] -- The C compiler identification is GNU 11.4.0
+[0.171s] -- The CXX compiler identification is GNU 11.4.0
+[0.181s] -- Detecting C compiler ABI info
+[0.227s] -- Detecting C compiler ABI info - done
+[0.231s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.231s] -- Detecting C compile features
+[0.232s] -- Detecting C compile features - done
+[0.235s] -- Detecting CXX compiler ABI info
+[0.285s] -- Detecting CXX compiler ABI info - done
+[0.289s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.289s] -- Detecting CXX compile features
+[0.290s] -- Detecting CXX compile features - done
+[0.296s] [31mCMake Error at CMakeLists.txt:22 (find_package):
+[0.296s]   By not providing "Findament_cmake.cmake" in CMAKE_MODULE_PATH this project
+[0.296s]   has asked CMake to find a package configuration file provided by
+[0.296s]   "ament_cmake", but CMake did not find one.
+[0.296s] 
+[0.297s]   Could not find a package configuration file provided by "ament_cmake" with
+[0.297s]   any of the following names:
+[0.297s] 
+[0.297s]     ament_cmakeConfig.cmake
+[0.297s]     ament_cmake-config.cmake
+[0.297s] 
+[0.297s]   Add the installation prefix of "ament_cmake" to CMAKE_PREFIX_PATH or set
+[0.297s]   "ament_cmake_DIR" to a directory containing one of the above files.  If
+[0.297s]   "ament_cmake" provides a separate development package or SDK, be sure it
+[0.297s]   has been installed.
+[0.297s] 
+[0.297s] [0m
+[0.297s] -- Configuring incomplete, errors occurred!
+[0.297s] See also "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/CMakeFiles/CMakeOutput.log".
+[0.298s] Invoked command in '/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3' returned '1': CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3

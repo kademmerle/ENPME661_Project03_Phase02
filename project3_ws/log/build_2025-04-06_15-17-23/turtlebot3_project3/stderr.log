@@ -1,6 +1,0 @@
-CMake Error at cmake_install.cmake:75 (file):
-  file INSTALL cannot find
-  "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/scripts/pathplanning.py":
-  No such file or directory.
-
-

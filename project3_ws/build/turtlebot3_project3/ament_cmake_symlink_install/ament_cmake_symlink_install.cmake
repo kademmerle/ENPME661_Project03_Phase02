@@ -23,7 +23,7 @@ function(ament_cmake_symlink_install_directory cmake_current_source_dir)
 
   # make destination absolute path and ensure that it exists
   if(NOT IS_ABSOLUTE "${ARG_DESTINATION}")
-    set(ARG_DESTINATION "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/${ARG_DESTINATION}")
+    set(ARG_DESTINATION "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/${ARG_DESTINATION}")
   endif()
   if(NOT EXISTS "${ARG_DESTINATION}")
     file(MAKE_DIRECTORY "${ARG_DESTINATION}")
@@ -123,7 +123,7 @@ function(ament_cmake_symlink_install_files cmake_current_source_dir)
 
   # make destination an absolute path and ensure that it exists
   if(NOT IS_ABSOLUTE "${ARG_DESTINATION}")
-    set(ARG_DESTINATION "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/${ARG_DESTINATION}")
+    set(ARG_DESTINATION "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/${ARG_DESTINATION}")
   endif()
   if(NOT EXISTS "${ARG_DESTINATION}")
     file(MAKE_DIRECTORY "${ARG_DESTINATION}")
@@ -181,7 +181,7 @@ function(ament_cmake_symlink_install_programs cmake_current_source_dir)
 
   # make destination an absolute path and ensure that it exists
   if(NOT IS_ABSOLUTE "${ARG_DESTINATION}")
-    set(ARG_DESTINATION "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/${ARG_DESTINATION}")
+    set(ARG_DESTINATION "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/${ARG_DESTINATION}")
   endif()
   if(NOT EXISTS "${ARG_DESTINATION}")
     file(MAKE_DIRECTORY "${ARG_DESTINATION}")
@@ -251,7 +251,7 @@ function(ament_cmake_symlink_install_targets)
 
     # make destination an absolute path and ensure that it exists
     if(NOT IS_ABSOLUTE "${destination}")
-      set(destination "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/${destination}")
+      set(destination "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3/${destination}")
     endif()
     if(NOT EXISTS "${destination}")
       file(MAKE_DIRECTORY "${destination}")
@@ -311,61 +311,61 @@ message(STATUS "Execute custom install script")
 # begin of custom install code
 
 # install("TARGETS" "turtlebot3_drive" "DESTINATION" "lib/turtlebot3_project3")
-include("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_symlink_install_targets_0_${CMAKE_INSTALL_CONFIG_NAME}.cmake")
+include("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_symlink_install_targets_0_${CMAKE_INSTALL_CONFIG_NAME}.cmake")
 
 # install(DIRECTORY "launch" "models" "rviz" "urdf" "worlds" "DESTINATION" "share/turtlebot3_project3/")
-ament_cmake_symlink_install_directory("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" DIRECTORY "launch" "models" "rviz" "urdf" "worlds" "DESTINATION" "share/turtlebot3_project3/")
+ament_cmake_symlink_install_directory("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" DIRECTORY "launch" "models" "rviz" "urdf" "worlds" "DESTINATION" "share/turtlebot3_project3/")
 
 # install(DIRECTORY "include/" "DESTINATION" "include/")
-ament_cmake_symlink_install_directory("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" DIRECTORY "include/" "DESTINATION" "include/")
+ament_cmake_symlink_install_directory("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" DIRECTORY "include/" "DESTINATION" "include/")
 
 # install(PROGRAMS "scripts/teleop.py" "scripts/path_planning.py" "scripts/controller.py" "scripts/odom_subscriber.py" "DESTINATION" "lib/turtlebot3_project3")
-ament_cmake_symlink_install_programs("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" PROGRAMS "scripts/teleop.py" "scripts/path_planning.py" "scripts/controller.py" "scripts/odom_subscriber.py" "DESTINATION" "lib/turtlebot3_project3")
+ament_cmake_symlink_install_programs("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" PROGRAMS "scripts/teleop.py" "scripts/path_planning.py" "scripts/controller.py" "scripts/odom_subscriber.py" "DESTINATION" "lib/turtlebot3_project3")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
 
-# install(FILES "/opt/ros/galactic/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh" "DESTINATION" "share/turtlebot3_project3/environment")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/opt/ros/galactic/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh" "DESTINATION" "share/turtlebot3_project3/environment")
+# install(FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh" "DESTINATION" "share/turtlebot3_project3/environment")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh" "DESTINATION" "share/turtlebot3_project3/environment")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/turtlebot3_project3/environment")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/turtlebot3_project3/environment")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/turtlebot3_project3/environment")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/turtlebot3_project3/environment")
 
-# install(FILES "/opt/ros/galactic/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh" "DESTINATION" "share/turtlebot3_project3/environment")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/opt/ros/galactic/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh" "DESTINATION" "share/turtlebot3_project3/environment")
+# install(FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh" "DESTINATION" "share/turtlebot3_project3/environment")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh" "DESTINATION" "share/turtlebot3_project3/environment")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/turtlebot3_project3/environment")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/turtlebot3_project3/environment")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/turtlebot3_project3/environment")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/turtlebot3_project3/environment")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/turtlebot3_project3")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/turtlebot3_project3")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/turtlebot3_project3")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/turtlebot3_project3")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/turtlebot3_project3")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/turtlebot3_project3")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/turtlebot3_project3")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/turtlebot3_project3")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/turtlebot3_project3")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/turtlebot3_project3")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/turtlebot3_project3")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/turtlebot3_project3")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/turtlebot3_project3")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/turtlebot3_project3")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/turtlebot3_project3")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/turtlebot3_project3")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/turtlebot3_project3")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/turtlebot3_project3")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/turtlebot3_project3")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/turtlebot3_project3")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/packages/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/packages")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/packages/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/packages")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/packages/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/packages")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_index/share/ament_index/resource_index/packages/turtlebot3_project3" "DESTINATION" "share/ament_index/resource_index/packages")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_export_include_directories/ament_cmake_export_include_directories-extras.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_export_include_directories/ament_cmake_export_include_directories-extras.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_export_include_directories/ament_cmake_export_include_directories-extras.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_export_include_directories/ament_cmake_export_include_directories-extras.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_export_dependencies/ament_cmake_export_dependencies-extras.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_export_dependencies/ament_cmake_export_dependencies-extras.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_export_dependencies/ament_cmake_export_dependencies-extras.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_export_dependencies/ament_cmake_export_dependencies-extras.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_core/turtlebot3_project3Config.cmake" "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_core/turtlebot3_project3Config-version.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_core/turtlebot3_project3Config.cmake" "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_core/turtlebot3_project3Config-version.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_core/turtlebot3_project3Config.cmake" "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_core/turtlebot3_project3Config-version.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_core/turtlebot3_project3Config.cmake" "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/build/turtlebot3_project3/ament_cmake_core/turtlebot3_project3Config-version.cmake" "DESTINATION" "share/turtlebot3_project3/cmake")
 
-# install(FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/package.xml" "DESTINATION" "share/turtlebot3_project3")
-ament_cmake_symlink_install_files("/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/package.xml" "DESTINATION" "share/turtlebot3_project3")
+# install(FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src/package.xml" "DESTINATION" "share/turtlebot3_project3")
+ament_cmake_symlink_install_files("/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src" FILES "/home/cgcollins91/Projects/ENPME661_Project03_Phase02/project3_ws/src/package.xml" "DESTINATION" "share/turtlebot3_project3")
