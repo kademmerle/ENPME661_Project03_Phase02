@@ -125,6 +125,7 @@ def round_and_get_v_index(node):
 Utilizes function that was provided in Cost.py of the Proj 3 Phase 2 files. 
 Variable names have been adjusted slightly, but general mechanics remain the same.
 """
+# inputs are (x,y,t),(ul,ur)
 def reverse_move(node,movement):
     t = 0
     r = 3.3
@@ -250,7 +251,7 @@ def GeneratePath(CurrentNode, parent, start_state):
     
     solution.append(CurrentNode)
     node = parent[CurrentNode]
-    
+
     while backtracing:
         if(node == start_state):
             solution.append(node)
@@ -492,7 +493,7 @@ def GetUserInput():
 
 clearance = 0
 start_node = [0.0, (0, 149, 0),(0,0)]
-goal_node = (539, 149)
+goal_node = (350, 150)
 step = 0.01
 RPM1 = 15.0
 RPM2 = 20.0
@@ -551,13 +552,37 @@ pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(goal_node[0]), goal
 # for item in solution:
 #     pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(round(item[0])), int(round(item[1]))), radius=3.0, width=0)
 #     pygame.display.update()
-final_path_drawing = []
+final_path_xyt_list = []
 for item in solution:
-    xy = (int(round(item[0])),int(round(item[1])))
-    final_path_drawing.append(xy)
+    xyt = (int(round(item[0])),int(round(item[1])),int(round(item[2])))
+    final_path_xyt_list.append(xyt)
 
-pygame.draw.lines(screen,pygame.Color(pallet["red"]),False,final_path_drawing,2)
-pygame.display.update()
+#pygame.draw.lines(screen,pygame.Color(pallet["red"]),False,final_path_drawing,2)
+final_path_curves = []
+final_path_actions = [[0.0,  RPM1],
+            [RPM1,  0.0],
+            [RPM1, RPM1],
+            [0.0,  RPM2],
+            [RPM2,  0.0],
+            [RPM2, RPM2],
+            [RPM1, RPM2],
+            [RPM2, RPM1]]
+
+for i in range(1,len(final_path_xyt_list)):
+    possible_curves = []
+    for action in final_path_actions:
+        previous_endpoint = final_path_xyt_list[i-1]
+        possible_curve = reverse_move(final_path_xyt_list[i],(action[0],action[1]))
+        possible_endpoint = possible_curve[-1]
+        distance = euclidean_distance(previous_endpoint,possible_endpoint)
+        heapq.heappush(possible_curves,(distance,possible_curve))
+    matching_curve = heapq.heappop(possible_curves)
+    final_path_curves.append(matching_curve[1])
+
+for final_curve in final_path_curves:
+    pygame.draw.lines(screen,pygame.Color(pallet["red"]),False,final_curve,2)
+    pygame.display.update()
+
 
 with open("waypoints.csv", "w", newline="") as file:
     writer = csv.writer(file)
