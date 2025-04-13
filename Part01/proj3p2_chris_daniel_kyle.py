@@ -13,6 +13,7 @@ import heapq
 import numpy as np
 from queue import PriorityQueue
 from collections import deque
+import csv
 
 ###########################
 # Global Variables
@@ -124,7 +125,43 @@ def round_and_get_v_index(node):
 Utilizes function that was provided in Cost.py of the Proj 3 Phase 2 files. 
 Variable names have been adjusted slightly, but general mechanics remain the same.
 """
+# inputs are (x,y,t),(ul,ur)
+def reverse_move(node,movement):
+    t = 0
+    r = 3.3
+    L = 28.7
+    cost = 0
+    dt = -0.1
+    x_new = node[0]
+    y_new = node[1]
+    u_l = movement[0]
+    u_r = movement[1]
+    theta_new = 3.14 * node[2] / 180
+    print("reverse Theta Start in rad: ", theta_new)
+    xy_list = [(x_new,y_new)]
+    
+    while t > -1:
+        t = t+dt
+        theta_new += (r/L) * (u_r - u_l) * dt
+        x_new += (r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
+        y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
+        
+        cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
+        xy_list.append((round(x_new),round(y_new)))
+        
+    theta_new = int(180 * theta_new / 3.14)
+   
 
+    #print(x_list[0])
+    
+    return xy_list
+def ValidMove(node):
+    if((node[0] < 0) or (node[0] >= 540)):
+        return False
+    elif((node[1] < 0) or (node[1] >= 300)):
+        return False
+    else:
+        return True
 
 
 def move_set(node, u_l, u_r):
@@ -145,10 +182,24 @@ def move_set(node, u_l, u_r):
         y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
         theta_new += (r/L) * (u_r - u_l) * dt
         cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
+        bcux = int(math.ceil(x_new))
+        bcuy = int(math.ceil(y_new))
+        if bcux <0 or bcuy < 0:
+            return None
+        bcdx = int(x_new)
+        bcdy = int(y_new)
+        if bcdx < 0 or bcdy < 0:
+            return None
+        if (bcux,bcuy) in buffer_set or (bcdx,bcdy) in buffer_set:
+            print("in buffer set")
+            return None
+        #green: (4, 217, 13, 255) black: (0, 0, 0, 255)
+
     
     theta_new = int(180 * theta_new / 3.14)
 
     print("Theta Adjusted in deg: ", theta_new)
+
     
     return (x_new, y_new, theta_new), cost
 
@@ -200,7 +251,7 @@ def GeneratePath(CurrentNode, parent, start_state):
     
     solution.append(CurrentNode)
     node = parent[CurrentNode]
-    
+
     while backtracing:
         if(node == start_state):
             solution.append(node)
@@ -219,20 +270,7 @@ def euclidean_distance(node, goal_state):
 
     return math.sqrt((goal_state[0] - node[0])**2 + (goal_state[1] - node[1])**2)
 
-def circle_search_function(h,k,buff_mod):
-    circle_set = set()
-    for x in range(h-buff_mod,h+buff_mod):
-        for y in range(k-buff_mod,k+buff_mod):
-            if ((x-h)**2) + ((y-k)**2) <= buff_mod**2:
-                circle_set.add((x,y))
-    
-    for item in circle_set:
-        c_x, c_y = item
-        c_in_obj = InObjectSpace(c_x, c_y)
-        if (c_in_obj):
-            return True
 
-    return False
 
 # Draw the initial game board, colors depict:
 # White: In object space
@@ -253,11 +291,11 @@ def circle_search_function(h,k,buff_mod):
 # Outputs: none
 def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
     buff_mod = clear + r
-    for x in range(0,rows):
+    for x in range(1,rows-1):
         for y in range(0,cols):
             in_obj = InObjectSpace(x,y)
             if (in_obj):
-                pygame.draw.circle(screen,pygame.Color(pallet["green"]),(x,y),buff_mod,2)
+                pygame.draw.circle(screen,pygame.Color(pallet["green"]),(x,y),buff_mod,0)
   
             elif(0<y<=buff_mod or (298-buff_mod)<=y<299):
                     pxarray[x,y] = pygame.Color(pallet["green"])
@@ -271,6 +309,12 @@ def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
         for y in range(0,cols):
             if InObjectSpace(x,y):
                 pxarray[x,y] = pygame.Color(pallet["black"])
+    
+    for x in range(0,rows):
+        for y in range(0,cols):
+            if screen.get_at((x,y)) != pygame.Color(pallet["white"]):
+                buffer_set.add((x,y))
+
 
 def FillCostMatrix(C2C, pxarray, pallet, thresh):
     for x in range(0, int(rows/thresh)):
@@ -282,6 +326,7 @@ def FillCostMatrix(C2C, pxarray, pallet, thresh):
                 C2C[x,y] = np.inf
                 
 #%%                    
+#CL_for_plot = []
 def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2):
 
     solution_path = []
@@ -295,13 +340,21 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
     
     while OL:
         node = heapq.heappop(OL)
-        print(node)
+        #print(node)
         # Take popped node and center it, along with finding the index values for the V matrix
         fixed_node, x_v_idx, y_v_idx, theta_v_idx = round_and_get_v_index(node[1])
         
         # Add popped node to the closed list
         V[x_v_idx, y_v_idx, theta_v_idx] = 1
-        pxarray[int(round(fixed_node[0])),int(round(fixed_node[1]))] = pygame.Color(pallet["blue"])
+        arc_end = node[1]
+        arc_speeds = node[2]
+        arc_xy = reverse_move(arc_end,arc_speeds)
+        #for i in range(0,len(arc_xy)):
+        pygame.draw.lines(screen,pygame.Color(pallet["blue"]),False,arc_xy,1)
+        arc_start = arc_xy[0]
+        #pygame.draw.circle(screen, pygame.Color(pallet["red"]),arc_start,1,0)
+            #pxarray[round(arc_x[i]),round(arc_y[i])] = pygame.Color(pallet["blue"])
+        #pxarray[int(round(fixed_node[0])),int(round(fixed_node[1]))] = pygame.Color(pallet["blue"])
         pygame.display.update()
         
         # Check if popped node is within the goal tolerance region
@@ -322,46 +375,50 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
             
             # Walk through each child node created by action set and determine if it has been visited or not
             for action in actions:
-                child_node, child_cost = move_set(fixed_node, action[0], action[1])
-                
-                if not ValidMove(child_node): continue
-                
-                child_node_fixed, child_x_v_idx, child_y_v_idx, child_theta_v_idx = round_and_get_v_index(child_node)
-                child_cost_node = (child_x_v_idx, child_y_v_idx, child_theta_v_idx)
-                
-                # Check if node is in obstacle space or buffer zone
-                try:
-                    if((pxarray[int(child_node_fixed[0]), int(child_node_fixed[1])] == screen.map_rgb(pallet["black"])) or \
-                       (pxarray[int(child_node_fixed[0]), int(child_node_fixed[1])] == screen.map_rgb(pallet["green"]))): continue
-                except IndexError:
-                    continue  # Attempted move was outside bounds of the map
-                
-                # Check if node is in visited list
-                # If not, check if in open list using cost matrix C2C
-                if(V[child_cost_node] == 0):
+                #if move_set(fixed_node, action[0], action[1]) is not None:
+                test = move_set(fixed_node, action[0], action[1])
+                if test is not None:
+
+                    child_node, child_cost = test
                     
-                    # If child is not in open list, create new child node
-                    if(C2C[child_x_v_idx, child_y_v_idx]  == np.inf):
-                       cost2go = euclidean_distance(child_node_fixed, goal_node)  # Calculate Cost to Go using heuristic equation Euclidean Distance
-                       cost2come = C2C[x_v_idx, y_v_idx] + child_cost  # Calculate Cost to Come using parent Cost to Come and step size
-                       parent[child_node_fixed] = fixed_node     # Add child node to parent dictionary 
-                       
-                       C2C[child_x_v_idx, child_y_v_idx] = cost2come   # Update cost matrix with newly calculate Cost to Come
-                       costsum[child_cost_node] = cost2come + cost2go  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
-                       child = [costsum[child_cost_node], child_node_fixed]  # Create new child node --> [total cost, (x, y, theta)]... Total cost is used as priority determinant in heapq
-                       heapq.heappush(OL, child)   # push child node to heapq
-                       
-                # Child was in visited list, see if new path is most optimal
-                else:
-                    cost2go = euclidean_distance(child_node_fixed, goal_node)
-                    cost2come = C2C[x_v_idx, y_v_idx] + child_cost
+                    if not ValidMove(child_node): continue
                     
-                    # Compare previously saved total cost estimate to newly calculated
-                    # If new cost is lower than old cost, update in cost matrix and reassign parent 
-                    if(costsum[child_cost_node] > (cost2come + cost2go)):  
-                        parent[child_node_fixed] = fixed_node
-                        C2C[child_x_v_idx, child_y_v_idx] = cost2come
-                        costsum[child_cost_node] = cost2come + cost2go
+                    child_node_fixed, child_x_v_idx, child_y_v_idx, child_theta_v_idx = round_and_get_v_index(child_node)
+                    child_cost_node = (child_x_v_idx, child_y_v_idx, child_theta_v_idx)
+                    
+                    # Check if node is in obstacle space or buffer zone
+                    try:
+                        if((pxarray[int(child_node_fixed[0]), int(child_node_fixed[1])] == screen.map_rgb(pallet["black"])) or \
+                        (pxarray[int(child_node_fixed[0]), int(child_node_fixed[1])] == screen.map_rgb(pallet["green"]))): continue
+                    except IndexError:
+                        continue  # Attempted move was outside bounds of the map
+                    
+                    # Check if node is in visited list
+                    # If not, check if in open list using cost matrix C2C
+                    if(V[child_cost_node] == 0):
+                        
+                        # If child is not in open list, create new child node
+                        if(C2C[child_x_v_idx, child_y_v_idx]  == np.inf):
+                            cost2go = euclidean_distance(child_node_fixed, goal_node)  # Calculate Cost to Go using heuristic equation Euclidean Distance
+                            cost2come = C2C[x_v_idx, y_v_idx] + child_cost  # Calculate Cost to Come using parent Cost to Come and step size
+                            parent[child_node_fixed] = fixed_node     # Add child node to parent dictionary 
+                            
+                            C2C[child_x_v_idx, child_y_v_idx] = cost2come   # Update cost matrix with newly calculate Cost to Come
+                            costsum[child_cost_node] = cost2come + cost2go  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
+                            child = [costsum[child_cost_node], child_node_fixed,(action[0],action[1])]  # Create new child node --> [total cost, (x, y, theta)]... Total cost is used as priority determinant in heapq
+                            heapq.heappush(OL, child)   # push child node to heapq
+                        
+                    # Child was in visited list, see if new path is most optimal
+                    else:
+                        cost2go = euclidean_distance(child_node_fixed, goal_node)
+                        cost2come = C2C[x_v_idx, y_v_idx] + child_cost
+                        
+                        # Compare previously saved total cost estimate to newly calculated
+                        # If new cost is lower than old cost, update in cost matrix and reassign parent 
+                        if(costsum[child_cost_node] > (cost2come + cost2go)):  
+                            parent[child_node_fixed] = fixed_node
+                            C2C[child_x_v_idx, child_y_v_idx] = cost2come
+                            costsum[child_cost_node] = cost2come + cost2go
     return False, solution_path
 
 #%%
@@ -412,7 +469,7 @@ def GetUserInput():
             print("Sorry, that step size is not valid!")
             continue
         
-        start_node = [0.0, (start_x, start_y, start_theta)]
+        start_node = [0.0, (start_x, start_y, start_theta)(0,0)]
         goal = (goal_x,goal_y)
      
         unanswered = False
@@ -435,15 +492,17 @@ def GetUserInput():
 # rradius:   robot radius in mm
 
 clearance = 0
-start_node = [0.0, (0.0, 149.0, 0)]
-goal_node = (539.0, 149.0)
+start_node = [0.0, (0, 149, 0),(0,0)]
+goal_node = (350, 150)
 step = 0.01
-RPM1 = 5.0
-RPM2 = 10.0
+RPM1 = 15.0
+RPM2 = 20.0
 r = 3.3
 L = 22
+buffer_set = set()
 
 DrawBoard(rows, cols, pxarray, pallet, C2C, clearance, L)
+
 
 # Draw Curve
 #pygame.gfxdraw.arc(screen, 25, 149, 100, 0, 10, pygame.Color(pallet["red"]))
@@ -490,9 +549,47 @@ pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(start_node[1][0]), 
 pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(goal_node[0]), goal_node[1]), radius=5.0, width=1) # Goal node
 
 # Draw solution path
+# for item in solution:
+#     pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(round(item[0])), int(round(item[1]))), radius=3.0, width=0)
+#     pygame.display.update()
+final_path_xyt_list = []
 for item in solution:
-    pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(round(item[0])), int(round(item[1]))), radius=3.0, width=0)
+    xyt = (int(round(item[0])),int(round(item[1])),int(round(item[2])))
+    final_path_xyt_list.append(xyt)
+
+#pygame.draw.lines(screen,pygame.Color(pallet["red"]),False,final_path_drawing,2)
+final_path_curves = []
+final_path_actions = [[0.0,  RPM1],
+            [RPM1,  0.0],
+            [RPM1, RPM1],
+            [0.0,  RPM2],
+            [RPM2,  0.0],
+            [RPM2, RPM2],
+            [RPM1, RPM2],
+            [RPM2, RPM1]]
+
+for i in range(1,len(final_path_xyt_list)):
+    possible_curves = []
+    for action in final_path_actions:
+        previous_endpoint = final_path_xyt_list[i-1]
+        possible_curve = reverse_move(final_path_xyt_list[i],(action[0],action[1]))
+        possible_endpoint = possible_curve[-1]
+        distance = euclidean_distance(previous_endpoint,possible_endpoint)
+        heapq.heappush(possible_curves,(distance,possible_curve))
+    matching_curve = heapq.heappop(possible_curves)
+    final_path_curves.append(matching_curve[1])
+
+for final_curve in final_path_curves:
+    pygame.draw.lines(screen,pygame.Color(pallet["red"]),False,final_curve,2)
     pygame.display.update()
+
+
+with open("waypoints.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    for item in solution:
+        x = item[0]
+        y = item[1]
+        writer.writerow([x, y])
     
 # Freeze screen on completed maze screen until user quits the game
 # (press close X on pygame screen)
@@ -501,6 +598,7 @@ while running:
     # handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            #print(screen.get_at((130,100)))
             running = False
             # quit pygame
             pygame.quit()
