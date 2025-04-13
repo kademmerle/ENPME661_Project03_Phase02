@@ -125,7 +125,7 @@ def move_set(node, u_l, u_r):
             return None
     
     theta_new = int(180 * theta_new / 3.14)
-    #print("Estimated Cost to Come: ", cost)
+    print("Estimated Cost to Come: ", cost)
 
     return (x_new, y_new, theta_new), round(cost, 1)
 # END move_set()
@@ -460,7 +460,8 @@ def GetUserInput():
 """
 clearance = 0
 start_node = [0.0, (10.0, 150.0, 0), (0,0)]
-goal_node = (539.0, 85.0)
+#goal_node = (539.0, 85.0)
+goal_node = (150, 150)
 step = 0.1
 RPM1 = 5.0
 RPM2 = 10.0
@@ -521,7 +522,7 @@ for item in solution:
     pygame.display.update()
 
 
-with open("waypoints.csv", "w", newline="") as file:
+with open("src/turtlebot3_project3/scripts/waypoints.csv", "w", newline="") as file:
     writer = csv.writer(file)
     for item in solution:
         x = item[0]
@@ -538,4 +539,3 @@ while running:
             running = False
             # quit pygame
             pygame.quit()
-
