@@ -7,12 +7,10 @@
 import pygame
 import pygame.gfxdraw
 import time
-import copy
 import math
 import heapq
+import csv
 import numpy as np
-from queue import PriorityQueue
-from collections import deque
 
 ###########################
 # Global Variables
@@ -30,7 +28,8 @@ thresh = 0.5
 clearance = 5
 parent = {}
 costsum = {}
-V = np.zeros((int(rows/thresh), int(cols/thresh), 36))
+theta_bins = 72
+V = np.zeros((int(rows/thresh), int(cols/thresh), theta_bins))
 C2C = np.zeros((int(rows/thresh), int(cols/thresh)))
 
 # Define colors
@@ -58,12 +57,14 @@ def CheckOpenList(coords, open_list):
         heapq.heappush(temp_list, item)
         
     return present, temp_list
+# END CheckOpenList()
 
-# Check if x_prime is in the Closed List
-# Closed list is a dictionary with each node's coords used as a key
-# If x_prime coordinates are not in the closed list, a KeyError is thrown, 
-# which is caught by the try-except block.
-# Returns: True if present, False if not
+"""
+Check if x_prime is in the Closed List
+Closed list is a dictionary with each node's coords used as a key
+If x_prime coordinates are not in the closed list, a KeyError is thrown, which is caught by the try-except block.
+Returns: True if present, False if not
+"""
 def CheckClosedList(coords, closed_list):
     
     try:
@@ -71,66 +72,7 @@ def CheckClosedList(coords, closed_list):
             return True
     except KeyError:
         return False
-
-
-"""
-Need to sort out method for establishing designated V indices for theta values
-Since potential delta-thetas are based on the RPM provided by the user, it is difficult 
-to establish a pre-determined factor of 360 to work with.
-
-Option 1: Formulate the theta index look-up dict at time of user entry based on a general rounded angle
-
-Option 2: Pre-determine the desired factor and round the calculated orientation to the closest value in the dict 
-"""
-def get_theta_index(theta):
-    temp_theta = theta % 360
-    diff = temp_theta % 10
-    
-    if(diff >= 5):
-        theta = temp_theta + (10 - diff)
-    else:
-        theta = temp_theta - diff
-    
-    look_up_dict = {
-        0:   0,
-        10:  1,
-        20:  2,
-        30:  3,
-        40:  4,
-        50:  5,
-        60:  6,
-        70:  7,
-        80:  8,
-        90:  9,
-        100: 10,
-        110: 11,
-        120: 12,
-        130: 13,
-        140: 14,
-        150: 15,
-        160: 16,
-        170: 17,
-        180: 18,
-        190: 19,
-        200: 20,
-        210: 21,
-        220: 22,
-        230: 23,
-        240: 24,
-        250: 25,
-        260: 26,
-        270: 27,
-        280: 28,
-        290: 29,
-        300: 30,
-        310: 31,
-        320: 32,
-        330: 33,
-        340: 34,
-        350: 35,
-        360: 0
-    }
-    return look_up_dict[theta]
+# END CheckClosedList()
 
 def round_and_get_v_index(node):
    #  Round x, y coordinates to nearest half to ensure we are on the center of a pixel
@@ -142,10 +84,11 @@ def round_and_get_v_index(node):
    x_v_idx     = int(x * 2)
    y_v_idx     = int(y * 2)
 
-   theta_deg_rounded = round(theta_deg / 10) * 10 # round to nearest 10 degrees
-   theta_v_idx       = int(theta_deg_rounded % 360) // 10
+   theta_deg_rounded = round(theta_deg / 5) * 5 # round to nearest 10 degrees
+   theta_v_idx       = int(theta_deg_rounded % 360) // 5
 
    return (x, y, theta_deg_rounded), x_v_idx, y_v_idx, theta_v_idx
+# END round_and_get_v_index()
 
 """
 Utilizes function that was provided in Cost.py of the Proj 3 Phase 2 files. 
@@ -156,12 +99,12 @@ def move_set(node, u_l, u_r):
     r = 3.3
     L = 28.7
     cost = 0
-    dt = 0.2
+    dt = 0.1
     
     x_new = node[0]
     y_new = node[1]
     theta_new = 3.14 * node[2] / 180
-    print("Theta Start in rad: ", theta_new)
+    #print("Theta Start in rad: ", theta_new)
     
     while t < 1:
         t = t+dt
@@ -169,12 +112,23 @@ def move_set(node, u_l, u_r):
         y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
         theta_new += (r/L) * (u_r - u_l) * dt
         cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
+        bcux = int(math.ceil(x_new))
+        bcuy = int(math.ceil(y_new))
+        if bcux <0 or bcuy < 0:
+            return None
+        bcdx = int(x_new)
+        bcdy = int(y_new)
+        if bcdx < 0 or bcdy < 0:
+            return None
+        if (bcux,bcuy) in buffer_set or (bcdx,bcdy) in buffer_set:
+            #print("in buffer set")
+            return None
     
     theta_new = int(180 * theta_new / 3.14)
+    print("Estimated Cost to Come: ", cost)
 
-    print("Theta Adjusted in deg: ", theta_new)
-    
-    return (x_new, y_new, theta_new), cost
+    return (x_new, y_new, theta_new), round(cost, 1)
+# END move_set()
 
 def ValidMove(node):
     if((node[0] < 0) or (node[0] >= 540)):
@@ -183,6 +137,7 @@ def ValidMove(node):
         return False
     else:
         return True
+# END ValidMove()
 
 def reverse_move(node,movement):
     t = 0
@@ -195,22 +150,22 @@ def reverse_move(node,movement):
     u_l = movement[0]
     u_r = movement[1]
     theta_new = 3.14 * node[2] / 180
-    print("reverse Theta Start in rad: ", theta_new)
+    #print("reverse Theta Start in rad: ", theta_new)
     xy_list = [(x_new,y_new)]
     
     while t > -1:
         t = t+dt
+        theta_new += (r/L) * (u_r - u_l) * dt
         x_new += (r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
         y_new += (r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
-        theta_new += (r/L) * (u_r - u_l) * dt
+        
         cost = cost + math.sqrt(math.pow(((r * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
         xy_list.append((round(x_new),round(y_new)))
+        
     theta_new = int(180 * theta_new / 3.14)
-   
 
-    #print(x_list[0])
-    
     return xy_list
+# END reverse_move()
 
 # Define the object space for all letters/numbers in the maze
 # Also used for determining if a set of (x,y) coordinates is present in 
@@ -237,13 +192,13 @@ def InObjectSpace(x, y):
         return True
 
     # Define Object Space for walls
-    elif( ( (0<=x<=539) and y==0) or ((0<=x<=539) and y==299) ): # x==0 and 0<=y<=299) or (x==539 and (0<=y<=299)) or \
+    elif( ( (0<=x<=539) and y==0) or ((0<=x<=539) and y==299) ):
         return True
 
     # Default case, non-object space    
     else:
         return False
-
+# END InObjectSpace()
 
 # Backtrace the solution path from the goal state to the initial state
 # Add all nodes to the "solution" queue
@@ -255,7 +210,7 @@ def GeneratePath(CurrentNode, parent, start_state):
     node = parent[CurrentNode]
     
     while backtracing:
-        if(node == start_state):
+        if(node[0] == start_state):
             solution.append(node)
             backtracing = False
         else:
@@ -264,35 +219,40 @@ def GeneratePath(CurrentNode, parent, start_state):
             
     solution.reverse()
     return solution
+# END GeneratePath()
 
+"""
+Calculate Euclidean Distance between current node and goal state
+
+Euclidean Distance is the straight line distance between two points
+Distance metric used in A* Search
+"""
 def euclidean_distance(node, goal_state):
-    # Calculate Euclidean Distance between current node and goal state
-    # Euclidean Distance is the straight line distance between two points
-    # distance metric used in A* Search
-
     return math.sqrt((goal_state[0] - node[0])**2 + (goal_state[1] - node[1])**2)
+# END euclidean_distance()
 
-# Draw the initial game board, colors depict:
-# White: In object space
-# Green: Buffer Zone
-# Black: Action Space
-# Turn clearance and robot radius used to calculate the total buffer zone that will be placed arround the walls and objects
-# Robot will still be depicted on the screen as a "point-robot" as the center-point of the robot is the most import part for calculations
-#
-# Inputs:
-#    rows:    x-axis size
-#    cols:    y-axis size
-#    pxarray: pixel array for screen that allows for drawing by point
-#    pallet:  color dictionary with rgb codes
-#    C2C:     (obsolete, not used here)
-#    clear:   clearance needed for turns in mm
-#    r:       robot raidus in mm
-#
-# Outputs: none
+"""
+ Draw the initial game board, colors depict:
+  - White: In object space
+  - Green: Buffer Zone
+  - Black: Action Space
+ Turn-clearance and robot radius used to calculate the total buffer zone that will be placed arround the walls and objects
+ Robot will still be depicted on the screen as a "point-robot" as the center-point of the robot is the most import part for calculations
 
+ Inputs:
+  - rows:    x-axis size
+  - cols:    y-axis size
+  - pxarray: pixel array for screen that allows for drawing by point
+  - pallet:  color dictionary with rgb codes
+  - C2C:     (obsolete, not used here)
+  - clear:   clearance needed for turns in mm
+  - r:       robot raidus in mm
+
+ Outputs: none
+"""
 def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
     buff_mod = clear + r
-    for x in range(0,rows):
+    for x in range(1,rows-1):
         for y in range(0,cols):
             in_obj = InObjectSpace(x,y)
             if (in_obj):
@@ -310,6 +270,11 @@ def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r):
         for y in range(0,cols):
             if InObjectSpace(x,y):
                 pxarray[x,y] = pygame.Color(pallet["black"])
+    
+    for x in range(0,rows):
+        for y in range(0,cols):
+            if screen.get_at((x,y)) != pygame.Color(pallet["white"]):
+                buffer_set.add((x,y))
 
 
 def FillCostMatrix(C2C, pxarray, pallet, thresh):
@@ -320,7 +285,8 @@ def FillCostMatrix(C2C, pxarray, pallet, thresh):
                 C2C[x,y] = -1
             else:
                 C2C[x,y] = np.inf
-                
+#END FillCostMatrix()
+
 #%%                    
 def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2):
 
@@ -335,7 +301,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
     
     while OL:
         node = heapq.heappop(OL)
-        
+
         # Take popped node and center it, along with finding the index values for the V matrix
         fixed_node, x_v_idx, y_v_idx, theta_v_idx = round_and_get_v_index(node[1])
         
@@ -344,8 +310,10 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
         arc_end = node[1]
         arc_speeds = node[2]
         arc_xy = reverse_move(arc_end,arc_speeds)
-        for i in range(0,len(arc_xy)):
-            pygame.draw.lines(screen,pygame.Color(pallet["blue"]),False,arc_xy,1)
+        #for i in range(0,len(arc_xy)):
+        pygame.draw.lines(screen,pygame.Color(pallet["blue"]),False,arc_xy,1)
+        arc_start = arc_xy[0]
+        #pygame.draw.circle(screen, pygame.Color(pallet["red"]),arc_start,1,0)
             #pxarray[round(arc_x[i]),round(arc_y[i])] = pygame.Color(pallet["blue"])
         #pxarray[int(round(fixed_node[0])),int(round(fixed_node[1]))] = pygame.Color(pallet["blue"])
         pygame.display.update()
@@ -354,7 +322,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
         # If so, end exploration and backtrace to generate the soluion path
         # If not, apply action set to node and explore the children nodes
         if(euclidean_distance(fixed_node, goal_node) <= 1.5 ):
-            solution_path = GeneratePath(fixed_node, parent, start_state)
+            solution_path = GeneratePath((fixed_node, arc_speeds), parent, start_state)
             return True, solution_path
         else:
             actions = [[0.0,  RPM1],
@@ -368,47 +336,53 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, step, RPM1, RPM2)
             
             # Walk through each child node created by action set and determine if it has been visited or not
             for action in actions:
-                child_node, child_cost = move_set(fixed_node, action[0], action[1])
-                
-                if not ValidMove(child_node): continue
-                
-                child_node_fixed, child_x_v_idx, child_y_v_idx, child_theta_v_idx = round_and_get_v_index(child_node)
-                child_cost_node = (child_x_v_idx, child_y_v_idx, child_theta_v_idx)
-                
-                # Check if node is in obstacle space or buffer zone
-                try:
-                    if((pxarray[int(child_node_fixed[0]), int(child_node_fixed[1])] == screen.map_rgb(pallet["black"])) or \
-                       (pxarray[int(child_node_fixed[0]), int(child_node_fixed[1])] == screen.map_rgb(pallet["green"]))): continue
-                except IndexError:
-                    continue  # Attempted move was outside bounds of the map
-                
-                # Check if node is in visited list
-                # If not, check if in open list using cost matrix C2C
-                if(V[child_cost_node] == 0):
+                #if move_set(fixed_node, action[0], action[1]) is not None:
+                test = move_set(fixed_node, action[0], action[1])
+                if test is not None:
+
+                    child_node, child_cost = test
                     
-                    # If child is not in open list, create new child node
-                    if(C2C[child_x_v_idx, child_y_v_idx]  == np.inf):
-                       cost2go = euclidean_distance(child_node_fixed, goal_node)  # Calculate Cost to Go using heuristic equation Euclidean Distance
-                       cost2come = C2C[x_v_idx, y_v_idx] + child_cost  # Calculate Cost to Come using parent Cost to Come and step size
-                       parent[child_node_fixed] = fixed_node     # Add child node to parent dictionary 
-                       
-                       C2C[child_x_v_idx, child_y_v_idx] = cost2come   # Update cost matrix with newly calculate Cost to Come
-                       costsum[child_cost_node] = cost2come + cost2go  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
-                       child = [costsum[child_cost_node], child_node_fixed, (action[0],action[1])]  # Create new child node --> [total cost, (x, y, theta)]... Total cost is used as priority determinant in heapq
-                       heapq.heappush(OL, child)   # push child node to heapq
-                       
-                # Child was in visited list, see if new path is most optimal
-                else:
-                    cost2go = euclidean_distance(child_node_fixed, goal_node)
-                    cost2come = C2C[x_v_idx, y_v_idx] + child_cost
+                    if not ValidMove(child_node): continue
                     
-                    # Compare previously saved total cost estimate to newly calculated
-                    # If new cost is lower than old cost, update in cost matrix and reassign parent 
-                    if(costsum[child_cost_node] > (cost2come + cost2go)):  
-                        parent[child_node_fixed] = fixed_node
-                        C2C[child_x_v_idx, child_y_v_idx] = cost2come
-                        costsum[child_cost_node] = cost2come + cost2go
+                    child_node_fixed, child_x_v_idx, child_y_v_idx, child_theta_v_idx = round_and_get_v_index(child_node)
+                    child_cost_node = (child_x_v_idx, child_y_v_idx, child_theta_v_idx)
+                    
+                    # Check if node is in obstacle space or buffer zone
+                    try:
+                        if((pxarray[int(child_node_fixed[0]), int(child_node_fixed[1])] == screen.map_rgb(pallet["black"])) or \
+                           (pxarray[int(child_node_fixed[0]), int(child_node_fixed[1])] == screen.map_rgb(pallet["green"]))): continue
+                    except IndexError:
+                        continue  # Attempted move was outside bounds of the map
+                    
+                    # Check if node is in visited list
+                    # If not, check if in open list using cost matrix C2C
+                    if(V[child_cost_node] == 0):
+                        
+                        # If child is not in open list, create new child node
+                        if(C2C[child_x_v_idx, child_y_v_idx]  == np.inf):
+                            cost2go = round(euclidean_distance(child_node_fixed, goal_node),2)  # Calculate Cost to Go using heuristic equation Euclidean Distance
+                            cost2come = C2C[x_v_idx, y_v_idx] + child_cost  # Calculate Cost to Come using parent Cost to Come and step size
+                            parent[(child_node_fixed, (action[0],action[1]))] = (fixed_node, arc_speeds)     # Add child node to parent dictionary 
+                            
+                            C2C[child_x_v_idx, child_y_v_idx] = cost2come   # Update cost matrix with newly calculate Cost to Come
+                            costsum[child_cost_node] = cost2come + cost2go  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
+                            child = [costsum[child_cost_node], child_node_fixed,(action[0],action[1])]  # Create new child node --> [total cost, (x, y, theta)]... Total cost is used as priority determinant in heapq
+                            heapq.heappush(OL, child)   # push child node to heapq
+                        
+                    # Child was in visited list, see if new path is most optimal
+                    else:
+                        cost2go = round(euclidean_distance(child_node_fixed, goal_node),2)
+                        cost2come = C2C[x_v_idx, y_v_idx] + child_cost
+                        
+                        # Compare previously saved total cost estimate to newly calculated
+                        # If new cost is lower than old cost, update in cost matrix and reassign parent 
+                        if(costsum[child_cost_node] > (cost2come + cost2go)):  
+                            parent[(child_node_fixed, (action[0],action[1]))] = (fixed_node, arc_speeds)
+                            C2C[child_x_v_idx, child_y_v_idx] = cost2come
+                            costsum[child_cost_node] = cost2come + cost2go
+                            
     return False, solution_path
+# END A_Star()
 
 #%%
 # Initialize pygame
@@ -464,36 +438,37 @@ def GetUserInput():
         unanswered = False
 
     return start_node, goal, step_size
+# END GetUserInput()
 
-# Collect input from user:
-# start_node: starting coordinates and orientation with total cost (float)
-# goal_node:  desired end coordinates as tuple (float)
-# step:       step size/movement length in mm (int)
-# rradius:    size of robot radius in mm (int)
+"""
+ Collect input from user:
+  - start_node: starting coordinates and orientation with total cost (float)
+  - goal_node:  desired end coordinates as tuple (float)
+  - step:       step size/movement length in mm (int)
+  - rradius:    size of robot radius in mm (int)
+"""
 #start_node, goal_node, step, rradius = GetUserInput()
 
-# Draw board with objects and buffer zone
-# rows:      size x-axis (named at one point, and forgot to change)
-# cols:      size y-axis
-# pallet:    color library with RGB values for drawing on pixel array
-# C2C:       obsolete, starting costs set in FillCostMatrix()
-# clearance: turn clearance for robot in mm 
-# rradius:   robot radius in mm
-
+"""
+ Draw board with objects and buffer zone
+  - rows:      size x-axis (named at one point, and forgot to change)
+  - cols:      size y-axis
+  - pallet:    color library with RGB values for drawing on pixel array
+  - C2C:       obsolete, starting costs set in FillCostMatrix()
+  - clearance: turn clearance for robot in mm 
+  - rradius:   robot radius in mm
+"""
 clearance = 0
-start_node = [0.0, (0.0, 150.0, 0), (0,0)]
-goal_node = (539.0, 149.0)
-step = 0.01
+start_node = [0.0, (10.0, 150.0, 0), (0,0)]
+goal_node = (539.0, 85.0)
+step = 0.1
 RPM1 = 5.0
 RPM2 = 10.0
 r = 3.3
 L = 22
+buffer_set = set()
 
 DrawBoard(rows, cols, pxarray, pallet, C2C, clearance, L)
-
-# Draw Curve
-#pygame.gfxdraw.arc(screen, 25, 149, 100, 0, 10, pygame.Color(pallet["red"]))
-
 
 # Update the screen
 pygame.display.update()
@@ -536,9 +511,22 @@ pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(start_node[1][0]), 
 pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(goal_node[0]), goal_node[1]), radius=5.0, width=1) # Goal node
 
 # Draw solution path
+final_path_xyt_list = []
+final_path_drawing = []
 for item in solution:
-    pygame.draw.circle(screen, pygame.Color(pallet["red"]), (int(round(item[0])), int(round(item[1]))), radius=3.0, width=0)
+    xyt = (int(round(item[0][0])),int(round(item[0][1])),int(round(item[0][2])))
+    final_curve = reverse_move(xyt,item[1])
+    
+    pygame.draw.lines(screen,pygame.Color(pallet["red"]),False,final_curve,2)
     pygame.display.update()
+
+
+with open("waypoints.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    for item in solution:
+        x = item[0]
+        y = item[1]
+        writer.writerow([x, y])
     
 # Freeze screen on completed maze screen until user quits the game
 # (press close X on pygame screen)
