@@ -13,15 +13,7 @@ cd
 
 git clone git@github.com:kademmerle/ENPME661_Project03_Phase02.git
 
-# Create a workspace in home folder
-cd
 
-mkdir -p project3_ws/src
-
-cd
-
-# Copy package to workspace src folder
-cp -r ENPME661_Project03_Phase02/Part02/turtlebot3_project3 project3_ws/src
 
 # Source ROS
 source /opt/ros/humble/setup.bash
@@ -30,7 +22,7 @@ source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 
 
 # Build the workspace
-cd ~/project3_ws
+cd /Part02
 
 colcon build
 
@@ -48,7 +40,7 @@ ros2 launch turtlebot3_project3 competition_world.launch.py
 # Wait for gazebo to load
 
 # Open a separate terminal and run controller script
-cd ~/project3_ws
+cd /Project02
 
 source install/setup.bash
 
@@ -56,5 +48,8 @@ ros2 run turtlebot3_project3 controller.py
 
 
 # Video Links
+Falcon_Sim:
 https://drive.google.com/drive/folders/1AKyVNGySCrRCWS8IUxk-QbHbelHBhd2G?usp=sharing
+Gazebo:
+https://drive.google.com/file/d/1GRBmHJSjgqCbgyjLd2lvX1ygbl5Fs3w5/view?usp=drive_link
 
