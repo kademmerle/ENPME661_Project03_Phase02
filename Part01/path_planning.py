@@ -377,8 +377,8 @@ def GetUserInput():
     init_cost = 0.0
     init_speeds = (0,0)
     
-    print("Welcome to Butt-Fuck-istan!")
-    print("Here we'll be navigating an MarkV-A1 through hostile territory!")
+    print("Welcome to the obstacle course!")
+    print("Here we'll be navigating a Waffle model Turtlebot through a simple arena!")
     print("Before we get this show on the road, we need some information from you!\n")
     print("---------------------------------------------------------------------------\n")
     while unanswered:
