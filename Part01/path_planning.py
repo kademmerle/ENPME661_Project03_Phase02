@@ -9,14 +9,10 @@
 import pygame
 import pygame.gfxdraw
 import time
-import copy
 import math
 import heapq
 import numpy as np
-from queue import PriorityQueue
-from collections import deque
 import csv
-import matplotlib.pyplot as plt
 
 
 
@@ -37,11 +33,13 @@ def CheckOpenList(coords, open_list):
         
     return present, temp_list
 
-# Check if x_prime is in the Closed List
-# Closed list is a dictionary with each node's coords used as a key
-# If x_prime coordinates are not in the closed list, a KeyError is thrown, 
-# which is caught by the try-except block.
-# Returns: True if present, False if not
+"""
+Check if x_prime is in the Closed List
+Closed list is a dictionary with each node's coords used as a key
+If x_prime coordinates are not in the closed list, a KeyError is thrown, 
+which is caught by the try-except block.
+Returns: True if present, False if not
+"""
 def CheckClosedList(coords, closed_list):
     
     try:
@@ -142,12 +140,14 @@ def reverse_move(node,movement, t_curve=2, wheel_radius=3.3, L=28.7):
         
     theta_new = int(180 * theta_new / 3.14)
 
-
     return xy_list
-# Define the object space for all letters/numbers in the maze
-# Also used for determining if a set of (x,y) coordinates is present in 
-# the action space
-# Returns: True if in Object Space, False if not
+
+"""
+Define the object space for all letters/numbers in the maze
+Also used for determining if a set of (x,y) coordinates is present in 
+the action space
+Returns: True if in Object Space, False if not
+"""
 def InObjectSpace(x, y):
         
     # Define Object 1
@@ -175,8 +175,10 @@ def InObjectSpace(x, y):
     else:
         return False
 
-# Backtrace the solution path from the goal state to the initial state
-# Add all nodes to the "solution" queue
+"""
+Backtrace the solution path from the goal state to the initial state
+Add all nodes to the "solution" queue
+"""
 def GeneratePath(CurrentNode, parent, start_state):
     solution = []
     backtracing = True
@@ -195,31 +197,37 @@ def GeneratePath(CurrentNode, parent, start_state):
     solution.reverse()
     return solution
 
+"""
+Calculate Euclidean Distance between current node and goal state
+Euclidean Distance is the straight line distance between two points
+distance metric used in A* Search
+"""
 def euclidean_distance(node, goal_state):
-    # Calculate Euclidean Distance between current node and goal state
-    # Euclidean Distance is the straight line distance between two points
-    # distance metric used in A* Search
-
     return math.sqrt((goal_state[0] - node[0])**2 + (goal_state[1] - node[1])**2)
 
-# Draw the initial game board, colors depict:
-# White: In object space
-# Green: Buffer Zone
-# Black: Action Space
-# Turn clearance and robot radius used to calculate the total buffer zone that will be placed arround the walls and objects
+"""
+Draw the initial game board, colors depict:
+White: In object space
+Green: Buffer Zone
+Black: Action Space
 
-# Robot will still be depicted on the screen as a "point-robot" as the center-point of the robot is the most import part for calculations
-#
-# Inputs:
-#    rows:    x-axis size
-#    cols:    y-axis size
-#    pxarray: pixel array for screen that allows for drawing by point
-#    pallet:  color dictionary with rgb codes
-#    C2C:     (obsolete, not used here)
-#    clear:   clearance needed for turns in mm
-#    r:       robot raidus in mm
-#
-# Outputs: none
+Turn clearance and robot radius used to calculate the total buffer zone that will be placed arround the walls and objects
+Robot will still be depicted on the screen as a "point-robot" as the center-point of the robot is the most import part for calculations
+
+Inputs:
+    rows:    x-axis size
+    cols:    y-axis size
+    pxarray: pixel array for screen that allows for drawing by point
+    pallet:  color dictionary with rgb codes
+    C2C:     (obsolete, not used here)
+    clear:   clearance needed for turns in mm
+    r:       robot raidus in mm
+
+Outputs:
+    buffer_set: set of points that fall within buffer zone, 
+                used later for eliminating potential paths that navigate through the buffer zone 
+                to a point outside of the buffer zone and object space
+"""
 def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r, screen):
     buffer_set = set()
     buff_mod = clear + r
@@ -248,7 +256,6 @@ def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r, screen):
                 buffer_set.add((x,y))
 
     return buffer_set
-
 
 
 
@@ -286,12 +293,8 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, RPM1, RPM2,
         arc_end    = node[1]
         arc_speeds = node[2]
         arc_xy = reverse_move(arc_end, arc_speeds, t_curve, wheel_radius, L)
-        #for i in range(0,len(arc_xy)):
+
         pygame.draw.lines(screen,pygame.Color(pallet["blue"]),False,arc_xy,1)
-        arc_start = arc_xy[0]
-        #pygame.draw.circle(screen, pygame.Color(pallet["red"]),arc_start,1,0)
-            #pxarray[round(arc_x[i]),round(arc_y[i])] = pygame.Color(pallet["blue"])
-        #pxarray[int(round(fixed_node[0])),int(round(fixed_node[1]))] = pygame.Color(pallet["blue"])
         pygame.display.update()
         
         # Check if popped node is within the goal tolerance region
@@ -361,36 +364,26 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, RPM1, RPM2,
 
 
 #################################################
-# Prompt User for starting and goal states
+# Collect input from user:
+# start_node: starting coordinates and orientation with total cost (float)
+# goal_node:  desired end coordinates as tuple (float)
+# step:       step size/movement length in mm (int)
+# rradius:    size of robot radius in mm (int)
+#start_node, goal_node, step, rradius = GetUserInput()
 def GetUserInput():
-    # Collect input from user:
-    # start_node: starting coordinates and orientation with total cost (float)
-    # goal_node:  desired end coordinates as tuple (float)
-    # step:       step size/movement length in mm (int)
-    # rradius:    size of robot radius in mm (int)
-    #start_node, goal_node, step, rradius = GetUserInput()
 
-    # Draw board with objects and buffer zone
-    # rows:      size x-axis (named at one point, and forgot to change)
-    # cols:      size y-axis
-    # pallet:    color library with RGB values for drawing on pixel array
-    # C2C:       obsolete, starting costs set in FillCostMatrix()
-    # clearance: turn clearance for robot in mm 
-    # rradius:   robot radius in mm
     
     unanswered = True
+    init_cost = 0.0
+    init_speeds = (0,0)
     
-    print("Welcome to the Point Robot Maze!")
+    print("Welcome to Butt-Fuck-istan!")
+    print("Here we'll be navigating an MarkV-A1 through hostile territory!")
     print("Before we get this show on the road, we need some information from you!\n")
-    print("Robbie the Robot needs to navigate through a maze to get to get home...")
-    print("Little Robbie is a bit forgetful though and needs your help remembering...")
-    print("Where is he currently, and where is he going!\n")
-    print("Robbie lives in a maze that is 180mm long and 50mm wide...")
-    print("And he understands location using X and Y coordinates. So can you help?")
     print("---------------------------------------------------------------------------\n")
     while unanswered:
-        start_x     = float(input("Enter the starting x-coordinate: "))
-        start_y     = 299-float(input("Enter the starting y-coordinate: "))
+        start_x     = float(input("Enter the starting x-coordinate (0-539): "))
+        start_y     = 149-float(input("Enter the starting y-coordinate (0-300): "))
         start_theta = float(input("Enter the starting orientation (0-360 degrees): "))
         
         # Check to see if start point falls in obstacle space, reprompt for new
@@ -399,26 +392,37 @@ def GetUserInput():
             print("Sorry, that start point appears to be object space!")
             continue
         
-        goal_x = float(input("Enter the goal x-coordinate: "))
-        goal_y = 299-float(input("Enter the goal y-coordinate: "))
+        goal_x = float(input("Enter the goal x-coordinate (0-539): "))
+        goal_y = 149-float(input("Enter the goal y-coordinate (0-300): "))
         
-        # Check to see if start point falls in obstacle space, reprompt for new
+        # Check to see if goal point falls in obstacle space, reprompt for new
         # coordinates if it does
         if(InObjectSpace(goal_x, goal_y)):
             print("Sorry, that goal point appears to be in object space!")
             continue
         
-        step_size = int(input("Enter step size from 1 to 10: "))
-        if(step_size < 1 or step_size > 10):
-            print("Sorry, that step size is not valid!")
+        RPM1 = int(input("Enter the low end wheel speed (must be greater than 0): "))
+        RPM2 = int(input("Enter the high end wheel speed (must be greater than 0, and greater than the previous speed: "))
+        
+        # Check to see if wheel speeds meet requirements:
+        if(RPM1 <= 0 or RPM1 >= RPM2):
+            print("Sorry, invalid wheel speeds!")
+            continue
+        elif(RPM2 <= 0):
+            print("Sorry, invalid wheel speeds!")
             continue
         
-        start_node = [0.0, (start_x, start_y, start_theta)]
+        clearance = int(input("Enter the desired clearance space for navigating around buildings (0-20): "))
+        if(clearance < 1 or clearance > 20):
+            print("Sorry, that clearance is not valid!")
+            continue
+        
+        start_node = [init_cost, (start_x, start_y, start_theta), init_speeds]
         goal = (goal_x,goal_y)
      
         unanswered = False
 
-    return start_node, goal, step_size
+    return start_node, goal, RPM1, RPM2, clearance
 
 #%%
 # Initialize pygame
@@ -455,22 +459,30 @@ pallet = {"white":(255,  255, 255),
           }
 pygame.init()
 
+# Collect User Input for:
+# Start Node
+# Goal Node
+# Velocities for wheels (RPM1 and RPM2)
+# Clearance
+start_node, goal_node, RPM1, RPM2, clearance = GetUserInput()
+
 # Define screen size
-clearance   = 18
+#clearance   = 18
 window_size = (rows+clearance, cols)
 screen = pygame.display.set_mode(window_size)
 pxarray = pygame.PixelArray(screen)
 
+#start_node = [0.0, (10.0, 150.0, 0), (0,0)]
+#goal_node  = (530.0, 149.0)
 
-start_node = [0.0, (10.0, 150.0, 0), (0,0)]
-goal_node  = (530.0, 149.0)
-
-
+# Draw board with objects and buffer zone
+# rows:      size x-axis (named at one point, and forgot to change)
+# cols:      size y-axis
+# pallet:    color library with RGB values for drawing on pixel array
+# C2C:       obsolete, starting costs set in FillCostMatrix()
+# clearance: turn clearance for robot in mm 
+# rradius:   robot radius in mm
 buffer_set = DrawBoard(rows, cols, pxarray, pallet, C2C, clearance, robot_radius, screen)
-
-# Draw Curve
-#pygame.gfxdraw.arc(screen, 25, 149, 100, 0, 10, pygame.Color(pallet["red"]))
-
 
 # Update the screen
 pygame.display.update()
@@ -531,8 +543,6 @@ for item in solution:
     pygame.draw.lines(screen,pygame.Color(pallet["red"]),False,final_curve,2)
     pygame.display.update()
 
-
-    
 # Freeze screen on completed maze screen until user quits the game
 # (press close X on pygame screen)
 running = True
