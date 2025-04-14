@@ -1,0 +1,3 @@
+[console_scripts]
+falcon_amr_controller = astar_falcon_planner.falcon_amr_controller:main
+
