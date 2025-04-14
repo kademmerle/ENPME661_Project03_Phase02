@@ -19,10 +19,10 @@ _colcon_prefix_chain_bash_source_script() {
 
 # source chained prefixes
 # setting COLCON_CURRENT_PREFIX avoids determining the prefix in the sourced script
-COLCON_CURRENT_PREFIX="/opt/ros/galactic"
+COLCON_CURRENT_PREFIX="/opt/ros/humble"
 _colcon_prefix_chain_bash_source_script "$COLCON_CURRENT_PREFIX/local_setup.bash"
 # setting COLCON_CURRENT_PREFIX avoids determining the prefix in the sourced script
-COLCON_CURRENT_PREFIX="/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install"
+COLCON_CURRENT_PREFIX="/home/cgcollins91/Projects/ENPME661_Project03_Phase02/falcon_sim/ROS2/falcon_turtlebot3_project_ws/src/install"
 _colcon_prefix_chain_bash_source_script "$COLCON_CURRENT_PREFIX/local_setup.bash"
 
 # source this prefix

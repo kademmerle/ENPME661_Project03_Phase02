@@ -101,9 +101,7 @@ def move_set(node, u_l, u_r, buffer_set, t_curve=2, wheel_radius=3.3, L=28.7):
             return None
     
     theta_new = int(180 * theta_new / 3.14)
-    print("Estimated Cost to Come: ", cost)
-    # print("Theta Adjusted in deg: ", theta_new)
-    
+
     return (x_new, y_new, theta_new), cost
 
 def ValidMove(node):
@@ -137,7 +135,7 @@ def reverse_move(node,movement, t_curve=2, wheel_radius=3.3, L=28.7):
         x_new += (wheel_radius * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
         y_new += (wheel_radius * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
         
-        cost = cost + math.sqrt(math.pow(((wheel_radius * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((wheel_radius * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
+        cost = cost + math.sqrt(math.pow(((wheel_radius * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((r * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
         xy_list.append((round(x_new),round(y_new)))
         
     theta_new = int(180 * theta_new / 3.14)

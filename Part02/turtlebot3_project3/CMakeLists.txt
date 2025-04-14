@@ -66,7 +66,6 @@ install(DIRECTORY launch models rviz urdf worlds scripts
   DESTINATION share/${PROJECT_NAME}/
 )
 
-
 install(DIRECTORY include/
   DESTINATION include/
 )
@@ -78,19 +77,13 @@ install(PROGRAMS
   scripts/path_planning.py
   scripts/controller.py 
   scripts/odom_subscriber.py
-  scripts/combo_script.py
-  scripts/dz_path_planning.py
-  scripts/dz_controller.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
 install(
   DIRECTORY scripts/
   DESTINATION share/${PROJECT_NAME}/scripts
-  FILES_MATCHING PATTERN "*.py"
 )
-
-
 
 ################################################################################
 # Macro for ament package

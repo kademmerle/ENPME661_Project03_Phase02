@@ -17,8 +17,12 @@
 # Authors: Joep Tool
 
 import os
-
+import sys
 from ament_index_python.packages import get_package_share_directory
+script_path = os.path.join(get_package_share_directory('turtlebot3_project3'), 'scripts')
+sys.path.insert(0,script_path)
+import path_planning
+
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
