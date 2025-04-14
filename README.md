@@ -9,10 +9,8 @@ Kyle Demmerle UID: 121383341
 Dan Zinobile UID: 121354464
 
 # Clone the repository in home folder
-cd
 
 git clone git@github.com:kademmerle/ENPME661_Project03_Phase02.git
-
 
 
 # Source ROS
