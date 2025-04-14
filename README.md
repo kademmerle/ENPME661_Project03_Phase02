@@ -10,7 +10,7 @@ Dan Zinobile UID: 121354464
 
 #Clone the repository in home folder
 cd
-git clone adsfffffffasdfasfasfadf
+git clone git@github.com:kademmerle/ENPME661_Project03_Phase02.git
 
 # Create a workspace in home folder
 cd
@@ -18,7 +18,7 @@ mkdir -p project3_ws/src
 cd
 
 #Copy package to workspace src folder
-cp -r ENPME661_Project03_Phase02/Part02/turtlebot3_package3 project3_ws/src
+cp -r ENPME661_Project03_Phase02/Part02/turtlebot3_project3 project3_ws/src
 
 #Source ROS
 source /opt/ros/humble/setup.bash
@@ -40,4 +40,6 @@ ros2 launch turtlebot3_project3 competition_world.launch.py
 #Wait for gazebo to load
 
 #Open a separate terminal and run controller script
+cd ~/project3_ws
+source install/setup.bash
 ros2 run turtlebot3_project3 controller.py

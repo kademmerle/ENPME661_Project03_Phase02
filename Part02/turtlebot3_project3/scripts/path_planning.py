@@ -17,7 +17,8 @@ from queue import PriorityQueue
 from collections import deque
 import csv
 import matplotlib.pyplot as plt
-
+import os
+from ament_index_python.packages import get_package_share_directory
 
 
 # Check if x_prime is in the Open List
@@ -101,8 +102,7 @@ def move_set(node, u_l, u_r, buffer_set, t_curve=2, wheel_radius=3.3, L=28.7):
             return None
     
     theta_new = int(180 * theta_new / 3.14)
-    print("Estimated Cost to Come: ", cost)
-    # print("Theta Adjusted in deg: ", theta_new)
+
     
     return (x_new, y_new, theta_new), cost
 
@@ -509,7 +509,10 @@ runtime = end_time - start_time
 
 print("Time required to solve maze: ", runtime, " seconds")
 center_y = 149
-with open("waypoints.csv", "w", newline="") as file:
+
+pkg_share = get_package_share_directory('turtlebot3_project3')
+csv_path = os.path.join(pkg_share, 'scripts', 'waypoints.csv')
+with open(csv_path, "w", newline="") as file:
     writer = csv.writer(file)
     writer.writerow([RPM1, RPM2])
     for item in solution:
