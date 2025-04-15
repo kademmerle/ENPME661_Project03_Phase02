@@ -10,9 +10,11 @@ Dan Zinobile UID: 121354464
 
 # Clone the repository in home folder
 
-git clone git@github.com:kademmerle/ENPME661_Project03_Phase02.git
+git clone [git@github.com:kademmerle/ENPME661_Project03_Phase02.git](https://github.com/kademmerle/ENPME661_Project03_Phase02.git)
 
 
+
+## Part 2
 # Source ROS
 source /opt/ros/humble/setup.bash
 
