@@ -19,6 +19,7 @@ Dan Zinobile
 git clone [git@github.com:kademmerle/ENPME661_Project03_Phase02.git](https://github.com/kademmerle/ENPME661_Project03_Phase02.git)
 
 # Dependencies
+##Python
 import pygame
 
 import pygame.gfxdraw
@@ -32,6 +33,10 @@ import heapq
 import numpy as np
 
 import csv
+
+## ROS Environment
+Operating System: Ubuntu 22.02
+ROS2 Distribution: Humble
 
 # Part 1 -- Run Path Planner Independently
 ## Instructions for Running
