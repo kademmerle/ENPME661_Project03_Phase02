@@ -19,7 +19,8 @@ Dan Zinobile
 git clone [git@github.com:kademmerle/ENPME661_Project03_Phase02.git](https://github.com/kademmerle/ENPME661_Project03_Phase02.git)
 
 # Dependencies
-##Python
+## Python
+
 import pygame
 
 import pygame.gfxdraw
