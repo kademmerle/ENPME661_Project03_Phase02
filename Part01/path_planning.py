@@ -16,12 +16,15 @@ import csv
 
 
 
-# Check if x_prime is in the Open List
-# Pops all items from OL, checks each to see if coordinates have already
-# been visited, appends popped item to temp_list, then puts all items 
-# back into OL
-# Returns: True is present, False if not
+
 def CheckOpenList(coords, open_list):
+    '''
+    Check if coords is in the Open List
+    Pops all items from OL, checks each to see if coordinates have already
+    been visited, appends popped item to temp_list, then puts all items 
+    back into OL
+    Returns: True is present, False if not
+    '''
     temp_list = []
     present = False
     
@@ -33,14 +36,15 @@ def CheckOpenList(coords, open_list):
         
     return present, temp_list
 
-"""
-Check if x_prime is in the Closed List
-Closed list is a dictionary with each node's coords used as a key
-If x_prime coordinates are not in the closed list, a KeyError is thrown, 
-which is caught by the try-except block.
-Returns: True if present, False if not
-"""
+
 def CheckClosedList(coords, closed_list):
+    """
+    Check if x_prime is in the Closed List
+    Closed list is a dictionary with each node's coords used as a key
+    If x_prime coordinates are not in the closed list, a KeyError is thrown, 
+    which is caught by the try-except block.
+    Returns: True if present, False if not
+    """
     
     try:
         if(closed_list[coords]):
@@ -51,7 +55,8 @@ def CheckClosedList(coords, closed_list):
 
 
 def round_and_get_v_index(node):
-   #  Round x, y coordinates to nearest half to ensure we are on the center of a pixel
+   #  Round x, y coordinates to nearest half to ensure our indexing is aligned 
+   #  Round Theta to nearest 5 degrees
    
    x           = round(node[0] * 2, 1) / 2
    y           = round(node[1] * 2, 1) / 2
@@ -60,34 +65,37 @@ def round_and_get_v_index(node):
    x_v_idx     = int(x * 2)
    y_v_idx     = int(y * 2)
 
-   theta_deg_rounded = round(theta_deg / 5) * 5 # round to nearest 10 degrees
+   theta_deg_rounded = round(theta_deg / 5) * 5 # round to nearest 5 degrees
    theta_v_idx       = int(theta_deg_rounded % 360) // 5
 
    return (x, y, theta_deg_rounded), x_v_idx, y_v_idx, theta_v_idx
 
-"""
-Utilizes function that was provided in Cost.py of the Proj 3 Phase 2 files. 
-Variable names have been adjusted slightly, but general mechanics remain the same.
-"""
 def move_set(node, u_l, u_r, buffer_set, t_curve=2, wheel_radius=3.3, L=28.7):
+    """
+    Utilizes function that was provided in Cost.py of the Proj 3 Phase 2 files. 
+    Get potential moves running action for t_curve seconds
+    Variable names have been adjusted slightly, but general mechanics remain the same.
+    """
     t    = 0
     cost = 0
     dt   = t_curve / 10
     
     x_new = node[0]
     y_new = node[1]
-    # print("Theta Start in deg: ", node[2])
-    theta_new = 3.14 * node[2] / 180
-    u_l = u_l*2*math.pi/60
-    u_r = u_r*2*math.pi/60    
+
+    theta_new = 3.14 * node[2] / 180 # Convert to Radians
+    u_l       = u_l*2*math.pi/60     # Convert to Rad/s
+    u_r       = u_r*2*math.pi/60    
     while t < t_curve:
         t = t+dt
-        x_new += (wheel_radius * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
-        y_new += (wheel_radius * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
+        x_new     += (wheel_radius * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt
+        y_new     += (wheel_radius * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt
         theta_new += (wheel_radius/L) * (u_r - u_l) * dt
-        cost = cost + math.sqrt(math.pow(((wheel_radius * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((wheel_radius * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
-        bcux = int(math.ceil(x_new))
-        bcuy = int(math.ceil(y_new))
+        cost       = cost + math.sqrt(math.pow(((wheel_radius * 0.5)*(u_r + u_l) * math.cos(theta_new)*dt),2) + math.pow(((wheel_radius * 0.5)*(u_r + u_l) * math.sin(theta_new)*dt),2))
+        
+        # Check if move takes us into buffer around wall
+        bcux       = int(math.ceil(x_new))
+        bcuy       = int(math.ceil(y_new))
         if bcux <0 or bcuy < 0:
             return None
         bcdx = int(x_new)
@@ -95,15 +103,16 @@ def move_set(node, u_l, u_r, buffer_set, t_curve=2, wheel_radius=3.3, L=28.7):
         if bcdx < 0 or bcdy < 0:
             return None
         if (bcux,bcuy) in buffer_set or (bcdx,bcdy) in buffer_set:
-            #print("in buffer set")
+  
             return None
     
-    theta_new = int(180 * theta_new / 3.14)
+    theta_new = int(180 * theta_new / 3.14) # Convert back to degrees
 
     
     return (x_new, y_new, theta_new), cost
 
 def ValidMove(node):
+    # Check if move is valid
     if((node[0] < 0) or (node[0] >= 540)):
         return False
     elif((node[1] < 0) or (node[1] >= 300)):
@@ -113,7 +122,7 @@ def ValidMove(node):
 
 
 def reverse_move(node,movement, t_curve=2, wheel_radius=3.3, L=28.7):
-
+    # Reverse Move for Curve Plotting
     cost  = 0
     dt    = -t_curve/10
     x_new = node[0]
@@ -141,13 +150,14 @@ def reverse_move(node,movement, t_curve=2, wheel_radius=3.3, L=28.7):
 
     return xy_list
 
-"""
-Define the object space for all letters/numbers in the maze
-Also used for determining if a set of (x,y) coordinates is present in 
-the action space
-Returns: True if in Object Space, False if not
-"""
+
 def InObjectSpace(x, y):
+    """
+    Define the object space for all letters/numbers in the maze
+    Also used for determining if a set of (x,y) coordinates is present in 
+    the action space
+    Returns: True if in Object Space, False if not
+    """
         
     # Define Object 1
     if ((99<=x<=109) and (99<=y<=299)):
@@ -174,11 +184,12 @@ def InObjectSpace(x, y):
     else:
         return False
 
-"""
-Backtrace the solution path from the goal state to the initial state
-Add all nodes to the "solution" queue
-"""
+
 def GeneratePath(CurrentNode, parent, start_state):
+    """
+    Backtrace the solution path from the goal state to the initial state
+    Add all nodes to the "solution" queue
+    """
     solution = []
     backtracing = True
     
@@ -196,38 +207,40 @@ def GeneratePath(CurrentNode, parent, start_state):
     solution.reverse()
     return solution
 
-"""
-Calculate Euclidean Distance between current node and goal state
-Euclidean Distance is the straight line distance between two points
-distance metric used in A* Search
-"""
+
 def euclidean_distance(node, goal_state):
+    """
+    Calculate Euclidean Distance between current node and goal state
+    Euclidean Distance is the straight line distance between two points
+    distance metric used in A* Search
+    """
     return math.sqrt((goal_state[0] - node[0])**2 + (goal_state[1] - node[1])**2)
 
-"""
-Draw the initial game board, colors depict:
-White: In object space
-Green: Buffer Zone
-Black: Action Space
 
-Turn clearance and robot radius used to calculate the total buffer zone that will be placed arround the walls and objects
-Robot will still be depicted on the screen as a "point-robot" as the center-point of the robot is the most import part for calculations
-
-Inputs:
-    rows:    x-axis size
-    cols:    y-axis size
-    pxarray: pixel array for screen that allows for drawing by point
-    pallet:  color dictionary with rgb codes
-    C2C:     (obsolete, not used here)
-    clear:   clearance needed for turns in mm
-    r:       robot raidus in mm
-
-Outputs:
-    buffer_set: set of points that fall within buffer zone, 
-                used later for eliminating potential paths that navigate through the buffer zone 
-                to a point outside of the buffer zone and object space
-"""
 def DrawBoard(rows, cols, pxarray, pallet, C2C, clear, r, screen):
+    """
+    Draw the initial game board, colors depict:
+    White: In object space
+    Green: Buffer Zone
+    Black: Action Space
+
+    Turn clearance and robot radius used to calculate the total buffer zone that will be placed arround the walls and objects
+    Robot will still be depicted on the screen as a "point-robot" as the center-point of the robot is the most import part for calculations
+
+    Inputs:
+        rows:    x-axis size
+        cols:    y-axis size
+        pxarray: pixel array for screen that allows for drawing by point
+        pallet:  color dictionary with rgb codes
+        C2C:     (obsolete, not used here)
+        clear:   clearance needed for turns in mm
+        r:       robot raidus in mm
+
+    Outputs:
+        buffer_set: set of points that fall within buffer zone, 
+                    used later for eliminating potential paths that navigate through the buffer zone 
+                    to a point outside of the buffer zone and object space
+    """
     buffer_set = set()
     buff_mod = clear + r
     for x in range(1,rows-1):
@@ -271,6 +284,9 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, RPM1, RPM2,
            t_curve,  pxarray, pallet, screen, goal_threshold, buffer_set,
            wheel_radius=3.3, L= 28.7
            ):
+    """
+    Run A* Search algorithm over our board
+    """
 
     solution_path = []
     
@@ -362,15 +378,16 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, RPM1, RPM2,
     return False, solution_path
 
 
-#################################################
-# Collect input from user:
-# start_node: starting coordinates and orientation with total cost (float)
-# goal_node:  desired end coordinates as tuple (float)
-# step:       step size/movement length in mm (int)
-# rradius:    size of robot radius in mm (int)
-#start_node, goal_node, step, rradius = GetUserInput()
-def GetUserInput():
 
+def GetUserInput():
+    '''
+    Collect input from user:
+    start_node: starting coordinates and orientation with total cost (float)
+    goal_node:  desired end coordinates as tuple (float)
+    step:       step size/movement length in mm (int)
+    rradius:    size of robot radius in mm (int)
+    start_node, goal_node, step, rradius = GetUserInput()
+    '''
     
     unanswered = True
     init_cost = 0.0
@@ -438,11 +455,11 @@ rows, cols = (540, 300)
 # Define Lists
 OL = []
 CL = {}
-index_ctr = 0
-solution  = []
-thresh    = 0.5
-parent    = {}
-costsum   = {}
+index_ctr  = 0
+solution   = []
+thresh     = 0.5
+parent     = {}
+costsum    = {}
 theta_bins = 72
 RPM1 = 50.0
 RPM2 = 100.0

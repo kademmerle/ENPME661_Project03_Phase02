@@ -1,0 +1,185 @@
+[0.005s] Invoking command in '/home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/build/turtlebot3_project3': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/turtlebot3_project3 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3
+[0.052s] -- The C compiler identification is GNU 11.4.0
+[0.090s] -- The CXX compiler identification is GNU 11.4.0
+[0.096s] -- Detecting C compiler ABI info
+[0.141s] -- Detecting C compiler ABI info - done
+[0.145s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.145s] -- Detecting C compile features
+[0.146s] -- Detecting C compile features - done
+[0.148s] -- Detecting CXX compiler ABI info
+[0.198s] -- Detecting CXX compiler ABI info - done
+[0.202s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.203s] -- Detecting CXX compile features
+[0.203s] -- Detecting CXX compile features - done
+[0.206s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.296s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.332s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.352s] [33mCMake Warning (dev) at /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake:438 (message):
+[0.352s]   The package name passed to `find_package_handle_standard_args` (PkgConfig)
+[0.352s]   does not match the name of the calling package (gazebo).  This can lead to
+[0.352s]   problems in calling code that expects `find_package` result variables
+[0.353s]   (e.g., `_FOUND`) to follow a certain pattern.
+[0.353s] Call Stack (most recent call first):
+[0.353s]   /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake:99 (find_package_handle_standard_args)
+[0.353s]   /usr/lib/x86_64-linux-gnu/cmake/gazebo/gazebo-config.cmake:72 (include)
+[0.353s]   CMakeLists.txt:23 (find_package)
+[0.353s] This warning is for project developers.  Use -Wno-dev to suppress it.
+[0.353s] [0m
+[0.353s] -- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+[0.355s] -- Checking for module 'bullet>=2.82'
+[0.364s] --   Found bullet, version 3.05
+[0.434s] -- Found fcl: /usr/include (found suitable version "0.7.0", minimum required is "0.5.0") 
+[0.467s] -- Found assimp: /usr/include (found version "5.2.0") 
+[0.480s] -- Found DART: /usr/include (Required is at least version "6.6") found components: dart 
+[0.590s] -- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found suitable version "1.74.0", minimum required is "1.40.0") found components: thread system filesystem program_options regex iostreams date_time 
+[0.601s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found version "3.12.4") 
+[0.603s] -- Looking for ignition-math6 -- found version 6.15.1
+[0.607s] -- Searching for dependencies of ignition-math6
+[0.608s] -- Looking for OGRE...
+[0.608s] -- OGRE_PREFIX_WATCH changed.
+[0.611s] -- Checking for module 'OGRE'
+[0.619s] --   Found OGRE, version 1.9.0
+[0.641s] -- Found Ogre Ghadamon (1.9.0)
+[0.646s] -- Found OGRE: optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so
+[0.652s] -- Looking for OGRE_Paging...
+[0.654s] -- Found OGRE_Paging: optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so
+[0.654s] -- Looking for OGRE_Terrain...
+[0.657s] -- Found OGRE_Terrain: optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so
+[0.657s] -- Looking for OGRE_Property...
+[0.659s] -- Found OGRE_Property: optimized;/usr/lib/x86_64-linux-gnu/libOgreProperty.so;debug;/usr/lib/x86_64-linux-gnu/libOgreProperty.so
+[0.659s] -- Looking for OGRE_RTShaderSystem...
+[0.662s] -- Found OGRE_RTShaderSystem: optimized;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so;debug;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so
+[0.662s] -- Looking for OGRE_Volume...
+[0.664s] -- Found OGRE_Volume: optimized;/usr/lib/x86_64-linux-gnu/libOgreVolume.so;debug;/usr/lib/x86_64-linux-gnu/libOgreVolume.so
+[0.664s] -- Looking for OGRE_Overlay...
+[0.667s] -- Found OGRE_Overlay: optimized;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so;debug;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so
+[0.722s] -- Looking for ignition-math6 -- found version 6.15.1
+[0.724s] -- Looking for ignition-transport8 -- found version 8.2.1
+[0.724s] -- Searching for dependencies of ignition-transport8
+[0.735s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found suitable version "3.12.4", minimum required is "3") 
+[0.741s] -- Config-file not installed for ZeroMQ -- checking for pkg-config
+[0.744s] -- Checking for module 'libzmq >= 4'
+[0.753s] --   Found libzmq , version 4.3.4
+[0.778s] -- Found ZeroMQ: TRUE (Required is at least version "4") 
+[0.782s] -- Checking for module 'uuid'
+[0.790s] --   Found uuid, version 2.37.2
+[0.814s] -- Found UUID: TRUE  
+[0.815s] -- Looking for ignition-msgs5 -- found version 5.8.1
+[0.815s] -- Searching for dependencies of ignition-msgs5
+[0.827s] -- Looking for ignition-math6 -- found version 6.15.1
+[0.830s] -- Checking for module 'tinyxml2'
+[0.838s] --   Found tinyxml2, version 9.0.0
+[0.861s] -- Looking for ignition-msgs5 -- found version 5.8.1
+[0.862s] -- Looking for ignition-common3 -- found version 3.14.0
+[0.862s] -- Searching for dependencies of ignition-common3
+[0.862s] -- Looking for dlfcn.h - found
+[0.863s] -- Looking for libdl - found
+[0.863s] -- Found DL: TRUE  
+[0.869s] -- Found tinyobjloader: /usr/lib/x86_64-linux-gnu/cmake/tinyobjloader/tinyobjloader-config.cmake (found version "2.0.0") 
+[0.869s] -- Searching for <ignition-common3> component [graphics]
+[0.870s] -- Looking for ignition-common3-graphics -- found version 3.14.0
+[0.871s] -- Searching for dependencies of ignition-common3-graphics
+[0.871s] -- Looking for ignition-math6 -- found version 6.15.1
+[0.872s] -- Looking for ignition-fuel_tools4 -- found version 4.4.0
+[0.872s] -- Searching for dependencies of ignition-fuel_tools4
+[0.922s] -- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.81.0")  
+[0.927s] -- Checking for module 'jsoncpp'
+[0.935s] --   Found jsoncpp, version 1.9.5
+[0.957s] -- Found JSONCPP: TRUE  
+[0.961s] -- Checking for module 'libzip'
+[0.970s] --   Found libzip, version 1.7.3
+[0.991s] -- Found ZIP: TRUE  
+[0.991s] -- Looking for ignition-common3 -- found version 3.14.0
+[0.992s] -- Looking for ignition-math6 -- found version 6.15.1
+[0.992s] -- Looking for ignition-msgs5 -- found version 5.8.1
+[0.994s] -- Found gazebo_ros_pkgs: 3.9.0 (/opt/ros/humble/share/gazebo_ros_pkgs/cmake)
+[0.995s] -- Found geometry_msgs: 4.8.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[1.010s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.013s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.017s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.024s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.033s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.053s] -- Found nav_msgs: 4.8.0 (/opt/ros/humble/share/nav_msgs/cmake)
+[1.063s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[1.082s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.083s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.139s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.153s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.178s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.183s] -- Found Threads: TRUE  
+[1.202s] -- Found sensor_msgs: 4.8.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[1.213s] -- Found tf2: 0.25.12 (/opt/ros/humble/share/tf2/cmake)
+[1.258s] -- Configuring done
+[1.265s] -- Generating done
+[1.268s] -- Build files have been written to: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/build/turtlebot3_project3
+[1.274s] Invoked command in '/home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/build/turtlebot3_project3' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/turtlebot3_project3 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3
+[1.276s] Invoking command in '/home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/build/turtlebot3_project3': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/build/turtlebot3_project3 -- -j16 -l16
+[1.308s] [ 50%] [32mBuilding CXX object CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o[0m
+[7.107s] [100%] [32m[1mLinking CXX executable turtlebot3_drive[0m
+[7.386s] [100%] Built target turtlebot3_drive
+[7.393s] Invoked command in '/home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/build/turtlebot3_project3' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/build/turtlebot3_project3 -- -j16 -l16
+[7.400s] Invoking command in '/home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/build/turtlebot3_project3': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/build/turtlebot3_project3
+[7.404s] -- Install configuration: ""
+[7.404s] -- Execute custom install script
+[7.404s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/lib/turtlebot3_project3/turtlebot3_drive
+[7.410s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//launch/competition_world.launch.py
+[7.415s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//launch/empty_world.launch.py
+[7.421s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//launch/robot_state_publisher.launch.py
+[7.427s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//launch/spawn_turtlebot3.launch.py
+[7.433s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/meshes/project3-world.STL
+[7.438s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/meshes/project3.STL
+[7.443s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/model.config
+[7.449s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/model.sdf
+[7.454s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/burger_base.dae
+[7.460s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/lds.dae
+[7.465s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/r200.dae
+[7.470s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/tire.dae
+[7.475s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/waffle_base.dae
+[7.480s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/waffle_pi_base.dae
+[7.486s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/model.config
+[7.491s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model-1_4.sdf
+[7.496s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model.config
+[7.502s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model.sdf
+[7.507s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/meshes/hexagon.dae
+[7.513s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/meshes/wall.dae
+[7.518s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model-1_4.sdf
+[7.523s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model.config
+[7.529s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model.sdf
+[7.535s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//rviz/tb3_gazebo.rviz
+[7.540s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//urdf/common_properties.urdf
+[7.546s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//urdf/turtlebot3_waffle.urdf
+[7.551s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//worlds/competition_world.world
+[7.556s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//worlds/empty_world.world
+[7.562s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//scripts/controller.py
+[7.567s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//scripts/odom_subscriber.py
+[7.573s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//scripts/path_planning.py
+[7.579s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//scripts/teleop.py
+[7.584s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3//scripts/waypoints.csv
+[7.590s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/include//turtlebot3_project3/turtlebot3_drive.hpp
+[7.595s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/lib/turtlebot3_project3/teleop.py
+[7.601s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/lib/turtlebot3_project3/path_planning.py
+[7.606s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/lib/turtlebot3_project3/controller.py
+[7.611s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/lib/turtlebot3_project3/odom_subscriber.py
+[7.617s] -- Up-to-date symlink: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/scripts/controller.py
+[7.617s] -- Up-to-date symlink: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/scripts/odom_subscriber.py
+[7.617s] -- Up-to-date symlink: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/scripts/path_planning.py
+[7.617s] -- Up-to-date symlink: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/scripts/teleop.py
+[7.617s] -- Up-to-date symlink: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/scripts/waypoints.csv
+[7.617s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/ament_index/resource_index/package_run_dependencies/turtlebot3_project3
+[7.622s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/ament_index/resource_index/parent_prefix_path/turtlebot3_project3
+[7.627s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/environment/ament_prefix_path.sh
+[7.633s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/environment/ament_prefix_path.dsv
+[7.638s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/environment/path.sh
+[7.643s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/environment/path.dsv
+[7.648s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.bash
+[7.653s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.sh
+[7.658s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.zsh
+[7.663s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.dsv
+[7.668s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/package.dsv
+[7.673s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/ament_index/resource_index/packages/turtlebot3_project3
+[7.679s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/cmake/ament_cmake_export_include_directories-extras.cmake
+[7.684s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/cmake/ament_cmake_export_dependencies-extras.cmake
+[7.690s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/cmake/turtlebot3_project3Config.cmake
+[7.695s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/cmake/turtlebot3_project3Config-version.cmake
+[7.700s] -- Symlinking: /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/install/turtlebot3_project3/share/turtlebot3_project3/package.xml
+[7.706s] Invoked command in '/home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/build/turtlebot3_project3' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/cgcollins91/Projects/ENPME661_Project03_Phase02/Part02/build/turtlebot3_project3
