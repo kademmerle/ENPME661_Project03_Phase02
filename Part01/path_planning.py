@@ -427,14 +427,14 @@ def GetUserInput():
             continue
         
         while True:
-            RPM1 = int(input("Enter the low end wheel speed [rpm] (20-40): "))
-            RPM2 = int(input("Enter the high end wheel speed [rpm] (50-100): "))
-            if 20 <= RPM1 <= 40 and 50 <= RPM2 <= 100:
+            RPM1 = int(input("Enter the low end wheel speed [rpm] (20-50): "))
+            RPM2 = int(input("Enter the high end wheel speed [rpm] (60-100): "))
+            if 20 <= RPM1 <= 50 and 60 <= RPM2 <= 100:
                 break
             print("Error - enter values within range")
 
         
-        clearance = int(input("Enter the desired clearance space for navigating around buildings (1-): "))
+        clearance = int(input("Enter the desired clearance space for navigating around buildings (Range: 1-20, must not have decimal point): "))
         if(clearance < 1 or clearance > 20):
             print("Sorry, that clearance is not valid!")
             continue
@@ -543,7 +543,7 @@ runtime = end_time - start_time
 
 print("Time required to solve maze: ", runtime, " seconds")
 center_y = 149
-with open("Part01/part01_waypoints.csv", "w", newline="") as file:
+with open("./part01_waypoints.csv", "w", newline="") as file:
     writer = csv.writer(file)
     writer.writerow([RPM1, RPM2])
     for item in solution:
