@@ -1,0 +1,249 @@
+[0.000000] (-) TimerEvent: {}
+[0.000340] (turtlebot3_project3) JobQueued: {'identifier': 'turtlebot3_project3', 'dependencies': OrderedDict()}
+[0.000400] (turtlebot3_project3) JobStarted: {'identifier': 'turtlebot3_project3'}
+[0.005682] (turtlebot3_project3) JobProgress: {'identifier': 'turtlebot3_project3', 'progress': 'cmake'}
+[0.006050] (turtlebot3_project3) Command: {'cmd': ['/usr/bin/cmake', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3'], 'cwd': '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'cgcollins91'), ('SSH_AGENT_PID', '1391'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/x86_64-linux-gnu:/opt/ros/galactic/lib'), ('HOME', '/home/cgcollins91'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('MANAGERPID', '1260'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install:/home/cgcollins91/projects/ENPME661_Project03_Phase02/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'cgcollins91'), ('JOURNAL_STREAM', '8:34476'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'cgcollins91'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/galactic/bin:/home/cgcollins91/miniconda3/condabin:/home/cgcollins91/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/moose-compute:@/tmp/.ICE-unix/1426,unix/moose-compute:/tmp/.ICE-unix/1426'), ('INVOCATION_ID', 'd23a836f2a0049bea4bb5b28d680d864'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/d3d60590_1945_4b22_98fd_eef3353d2adc'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.231'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/install/turtlebot3_project3:/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3:/opt/ros/galactic'), ('CONDA_PYTHON_EXE', '/home/cgcollins91/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3'), ('TURTLEBOT3_MODEL', 'waffle'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('CONDA_EXE', '/home/cgcollins91/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/galactic/lib/python3.8/site-packages'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/install/turtlebot3_project3:/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3:/opt/ros/galactic')]), 'shell': False}
+[0.053710] (turtlebot3_project3) StdoutLine: {'line': b'-- The C compiler identification is GNU 9.4.0\n'}
+[0.098417] (turtlebot3_project3) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 9.4.0\n'}
+[0.099949] (-) TimerEvent: {}
+[0.102579] (turtlebot3_project3) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc\n'}
+[0.159967] (turtlebot3_project3) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc -- works\n'}
+[0.160608] (turtlebot3_project3) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.200025] (-) TimerEvent: {}
+[0.214498] (turtlebot3_project3) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.221686] (turtlebot3_project3) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.221851] (turtlebot3_project3) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.223162] (turtlebot3_project3) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++\n'}
+[0.288709] (turtlebot3_project3) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ -- works\n'}
+[0.289739] (turtlebot3_project3) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.300107] (-) TimerEvent: {}
+[0.353444] (turtlebot3_project3) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.363364] (turtlebot3_project3) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.363646] (turtlebot3_project3) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.365122] (turtlebot3_project3) StdoutLine: {'line': b'-- Found ament_cmake: 1.1.6 (/opt/ros/galactic/share/ament_cmake/cmake)\n'}
+[0.381278] (turtlebot3_project3) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") \n'}
+[0.381392] (turtlebot3_project3) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[0.400184] (-) TimerEvent: {}
+[0.410568] (turtlebot3_project3) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.428963] (turtlebot3_project3) StdoutLine: {'line': b'-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.1") \n'}
+[0.432001] (turtlebot3_project3) StdoutLine: {'line': b"-- Checking for module 'bullet>=2.82'\n"}
+[0.446124] (turtlebot3_project3) StdoutLine: {'line': b'--   Found bullet, version 2.88\n'}
+[0.500266] (-) TimerEvent: {}
+[0.552767] (turtlebot3_project3) StdoutLine: {'line': b'-- Found ccd: /usr/include (found suitable version "2.0", minimum required is "2.0") \n'}
+[0.600349] (-) TimerEvent: {}
+[0.606512] (turtlebot3_project3) StdoutLine: {'line': b'-- Found fcl: /usr/include (found suitable version "0.5.0", minimum required is "0.3.2") \n'}
+[0.664487] (turtlebot3_project3) StdoutLine: {'line': b'-- Found assimp: /usr/include (found version "5.0.0") \n'}
+[0.680071] (turtlebot3_project3) StdoutLine: {'line': b'-- Found DART: /usr/include (Required is at least version "6.6") found components: dart \n'}
+[0.700438] (-) TimerEvent: {}
+[0.800614] (-) TimerEvent: {}
+[0.900806] (-) TimerEvent: {}
+[0.927450] (turtlebot3_project3) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake (found suitable version "1.71.0", minimum required is "1.40.0") found components: thread system filesystem program_options regex iostreams date_time \n'}
+[0.941717] (turtlebot3_project3) StdoutLine: {'line': b'-- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so;-lpthread (found version "3.6.1") \n'}
+[0.944433] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[0.948062] (turtlebot3_project3) StdoutLine: {'line': b'-- Searching for dependencies of ignition-math6\n'}
+[0.948985] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for OGRE...\n'}
+[0.949266] (turtlebot3_project3) StdoutLine: {'line': b'-- OGRE_PREFIX_WATCH changed.\n'}
+[0.952519] (turtlebot3_project3) StdoutLine: {'line': b"-- Checking for module 'OGRE'\n"}
+[0.967844] (turtlebot3_project3) StdoutLine: {'line': b'--   Found OGRE, version 1.9.0\n'}
+[1.000888] (-) TimerEvent: {}
+[1.007722] (turtlebot3_project3) StdoutLine: {'line': b'-- Found Ogre Ghadamon (1.9.0)\n'}
+[1.015070] (turtlebot3_project3) StdoutLine: {'line': b'-- Found OGRE: optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so\n'}
+[1.020744] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for OGRE_Paging...\n'}
+[1.024215] (turtlebot3_project3) StdoutLine: {'line': b'-- Found OGRE_Paging: optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so\n'}
+[1.024325] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for OGRE_Terrain...\n'}
+[1.027720] (turtlebot3_project3) StdoutLine: {'line': b'-- Found OGRE_Terrain: optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so\n'}
+[1.027826] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for OGRE_Property...\n'}
+[1.031383] (turtlebot3_project3) StdoutLine: {'line': b'-- Found OGRE_Property: optimized;/usr/lib/x86_64-linux-gnu/libOgreProperty.so;debug;/usr/lib/x86_64-linux-gnu/libOgreProperty.so\n'}
+[1.031501] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for OGRE_RTShaderSystem...\n'}
+[1.034908] (turtlebot3_project3) StdoutLine: {'line': b'-- Found OGRE_RTShaderSystem: optimized;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so;debug;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so\n'}
+[1.035011] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for OGRE_Volume...\n'}
+[1.038468] (turtlebot3_project3) StdoutLine: {'line': b'-- Found OGRE_Volume: optimized;/usr/lib/x86_64-linux-gnu/libOgreVolume.so;debug;/usr/lib/x86_64-linux-gnu/libOgreVolume.so\n'}
+[1.038528] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for OGRE_Overlay...\n'}
+[1.041933] (turtlebot3_project3) StdoutLine: {'line': b'-- Found OGRE_Overlay: optimized;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so;debug;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so\n'}
+[1.100974] (-) TimerEvent: {}
+[1.118070] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.119178] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-transport8 -- found version 8.5.0\n'}
+[1.119397] (turtlebot3_project3) StdoutLine: {'line': b'-- Searching for dependencies of ignition-transport8\n'}
+[1.140732] (turtlebot3_project3) StdoutLine: {'line': b'-- Config-file not installed for ZeroMQ -- checking for pkg-config\n'}
+[1.143836] (turtlebot3_project3) StdoutLine: {'line': b"-- Checking for module 'libzmq >= 4'\n"}
+[1.160472] (turtlebot3_project3) StdoutLine: {'line': b'--   Found libzmq , version 4.3.2\n'}
+[1.201064] (-) TimerEvent: {}
+[1.201178] (turtlebot3_project3) StdoutLine: {'line': b'-- Found ZeroMQ: TRUE (Required is at least version "4") \n'}
+[1.205365] (turtlebot3_project3) StdoutLine: {'line': b"-- Checking for module 'uuid'\n"}
+[1.221184] (turtlebot3_project3) StdoutLine: {'line': b'--   Found uuid, version 2.34.0\n'}
+[1.260301] (turtlebot3_project3) StdoutLine: {'line': b'-- Found UUID: TRUE  \n'}
+[1.262360] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-msgs5 -- found version 5.11.0\n'}
+[1.262809] (turtlebot3_project3) StdoutLine: {'line': b'-- Searching for dependencies of ignition-msgs5\n'}
+[1.277606] (turtlebot3_project3) StdoutLine: {'line': b'-- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so;-lpthread (found suitable version "3.6.1", minimum required is "3") \n'}
+[1.278142] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.281437] (turtlebot3_project3) StdoutLine: {'line': b"-- Checking for module 'tinyxml2'\n"}
+[1.296439] (turtlebot3_project3) StdoutLine: {'line': b'--   Found tinyxml2, version 6.2.0\n'}
+[1.301148] (-) TimerEvent: {}
+[1.337421] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-msgs5 -- found version 5.11.0\n'}
+[1.339391] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-common3 -- found version 3.17.0\n'}
+[1.339811] (turtlebot3_project3) StdoutLine: {'line': b'-- Searching for dependencies of ignition-common3\n'}
+[1.340055] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for dlfcn.h - found\n'}
+[1.340735] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for libdl - found\n'}
+[1.342001] (turtlebot3_project3) StdoutLine: {'line': b'-- Found DL: TRUE  \n'}
+[1.347554] (turtlebot3_project3) StdoutLine: {'line': b'-- Searching for <ignition-common3> component [graphics]\n'}
+[1.348655] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-common3-graphics -- found version 3.17.0\n'}
+[1.348929] (turtlebot3_project3) StdoutLine: {'line': b'-- Searching for dependencies of ignition-common3-graphics\n'}
+[1.349093] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.350723] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-fuel_tools4 -- found version 4.9.1\n'}
+[1.350935] (turtlebot3_project3) StdoutLine: {'line': b'-- Searching for dependencies of ignition-fuel_tools4\n'}
+[1.401229] (-) TimerEvent: {}
+[1.418419] (turtlebot3_project3) StdoutLine: {'line': b'-- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.68.0")  \n'}
+[1.423448] (turtlebot3_project3) StdoutLine: {'line': b"-- Checking for module 'jsoncpp'\n"}
+[1.437473] (turtlebot3_project3) StdoutLine: {'line': b'--   Found jsoncpp, version 1.7.4\n'}
+[1.471857] (turtlebot3_project3) StdoutLine: {'line': b'-- Found JSONCPP: TRUE  \n'}
+[1.476902] (turtlebot3_project3) StdoutLine: {'line': b"-- Checking for module 'libzip'\n"}
+[1.489567] (turtlebot3_project3) StdoutLine: {'line': b'--   Found libzip, version 1.5.1\n'}
+[1.501312] (-) TimerEvent: {}
+[1.526531] (turtlebot3_project3) StdoutLine: {'line': b'-- Found ZIP: TRUE  \n'}
+[1.526919] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-common3 -- found version 3.17.0\n'}
+[1.527250] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[1.527561] (turtlebot3_project3) StdoutLine: {'line': b'-- Looking for ignition-msgs5 -- found version 5.11.0\n'}
+[1.529949] (turtlebot3_project3) StdoutLine: {'line': b'-- Found gazebo_ros_pkgs: 3.5.2 (/opt/ros/galactic/share/gazebo_ros_pkgs/cmake)\n'}
+[1.530928] (turtlebot3_project3) StdoutLine: {'line': b'-- Found geometry_msgs: 2.2.4 (/opt/ros/galactic/share/geometry_msgs/cmake)\n'}
+[1.543869] (turtlebot3_project3) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.547563] (turtlebot3_project3) StdoutLine: {'line': b'-- Found rosidl_adapter: 2.2.3 (/opt/ros/galactic/share/rosidl_adapter/cmake)\n'}
+[1.601401] (-) TimerEvent: {}
+[1.621993] (turtlebot3_project3) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  \n'}
+[1.638670] (turtlebot3_project3) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/galactic/include  \n'}
+[1.685700] (turtlebot3_project3) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.701475] (-) TimerEvent: {}
+[1.729946] (turtlebot3_project3) StdoutLine: {'line': b'-- Found nav_msgs: 2.2.4 (/opt/ros/galactic/share/nav_msgs/cmake)\n'}
+[1.767617] (turtlebot3_project3) StdoutLine: {'line': b'-- Found rclcpp: 9.2.2 (/opt/ros/galactic/share/rclcpp/cmake)\n'}
+[1.794816] (turtlebot3_project3) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 3.3.1 (/opt/ros/galactic/share/rmw_implementation_cmake/cmake)\n'}
+[1.796365] (turtlebot3_project3) StdoutLine: {'line': b'-- Found rmw_cyclonedds_cpp: 0.22.6 (/opt/ros/galactic/share/rmw_cyclonedds_cpp/cmake)\n'}
+[1.801556] (-) TimerEvent: {}
+[1.806652] (turtlebot3_project3) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_cyclonedds_cpp' as default\n"}
+[1.807537] (turtlebot3_project3) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.880690] (turtlebot3_project3) StdoutLine: {'line': b'-- Found sensor_msgs: 2.2.4 (/opt/ros/galactic/share/sensor_msgs/cmake)\n'}
+[1.901638] (-) TimerEvent: {}
+[1.919111] (turtlebot3_project3) StdoutLine: {'line': b'-- Found tf2: 0.17.5 (/opt/ros/galactic/share/tf2/cmake)\n'}
+[1.968274] (turtlebot3_project3) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.974776] (turtlebot3_project3) StdoutLine: {'line': b'-- Generating done\n'}
+[1.977879] (turtlebot3_project3) StdoutLine: {'line': b'-- Build files have been written to: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3\n'}
+[1.983230] (turtlebot3_project3) CommandEnded: {'returncode': 0}
+[1.983894] (turtlebot3_project3) JobProgress: {'identifier': 'turtlebot3_project3', 'progress': 'build'}
+[1.985901] (turtlebot3_project3) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3', '--', '-j16', '-l16'], 'cwd': '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'cgcollins91'), ('SSH_AGENT_PID', '1391'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/x86_64-linux-gnu:/opt/ros/galactic/lib'), ('HOME', '/home/cgcollins91'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('MANAGERPID', '1260'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install:/home/cgcollins91/projects/ENPME661_Project03_Phase02/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'cgcollins91'), ('JOURNAL_STREAM', '8:34476'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'cgcollins91'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/galactic/bin:/home/cgcollins91/miniconda3/condabin:/home/cgcollins91/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/moose-compute:@/tmp/.ICE-unix/1426,unix/moose-compute:/tmp/.ICE-unix/1426'), ('INVOCATION_ID', 'd23a836f2a0049bea4bb5b28d680d864'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/d3d60590_1945_4b22_98fd_eef3353d2adc'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.231'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/install/turtlebot3_project3:/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3:/opt/ros/galactic'), ('CONDA_PYTHON_EXE', '/home/cgcollins91/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3'), ('TURTLEBOT3_MODEL', 'waffle'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('CONDA_EXE', '/home/cgcollins91/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/galactic/lib/python3.8/site-packages'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/install/turtlebot3_project3:/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3:/opt/ros/galactic')]), 'shell': False}
+[2.001729] (-) TimerEvent: {}
+[2.026196] (turtlebot3_project3) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target turtlebot3_drive\x1b[0m\n'}
+[2.066088] (turtlebot3_project3) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o\x1b[0m\n'}
+[2.101810] (-) TimerEvent: {}
+[2.201976] (-) TimerEvent: {}
+[2.302144] (-) TimerEvent: {}
+[2.402308] (-) TimerEvent: {}
+[2.502477] (-) TimerEvent: {}
+[2.602653] (-) TimerEvent: {}
+[2.702871] (-) TimerEvent: {}
+[2.803038] (-) TimerEvent: {}
+[2.903210] (-) TimerEvent: {}
+[3.003388] (-) TimerEvent: {}
+[3.103572] (-) TimerEvent: {}
+[3.203763] (-) TimerEvent: {}
+[3.303951] (-) TimerEvent: {}
+[3.404121] (-) TimerEvent: {}
+[3.504305] (-) TimerEvent: {}
+[3.604482] (-) TimerEvent: {}
+[3.704663] (-) TimerEvent: {}
+[3.804832] (-) TimerEvent: {}
+[3.905007] (-) TimerEvent: {}
+[4.005194] (-) TimerEvent: {}
+[4.105386] (-) TimerEvent: {}
+[4.205582] (-) TimerEvent: {}
+[4.305761] (-) TimerEvent: {}
+[4.405948] (-) TimerEvent: {}
+[4.506170] (-) TimerEvent: {}
+[4.606380] (-) TimerEvent: {}
+[4.706619] (-) TimerEvent: {}
+[4.806828] (-) TimerEvent: {}
+[4.906998] (-) TimerEvent: {}
+[5.007160] (-) TimerEvent: {}
+[5.107314] (-) TimerEvent: {}
+[5.207497] (-) TimerEvent: {}
+[5.307665] (-) TimerEvent: {}
+[5.407836] (-) TimerEvent: {}
+[5.508010] (-) TimerEvent: {}
+[5.608193] (-) TimerEvent: {}
+[5.708397] (-) TimerEvent: {}
+[5.808572] (-) TimerEvent: {}
+[5.908741] (-) TimerEvent: {}
+[6.008913] (-) TimerEvent: {}
+[6.109085] (-) TimerEvent: {}
+[6.209253] (-) TimerEvent: {}
+[6.309430] (-) TimerEvent: {}
+[6.409601] (-) TimerEvent: {}
+[6.509767] (-) TimerEvent: {}
+[6.609936] (-) TimerEvent: {}
+[6.710122] (-) TimerEvent: {}
+[6.810341] (-) TimerEvent: {}
+[6.910551] (-) TimerEvent: {}
+[6.955234] (turtlebot3_project3) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable turtlebot3_drive\x1b[0m\n'}
+[7.010631] (-) TimerEvent: {}
+[7.110843] (-) TimerEvent: {}
+[7.175448] (turtlebot3_project3) StdoutLine: {'line': b'[100%] Built target turtlebot3_drive\n'}
+[7.186773] (turtlebot3_project3) CommandEnded: {'returncode': 0}
+[7.187391] (turtlebot3_project3) JobProgress: {'identifier': 'turtlebot3_project3', 'progress': 'install'}
+[7.194440] (turtlebot3_project3) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3'], 'cwd': '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'cgcollins91'), ('SSH_AGENT_PID', '1391'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/x86_64-linux-gnu:/opt/ros/galactic/lib'), ('HOME', '/home/cgcollins91'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('MANAGERPID', '1260'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install:/home/cgcollins91/projects/ENPME661_Project03_Phase02/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'cgcollins91'), ('JOURNAL_STREAM', '8:34476'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'cgcollins91'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/galactic/bin:/home/cgcollins91/miniconda3/condabin:/home/cgcollins91/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/moose-compute:@/tmp/.ICE-unix/1426,unix/moose-compute:/tmp/.ICE-unix/1426'), ('INVOCATION_ID', 'd23a836f2a0049bea4bb5b28d680d864'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/d3d60590_1945_4b22_98fd_eef3353d2adc'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.231'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/install/turtlebot3_project3:/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3:/opt/ros/galactic'), ('CONDA_PYTHON_EXE', '/home/cgcollins91/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/build/turtlebot3_project3'), ('TURTLEBOT3_MODEL', 'waffle'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('CONDA_EXE', '/home/cgcollins91/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/galactic/lib/python3.8/site-packages'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/cgcollins91/projects/ENPME661_Project03_Phase02/install/turtlebot3_project3:/home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/install/turtlebot3_project3:/opt/ros/galactic')]), 'shell': False}
+[7.200046] (turtlebot3_project3) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[7.200370] (turtlebot3_project3) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[7.200709] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/lib/turtlebot3_project3/turtlebot3_drive\n'}
+[7.209527] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//launch/competition_world.launch.py\n'}
+[7.210908] (-) TimerEvent: {}
+[7.214760] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//launch/empty_world.launch.py\n'}
+[7.223392] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//launch/robot_state_publisher.launch.py\n'}
+[7.229315] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//launch/spawn_turtlebot3.launch.py\n'}
+[7.235498] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/meshes/project3-world.STL\n'}
+[7.244026] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/meshes/project3.STL\n'}
+[7.249378] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/model.config\n'}
+[7.255117] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/project3/model.sdf\n'}
+[7.260571] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/burger_base.dae\n'}
+[7.268267] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/lds.dae\n'}
+[7.276790] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/r200.dae\n'}
+[7.282196] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/tire.dae\n'}
+[7.288714] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/waffle_base.dae\n'}
+[7.294135] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/waffle_pi_base.dae\n'}
+[7.302636] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/model.config\n'}
+[7.308029] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model-1_4.sdf\n'}
+[7.310991] (-) TimerEvent: {}
+[7.315845] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model.config\n'}
+[7.324355] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model.sdf\n'}
+[7.329789] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/meshes/hexagon.dae\n'}
+[7.335097] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/meshes/wall.dae\n'}
+[7.343341] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model-1_4.sdf\n'}
+[7.351845] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model.config\n'}
+[7.357276] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model.sdf\n'}
+[7.362872] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//rviz/tb3_gazebo.rviz\n'}
+[7.371581] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//urdf/common_properties.urdf\n'}
+[7.380293] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//urdf/turtlebot3_waffle.urdf\n'}
+[7.386125] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//worlds/competition_world.world\n'}
+[7.391457] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3//worlds/empty_world.world\n'}
+[7.400541] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/include//turtlebot3_project3/turtlebot3_drive.hpp\n'}
+[7.406177] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/lib/turtlebot3_project3/teleop.py\n'}
+[7.411073] (-) TimerEvent: {}
+[7.411704] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/lib/turtlebot3_project3/path_planning.py\n'}
+[7.417285] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/lib/turtlebot3_project3/controller.py\n'}
+[7.422591] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/lib/turtlebot3_project3/odom_subscriber.py\n'}
+[7.431414] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/ament_index/resource_index/package_run_dependencies/turtlebot3_project3\n'}
+[7.436718] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/ament_index/resource_index/parent_prefix_path/turtlebot3_project3\n'}
+[7.445258] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/environment/ament_prefix_path.sh\n'}
+[7.450617] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/environment/ament_prefix_path.dsv\n'}
+[7.457422] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/environment/path.sh\n'}
+[7.462971] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/environment/path.dsv\n'}
+[7.471680] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.bash\n'}
+[7.477261] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.sh\n'}
+[7.484401] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.zsh\n'}
+[7.493096] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.dsv\n'}
+[7.501237] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/package.dsv\n'}
+[7.506907] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/ament_index/resource_index/packages/turtlebot3_project3\n'}
+[7.511155] (-) TimerEvent: {}
+[7.515275] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[7.520474] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[7.529055] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/cmake/turtlebot3_project3Config.cmake\n'}
+[7.534697] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/cmake/turtlebot3_project3Config-version.cmake\n'}
+[7.540205] (turtlebot3_project3) StdoutLine: {'line': b'-- Symlinking: /home/cgcollins91/projects/ENPME661_Project03_Phase02/project3_ws/src/install/turtlebot3_project3/share/turtlebot3_project3/package.xml\n'}
+[7.549640] (turtlebot3_project3) CommandEnded: {'returncode': 0}
+[7.561698] (turtlebot3_project3) JobEnded: {'identifier': 'turtlebot3_project3', 'rc': 0}
+[7.562075] (-) EventReactorShutdown: {}
