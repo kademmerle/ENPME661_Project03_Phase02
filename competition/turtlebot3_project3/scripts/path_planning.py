@@ -361,7 +361,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, RPM1, RPM2,
                             parent[(child_node_fixed, (action[0],action[1]))] = (fixed_node, arc_speeds)     # Add child node to parent dictionary 
                             
                             C2C[child_x_v_idx, child_y_v_idx] = cost2come   # Update cost matrix with newly calculate Cost to Come
-                            costsum[child_cost_node] = cost2come + cost2go  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
+                            costsum[child_cost_node] = cost2come + (cost2go*2)  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
                             child = [costsum[child_cost_node], child_node_fixed,(action[0],action[1])]  # Create new child node --> [total cost, (x, y, theta)]... Total cost is used as priority determinant in heapq
                             heapq.heappush(OL, child)   # push child node to heapq
                         
@@ -429,9 +429,9 @@ def GetUserInput():
             continue
         
         while True:
-            RPM1 = int(input("Enter the low end wheel speed [rpm] (10-50): "))
+            RPM1 = int(input("Enter the low end wheel speed [rpm] (10-60): "))
             RPM2 = int(input("Enter the high end wheel speed [rpm] (60-100): "))
-            if 10 <= RPM1 <= 50 and 60 <= RPM2 <= 100:
+            if 10 <= RPM1 <= 60 and 60 <= RPM2 <= 100:
                 break
             print("Error - enter values within range")
 
@@ -566,17 +566,17 @@ for item in solution:
     
     pygame.draw.lines(screen,pygame.Color(pallet["red"]),False,final_curve,2)
     pygame.display.update()
-
+pygame.quit()
 # Freeze screen on completed maze screen until user quits the game
 # (press close X on pygame screen)
-running = True
-while running:
-    # handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-            # quit pygame
-            pygame.quit()
+# running = True
+# while running:
+#     # handle events
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             running = False
+#             # quit pygame
+#             pygame.quit()
 
 
 

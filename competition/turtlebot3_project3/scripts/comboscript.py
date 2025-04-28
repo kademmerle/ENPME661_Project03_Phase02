@@ -20,7 +20,7 @@ from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import TwistStamped
 from nav_msgs.msg import Odometry
-
+import sys
 
 pkg_share = get_package_share_directory('turtlebot3_project3')
 csv_path = os.path.join(pkg_share, 'scripts', 'waypoints.csv')
@@ -121,7 +121,7 @@ def move_set(node, u_l, u_r, buffer_set, t_curve=2, wheel_radius=3.6, L=23.5):
 
 def ValidMove(node):
     # Check if move is valid
-    if((node[0] < 0) or (node[0] >= 540)):
+    if((node[0] < 0) or (node[0] >= 550)):
         return False
     elif((node[1] < 0) or (node[1] >= 300)):
         return False
@@ -185,7 +185,7 @@ def InObjectSpace(x, y):
         return True
 
     # Define Object Space for walls
-    elif( ( (0<=x<=539) and y==0) or ((0<=x<=539) and y==299) ): # x==0 and 0<=y<=299) or (x==539 and (0<=y<=299)) or \
+    elif( ( (0<=x<=549) and y==0) or ((0<=x<=549) and y==299) ): # x==0 and 0<=y<=299) or (x==549 and (0<=y<=299)) or \
         return True
 
     # Default case, non-object space    
@@ -367,7 +367,7 @@ def A_Star(start_node, goal_node, OL, parent, V, C2C, costsum, RPM1, RPM2,
                             parent[(child_node_fixed, (action[0],action[1]))] = (fixed_node, arc_speeds)     # Add child node to parent dictionary 
                             
                             C2C[child_x_v_idx, child_y_v_idx] = cost2come   # Update cost matrix with newly calculate Cost to Come
-                            costsum[child_cost_node] = cost2come + (cost2go*1.5)  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
+                            costsum[child_cost_node] = cost2come + (cost2go*2)  # Calculate the total cost sum and add to reference dictionary (this will be used when determiniing optimal path)
                             child = [costsum[child_cost_node], child_node_fixed,(action[0],action[1])]  # Create new child node --> [total cost, (x, y, theta)]... Total cost is used as priority determinant in heapq
                             heapq.heappush(OL, child)   # push child node to heapq
                         
@@ -407,10 +407,13 @@ def GetUserInput():
     print("---------------------------------------------------------------------------\n")
     while unanswered:
         while True:
-            start_x     = float(input("Enter the starting x-coordinate [cm] (0-539): "))
-            start_y     = 149-float(input("Enter the starting y-coordinate [cm] (-149 to 149): "))
-            start_theta = float(input("Enter the starting orientation (0-360 degrees): "))
-            if 0 <= start_x <= 539 and 0 <= start_y <= 299 and 0 <= start_theta <= 360:
+            #start_x     = float(input("Enter the starting x-coordinate [cm] (0-549): "))
+            start_x = 0
+            start_y = 149
+            start_theta = 0
+            #start_y     = 149-float(input("Enter the starting y-coordinate [cm] (-149 to 149): "))
+            #start_theta = float(input("Enter the starting orientation (0-360 degrees): "))
+            if 0 <= start_x <= 549 and 0 <= start_y <= 299 and 0 <= start_theta <= 360:
                 break
             print("Error - enter values within range")
 
@@ -421,9 +424,11 @@ def GetUserInput():
             continue
         
         while True:
-            goal_x = float(input("Enter the goal x-coordinate [cm] (0-539): "))
-            goal_y = 149-float(input("Enter the goal y-coordinate [cm] (-149 to 149): "))
-            if 0 <= goal_x <= 539 and 0 <= start_y <= 299:
+            goal_x = 549
+            goal_y = 149-74
+            #goal_x = float(input("Enter the goal x-coordinate [cm] (0-549): "))
+            #goal_y = 149-float(input("Enter the goal y-coordinate [cm] (-149 to 149): "))
+            if 0 <= goal_x <= 549 and 0 <= start_y <= 299:
                 break
             print("Error - enter values within range")
         
@@ -435,14 +440,17 @@ def GetUserInput():
             continue
         
         while True:
-            RPM1 = int(input("Enter the low end wheel speed [rpm] (recommend 30)(10-90): "))
-            RPM2 = int(input("Enter the high end wheel speed [rpm] (recommend 100)(60-100): "))
+            #RPM1 = int(input("Enter the low end wheel speed [rpm] (recommend 50)(10-90): "))
+            RPM1 = 60
+            RPM2 = 100
+            #RPM2 = int(input("Enter the high end wheel speed [rpm] (recommend 100)(60-100): "))
             if 10 <= RPM1 <= 90 and 60 <= RPM2 <= 100:
                 break
             print("Error - enter values within range")
 
         
-        clearance = int(input("Enter the desired clearance space for navigating around buildings (Range: 1-20, must not have decimal point): "))
+        #clearance = int(input("Enter the desired clearance space for navigating around buildings (Range: 1-20, must not have decimal point): "))
+        clearance = 10
         if(clearance < 1 or clearance > 20):
             print("Sorry, that clearance is not valid!")
             continue
@@ -458,7 +466,7 @@ def GetUserInput():
 # Initialize pygame
 
 # Screen dimensions
-rows, cols = (540, 300)
+rows, cols = (550, 300)
 
 # Define Lists
 OL = []
@@ -573,16 +581,17 @@ for item in solution:
     pygame.draw.lines(screen,pygame.Color(pallet["red"]),False,final_curve,2)
     pygame.display.update()
 
-# Freeze screen on completed maze screen until user quits the game
-# (press close X on pygame screen)
-running = True
-while running:
-    # handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-            # quit pygame
-            pygame.quit()
+pygame.quit()
+#Freeze screen on completed maze screen until user quits the game
+#(press close X on pygame screen)
+# running = True
+# while running:
+#     # handle events
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             running = False
+#             # quit pygame
+#             pygame.quit()
 
 
 
@@ -593,14 +602,18 @@ class Controller(Node):
     def __init__(self):
 
         while True:
-            which_robot =  int(input("Enter which robot (1 or 2): "))
+            #which_robot =  int(input("Enter which robot (1 or 2): "))
+            which_robot = int(sys.argv[1])
             if which_robot == 1:
                 odom_path = '/tb4_1/odom'
                 cmd_vel_path = '/tb4_1/cmd_vel'
+                print(odom_path)
                 break
             if which_robot == 2:
                 odom_path = '/tb4_2/odom'
                 cmd_vel_path = 'tb4_2/cmd_vel'
+                print(odom_path)
+                break
             print("Please enter 1 or 2 only")
 
         super().__init__('Controller')

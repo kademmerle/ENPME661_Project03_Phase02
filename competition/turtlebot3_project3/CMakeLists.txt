@@ -77,6 +77,7 @@ install(PROGRAMS
   scripts/path_planning.py
   scripts/controller.py 
   scripts/odom_subscriber.py
+  scripts/comboscript.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
